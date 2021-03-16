@@ -534,7 +534,7 @@
               <div class="testimonial-wrap">
                 <div class="testimonial-item">
                   <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                  <h3>Sara Ferrari</h3>
+                  <h3>Sebastian Tanase</h3>
                   <h4>Designer</h4>
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
