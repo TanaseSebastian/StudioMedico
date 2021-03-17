@@ -195,7 +195,7 @@
             <div class="icon-box">
               <div class="icon"><i class="fas fa-heartbeat"></i></div>
               <h4><a href="">Implantologia</a></h4>
-              <p>L‚Äôimplantologia eÃÄ una specializzazione dell‚Äôodontoiatria che permette di sostituire denti mancanti, attraverso il posizionamento di impianti dentali fissi.</p>
+              <p>L'implantologia Ë una specializzazione dell'odontoiatria che permette di sostituire denti mancanti, attraverso il posizionamento di impianti dentali fissi.</p>
             </div>
           </div>
 
@@ -203,7 +203,7 @@
             <div class="icon-box">
               <div class="icon"><i class="fas fa-pills"></i></div>
               <h4><a href="">Pedodonzia</a></h4>
-              <p>Anche i denti dei piuÃÄ piccoli hanno bisogno di cure, indispensabili per garantire un corretto sviluppo orale e scheletrico. Ci dedichiamo alla salute dei vostri figli comunicando con loro nel modo piuÃÄ adeguato alla loro etaÃÄ.</p>
+              <p>Anche i denti dei pi˘Ä piccoli hanno bisogno di cure, indispensabili per garantire un corretto sviluppo orale e scheletrico. Ci dedichiamo alla salute dei vostri figli comunicando con loro nel modo piuÄ adeguato alla loro et‡.</p>
             </div>
           </div>
 
@@ -211,7 +211,7 @@
             <div class="icon-box">
               <div class="icon"><i class="fas fa-hospital-user"></i></div>
               <h4><a href="">Ortodonzia</a></h4>
-              <p>L‚Äôortodonzia si occupa di correggere i difetti di occlusione, di allineamento dentale e di armonizzare lo sviluppo delle ossa mascellari.</p>
+              <p>L'Äôortodonzia si occupa di correggere i difetti di occlusione, di allineamento dentale e di armonizzare lo sviluppo delle ossa mascellari.</p>
             </div>
           </div>
 
@@ -227,7 +227,7 @@
             <div class="icon-box">
               <div class="icon"><i class="fas fa-wheelchair"></i></div>
               <h4><a href="">Protesi estetica e riabilitativa</a></h4>
-              <p>EÃÄ quella parte dell‚Äôodontoiatria che si occupa di progettare e costruire protesi dentali fisse per ripristinare la dentatura originaria percheÃÅ persa o compromessa.</p>
+              <p>E'Ä quella parte dell'Äôodontoiatria che si occupa di progettare e costruire protesi dentali fisse per ripristinare la dentatura originaria perchË persa o compromessa.</p>
             </div>
           </div>
 
@@ -235,7 +235,7 @@
             <div class="icon-box">
               <div class="icon"><i class="fas fa-notes-medical"></i></div>
               <h4><a href="">Parodontologia</a></h4>
-              <p>Si occupa della diagnosi e della cura delle malattie dei tessuti che sostengono i denti cioeÃÄ le gengive i legamenti e le ossa alveolari.</p>
+              <p>Si occupa della diagnosi e della cura delle malattie dei tessuti che sostengono i denti cioË le gengive i legamenti e le ossa alveolari.</p>
             </div>
           </div>
 
