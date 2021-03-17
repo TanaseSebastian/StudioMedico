@@ -25,24 +25,24 @@
 					<div class="wrap d-md-flex">
 						<div  class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
 							<div class="text w-100">
-								<h2>Registrati</h2>
-								<p style="color:white;background-color: rgba(8,8,8,0.50);">Non hai ancora un account?</p>
+								<h2 style="margin-top: -180px">Registrati</h2>
+								<p style="color:white;">Non hai ancora un account?</p>
 								<a href="registration.jsp" class="btn btn-white btn-outline-white">Registrati</a>
 							</div>
 			      </div>
 						<div class="login-wrap p-4 p-lg-5">
 			      	<div class="d-flex">
 			      		<div class="w-100">
-			      			<h3 class="mb-4">Login</h3>
+			      			<h3 class="mb-4" align="center"> <b> <strong>Login</strong> </b></h3>
 			      		</div>
 			      	</div>
 							<form action="gestlogin?cmd=login" method="post" class="signin-form">
 			      		<div class="form-group mb-3">
-			      			<label class="label" for="name">Username</label>
+			      			<label class="label" for="name" >Username</label>
 			      			<input type="text" name="username" class="form-control" placeholder="Username" required>
 			      		</div>
 		            <div class="form-group mb-3">
-		            	<label class="label" for="password">Password</label>
+		            	<label class="label" for="password" >Password</label>
 		              <input type="password" name="password" class="form-control" placeholder="Password" required>
 		            </div>
 		            <div class="form-group">

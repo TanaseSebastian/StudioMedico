@@ -62,7 +62,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">Medilab</a></h1>
+      <h1 class="logo me-auto"><a href="index.jsp">Medilab</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -71,10 +71,11 @@
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">Chi siamo</a></li>
           <li><a class="nav-link scrollto" href="#services">Servizi</a></li>
-          <li><a class="nav-link scrollto" href="#doctors">Dottori</a></li>
-                    <li><a class="nav-link scrollto" href="#departments">Dipartimenti</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contattaci</a></li>
           <li><a class="nav-link scrollto" href="#appointment"><span class="d-none d-md-inline">Prenota un appuntamento</span></a></li>
+          <li><a class="nav-link scrollto" href="#departments">Dipartimenti</a></li>
+          <li><a class="nav-link scrollto" href="#doctors">Dottori</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contattaci</a></li>
+          
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -335,19 +336,19 @@
           <div class="col-lg-3">
             <ul class="nav nav-tabs flex-column">
               <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Cardiology</a>
+                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Cardiologia</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Neurology</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Neurologia</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Hepatology</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Epatologia</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Pediatrics</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Pediatria</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Eye Care</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Cura degli occhi</a>
               </li>
             </ul>
           </div>
@@ -356,7 +357,7 @@
               <div class="tab-pane active show" id="tab-1">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Cardiology</h3>
+                    <h3>Cardiologia</h3>
                     <p class="font-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
                     <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
                   </div>
@@ -368,7 +369,7 @@
               <div class="tab-pane" id="tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Et blanditiis nemo veritatis excepturi</h3>
+                    <h3>Neurologia</h3>
                     <p class="font-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
                     <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
                   </div>
@@ -380,7 +381,7 @@
               <div class="tab-pane" id="tab-3">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
+                    <h3>Epatologia</h3>
                     <p class="font-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
                     <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
                   </div>
@@ -392,7 +393,7 @@
               <div class="tab-pane" id="tab-4">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
+                    <h3>Pediatria</h3>
                     <p class="font-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
                     <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
                   </div>
@@ -404,7 +405,7 @@
               <div class="tab-pane" id="tab-5">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Test Rossetto</h3>
+                    <h3>Cura degli occhi</h3>
                     <p class="font-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
                     <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
                   </div>
@@ -438,7 +439,7 @@
               <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Walter De Masi</h4>
-                <span>Chief Medical Officer</span>
+                <span>Primario</span>
 <!--                <p>Sono felice di lavorare in questo team fantastico!</p>-->
                 <div class="social">
                   <a href=""><i class="ri-twitter-fill"></i></a>
@@ -455,7 +456,7 @@
               <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Sara De Giovanni</h4>
-                <span>Anesthesiologist</span>
+                <span>Anestesista</span>
 <!--                <p>Lavorare in Dentilab mi permette di migliorare ogni giorno.</p>-->
                 <div class="social">
                   <a href=""><i class="ri-twitter-fill"></i></a>
@@ -471,8 +472,8 @@
             <div class="member d-flex align-items-start">
               <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
-                <h4>William Milone</h4>
-                 <span>Cardiology</span>
+                <h4>William Costa</h4>
+                 <span>Cardiologo</span>
 <!--                <p>Clienti felici sempre,Dentilab</p>-->
                 <div class="social">
                   <a href=""><i class="ri-twitter-fill"></i></a>
@@ -489,7 +490,7 @@
               <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Amanda Giaffreda</h4>
-               <span>Neurosurgeon</span>
+               <span>Neurologo</span>
 <!--                <p>Facciamo il possibile per avere sempre il sorriso sia nostro che dei clienti.</p>-->
                 <div class="social">
                   <a href=""><i class="ri-twitter-fill"></i></a>
@@ -773,7 +774,7 @@
           <!-- You can delete the links only if you purchased the pro version. -->
           <!-- Licensing information: https://bootstrapmade.com/license/ -->
           <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/Dentilab-free-medical-bootstrap-theme/ -->
-          Designed by <a href="https://www.linkedin.com/in/sebastian-tanase-470863203/">Tanase Sebastian</a>
+          Designed by <a href="#">Tanase Sebastian-Restino Samuele-Rossetto Francesco-Giangreco Davide</a>
         </div>
       </div>
       <div class="social-links text-center text-md-right pt-3 pt-md-0">
