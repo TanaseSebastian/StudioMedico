@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>Login 07</title>
+  	<title>Forgot Password</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -25,7 +25,7 @@
 						<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
 							<div class="text w-100">
 								<h2>Accedi</h2>
-								<p style="color:white;  background-color: rgba(8,8,8,0.50);">Controlla la tua email e accedi nuovamente </p>
+								<p style="color:white;  background-color: rgba(8,8,8,0.50);">Controlla la tua email e accedi nuovamente</p>
 								<a href="login.jsp" class="btn btn-white btn-outline-white">Login</a>
 							</div>
 			      </div>
@@ -35,7 +35,7 @@
 			      			<h3 class="mb-4">Recupera password</h3>
 			      		</div>
 			      	</div>
-							<form action="#" class="signin-form">
+							<form action="gestforgot?cmd=verifyemail" method="post" class="signin-form">
 			      		<div class="form-group mb-3">
 			      			<label class="label" for="email">Email</label>
 			      			<input type="email" name="email" class="form-control" placeholder="Inserisci la tua Email" required>

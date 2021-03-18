@@ -83,6 +83,49 @@ public class DBManager {
 	}
 
 
+    //metodo che mi verifica se l'email esiste nel database-----------------
+    public boolean controlEmail(String email) throws SQLException {
+		 String email_validation="";
+		 
+       	 String sql = "Select * from UTENTI Where Email='" + email +"';";
+            rs = query.executeQuery(sql);
+
+        	while(rs.next())
+   		{
+              email_validation = rs.getString("Email");
+   		}
+        	if(email.equals(email_validation)){
+        		System.out.println("email true");
+        		return true;
+        		
+        	}
+        	
+        	else
+        		System.out.println("email false");
+        		return false;
+    }
+    //----------------------------------------------------------------------------
+	
+  //metodo che resetta la password------------------------------------------
+  		public void resetPassword(String email,String password) throws SQLException {
+  			
+  			try {
+  	  			Statement update = connessione.createStatement();
+  	  			 String sql = "UPDATE Utenti "+ "SET" + " PSW = "+"md5('"+password+"') " + "WHERE"+ " Email = "+"'"+email+"'; ";
+  	  			 System.out.println(sql);
+  	  			 update.executeUpdate(sql);
+  	  		        
+  	  		  System.out.println("password modificata ");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+  		  
+  			
+  		}
+  		//----------------------------------------------------------------------------------
+	
+	
 
 	
 	//--------------------------INIZIO PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI CLIENTI---------------------------

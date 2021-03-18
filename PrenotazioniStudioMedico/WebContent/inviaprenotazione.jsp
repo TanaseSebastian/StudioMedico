@@ -409,7 +409,7 @@ $(document).ready(function(){
 		  var email="<%=user.getEMAIL()%>";
 		  var cf="<%=user.getCF() %>";
 		  var phone="<%="+39 "+user.getPHONE()%>";
-		  alert(nome+email+cf+phone);
+		  //alert(nome+email+cf+phone);
 		  $("#name").val(nome);
 		  $("#email").val(email);
 		  $("#cf").val(cf);
