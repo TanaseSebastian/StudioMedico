@@ -2,7 +2,8 @@
     pageEncoding="ISO-8859-1"%>
     <%
     String autente_loggato=(String)session.getAttribute("utente_loggato");
-    System.out.print(autente_loggato);
+    if(autente_loggato==null)autente_loggato="false";
+    System.out.print("Utente loggato: "+autente_loggato+"\n");
     Utente user;
     user=(Utente)session.getAttribute("SESSION_USER");
     String orario;
@@ -250,55 +251,25 @@
 
         <div class="section-title">
           <h2>Prenota un appuntamento</h2>
-          <p>Inserisci i dati della form e  prenota subito il tuo appuntamento,ti aspettiamo!</p>
+          <p>Seleziona il dipartimento interessato e  prenota subito il tuo appuntamento,ti aspettiamo!</p>
         </div>
 
-        <form action="" method="post" role="form" >
+        <form action="inviaprenotazione.jsp" method="post" role="form" >
           <div class="row">
-            <div class="col-md-3 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Il tuo Nome" data-rule="minlen:4" data-msg="Perfavore inserisci almeno 4 caratteri"  readonly="readonly">
-            </div>
-            <div class="col-md-3 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="email" placeholder="La tua Email" data-rule="email" data-msg="Perfavore inserisci una email valida"   readonly="readonly">
-            </div>
-             <div class="col-md-3 form-group mt-3 mt-md-0">
-              <input type="text" class="form-control" name="cf" id="cf" placeholder="inserire codice fiscale" data-rule="minlen:16" maxlength="16" data-msg="Inserisci 16 caratteri"  readonly="readonly">
-            </div>
-			 <div class="col-md-3 form-group mt-3 mt-md-0">
-				<input type="text" class="form-control" name="phone" id="phone" placeholder="Il Numero Cellulare" data-rule="minlen:10" maxlength="13" data-msg="Please enter at least 10"  readonly="readonly">
-			</div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 form-group mt-3">
-              <input type="date" name="date" id="date" class="form-control datepicker" >
-            </div>
-            <div class="col-md-6 form-group mt-3">
-              <select name="department" id="department" class="form-select" >
-               <option value="" disabled selected hidden>Seleziona orario</option>
-               <option value="" disabled>--MATTINA--</option>
-               <% for(int i=8;i<21;i++){
-            	   if(i==13 || i==14 || i==15){}
-            	   else{
-            		   if(i<10){orario="0"+String.valueOf(i)+":";}
-            		   else{orario=String.valueOf(i)+":";}
-            		   if(i==16){
-            			   %>
-            	<option value="" disabled>--POMERIGGIO--</option>
-            		  <% }%> 
-            	<option value="" disabled>--Orario delle <%=i%>--</option>	  
-                <option value=<%=orario+"00"%>><%=orario+"00"%></option>
-                 <option value=<%=orario+"15"%>><%=orario+"15"%></option>
-                  <option value=<%=orario+"30"%>><%=orario+"30"%></option>
-                   <option value=<%=orario+"45"%>><%=orario+"45"%></option>
-				<%}}%>
-              </select>
+            <div class="col-md-12 form-group">
+				<center>
+				<select id="select-dipartimenti" name="select-dipartimenti" class="col-md-6 " required>
+				 <option value="" disabled selected hidden>Seleziona dipartimento</option>
+					<option value="1">Cardiologia</option>
+					<option value="2">Neurologia</option>
+					<option value="3">Epatologia</option>
+					<option value="4">Pediatria</option>
+					<option value="5">Oculistica</option>
+				</select>
+				</center>
             </div>
           </div>
-
-          <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="5" placeholder="Messaggio (Opzionale)"></textarea>
-          </div>
-          <div class="text-center" style="margin-top: 30px;"><button type="submit" class="btn btn-primary">Prenota appuntamento</button></div>
+          <div class="text-center" style="margin-top: 30px;"><button type="submit" class="btn btn-primary">Prosegui <i class="fa fa-arrow-right" aria-hidden="true"></i></button></div>
         </form>
 
       </div>
@@ -766,14 +737,10 @@
 
       <div class="me-md-auto text-center text-md-start">
         <div class="copyright">
-          &copy; Copyright <strong><span>Mentilab</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>RESTINO,ROSSETTO,GIANGRECO,TANASE</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/Dentilab-free-medical-bootstrap-theme/ -->
-          Designed by <a href="https://www.linkedin.com/in/sebastian-tanase-470863203/">Tanase Sebastian</a>
+          Designed by <a href="#">RestinoSamuele,Rossetto Francesco,Giangreco Davide,Tanase Sebastian</a>
         </div>
       </div>
       <div class="social-links text-center text-md-right pt-3 pt-md-0">
@@ -802,41 +769,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script>
 $(document).ready(function(){
-	
-    var dtToday = new Date();
-    
-    var month = dtToday.getMonth() + 1;
-    var month2 = dtToday.getMonth() + 3;
-    var day = dtToday.getDate();
-    var year = dtToday.getFullYear();
-    if(month < 10)
-        month = '0' + month.toString();
-    if(day < 10)
-        day = '0' + day.toString();
-    if(month2 < 10)
-        month2 = '0' + month2.toString();
-    
-    var minDate = year + '-' + month + '-' + day;
-    var maxDate = year + '-' + month2 + '-' + day;
-    //alert(minDate+" "+maxDate);
-    $('#date').attr('min', minDate);
-    $('#date').attr('max', maxDate);
     
 	  var loggato="<%=autente_loggato%>";
 	  if(loggato=="true"){
 		  $("#userLogged").show();
 		  $("#usernotLogged").hide();
-		  <%if(user==null){}else{%>
-		  var nome="<%=user.getCOGNOME()+" "+user.getNOME() %>";
-		  var email="<%=user.getEMAIL()%>";
-		  var cf="<%=user.getCF() %>";
-		  var phone="<%="+39 "+user.getPHONE()%>";
-		  alert(nome+email+cf+phone);
-		  $("#name").val(nome);
-		  $("#email").val(email);
-		  $("#cf").val(cf);
-		  $("#phone").val(phone);
-			<%}%>
 	}
 	  else{
 		  $("#userLogged").hide();
