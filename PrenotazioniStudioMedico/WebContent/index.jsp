@@ -254,7 +254,7 @@
           <p>Seleziona il dipartimento interessato e  prenota subito il tuo appuntamento,ti aspettiamo!</p>
         </div>
 
-        <form action="inviaprenotazione.jsp" method="post" role="form" >
+        <form action="gestprenotazioni" role="form" >
           <div class="row">
             <div class="col-md-12 form-group">
 				<center>
@@ -262,7 +262,7 @@
 				 <option value="" disabled selected hidden>Seleziona dipartimento</option>
 					<option value="1">Cardiologia</option>
 					<option value="2">Neurologia</option>
-					<option value="3">Epatologia</option>
+					<option value="3">Gastroenterologia</option>
 					<option value="4">Pediatria</option>
 					<option value="5">Oculistica</option>
 				</select>

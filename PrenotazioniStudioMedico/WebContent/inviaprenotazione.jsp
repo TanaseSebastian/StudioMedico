@@ -1,12 +1,20 @@
-<%@ page language="java" import="it.meucci.*" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" import="java.util.*,it.meucci.*"  contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%
     String autente_loggato=(String)session.getAttribute("utente_loggato");
-    System.out.print(autente_loggato);
+    System.out.print("Utente loggato :"+autente_loggato+"\n");
     Utente user;
     user=(Utente)session.getAttribute("SESSION_USER");
     String orario;
-	%>  
+    ArrayList<Dottore> elenco;
+    Dottore d;
+  	elenco = (ArrayList<Dottore>)session.getAttribute("ELENCO_DOTTORI");
+  	String dipartimento=(String)session.getAttribute("DIPARTIMENTO");
+  	System.out.println("dipartimento selezionato :"+dipartimento);
+  	String messaggio =(String)session.getAttribute("MESSAGGIO");
+  	if(messaggio==null) messaggio="";
+  %>
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -90,12 +98,37 @@
     <section style="margin-top: 100px" id="appointment" class="appointment section-bg">
       <div class="container" id="userLogged">
 
+
+		 	<div class="col-md-12"></div>
+			<%=messaggio%>
+			<%request.getSession().setAttribute("MESSAGGIO", ""); %>
+      		</div>
+
+
         <div class="section-title">
-          <h2>Prenota un appuntamento</h2>
+          <% switch(dipartimento)
+              
+              {
+              case "1": %>
+              <h2>Prenota un appuntamento <br> Hai selezionato il dipartimento di: Cardiologia</h2>
+              <% break;
+              case "2":%>
+              <h2>Prenota un appuntamento <br> Hai selezionato il dipartimento di: Neurologia</h2>
+              <% break;
+              case  "3":%>
+              <h2>Prenota un appuntamento <br> Hai selezionato il dipartimento di: Gastroenterologia</h2>
+              <% break;
+              case  "4":%>
+              <h2>Prenota un appuntamento <br> Hai selezionato il dipartimento di: Pediatria</h2>
+              <% break;
+              case  "5":%>
+             <h2>Prenota un appuntamento <br> Hai selezionato il dipartimento di: Oculistica</h2>
+              <% break;
+              }%>
           <p>Inserisci i dati della form e  prenota subito il tuo appuntamento,ti aspettiamo!</p>
         </div>
 
-        <form action="" method="post" role="form" >
+        <form action="gestprenotazioni?cmd=inserisci" method="post" role="form" >
           <div class="row">
             <div class="col-md-3 form-group">
               <input type="text" name="name" class="form-control" id="name" placeholder="Il tuo Nome" data-rule="minlen:4" data-msg="Perfavore inserisci almeno 4 caratteri"  readonly="readonly">
@@ -112,14 +145,47 @@
           </div>
                     <div class="row">
             <div class="col-md-6 form-group mt-3">
-              <select name="department" id="department" class="form-select" >
+              <select name="dottore" id="dottore" class="form-select" >
                <option value="" disabled selected hidden>Seleziona il dottore</option>
+					 <% for(int j=0;j<elenco.size();j++) 
+						    {
+							 d=(Dottore)elenco.get(j);
+						    
+						 %>
+						    <option value=<%=d.getCodDottore()%>><%=d.getCognome()+" "+d.getNome() %></option>
+						  <%
+						    }
+						 %>
+ 
               </select>
             </div>
             <div class="col-md-6 form-group mt-3">
-              <select name="department" id="department" class="form-select" >
-               <option value="" disabled selected hidden>Seleziona tipo di visita</option>
-              </select>
+              
+              <% switch(dipartimento)
+              
+              {
+              case "1": %>
+              <%@include file="..//dipartimenti//cardiologia.jsp"%>
+              <% break;
+              case "2":%>
+              <%@include file="..//dipartimenti//neurologia.jsp"%>
+              <% break;
+              case  "3":%>
+              <%@include file="..//dipartimenti//gastroenterologia.jsp"%>
+              <% break;
+              case  "4":%>
+              <%@include file="..//dipartimenti//pediatria.jsp"%>
+              <% break;
+              case  "5":%>
+              <%@include file="..//dipartimenti//oculistica.jsp"%>
+              <% break;
+              }
+              
+             
+              %>
+             
+              
+
             </div>
           </div>
           <div class="row">
@@ -127,7 +193,7 @@
               <input type="date" name="date" id="date" class="form-control datepicker" >
             </div>
             <div class="col-md-6 form-group mt-3">
-              <select name="department" id="department" class="form-select" >
+              <select name="orario" id="orario" class="form-select" >
                <option value="" disabled selected hidden>Seleziona orario</option>
                <option value="" disabled>--MATTINA--</option>
                <% for(int i=8;i<21;i++){
@@ -150,12 +216,11 @@
           </div>
 
           <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="5" placeholder="Messaggio (Opzionale)"></textarea>
+            <textarea class="form-control" name="message" rows="5" placeholder="Messaggio (Opzionale)"  maxlength="250"></textarea>
           </div>
           <div class="text-center" style="margin-top: 30px;"><button type="submit" class="btn btn-primary">Prenota appuntamento</button></div>
         </form>
 
-      </div>
     </section><!-- End Appointment Section -->
     
         <!-- ======= Appointment Section if user not logged======= -->
