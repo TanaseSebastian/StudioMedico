@@ -45,7 +45,7 @@ public class DBManager {
 		return count;
 	}
 	
-	//FUNZIONE CHE RESTITUISCE I DETTAGLI DEL CLIENTE PRODOTTI
+	//FUNZIONE CHE RESTITUISCE GLI UTENTI
 		public Utente getUser(String username) throws Exception 
 		{
 			String sql="SELECT * FROM UTENTI WHERE USERNAME=?";
@@ -166,7 +166,20 @@ public class DBManager {
   		
   		
   		
-  		
+  		/*FUNZIONE CHE RESTITUISCE L'EMAIL DI UN UTENTE
+		public String getEmail(String cf) throws Exception 
+		{
+			String sql="SELECT EMAIL FROM UTENTI WHERE CF=?";
+			PreparedStatement pstm=connessione.prepareStatement(sql);
+			pstm.setString(1,cf);
+			rs= pstm.executeQuery();
+			String email;
+			while(rs.next())
+			{
+				email=rs.getString(1); 
+			}
+			return email;
+		}*/
   		
   		
   		

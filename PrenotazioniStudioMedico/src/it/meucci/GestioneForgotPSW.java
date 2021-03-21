@@ -193,32 +193,7 @@ public class GestioneForgotPSW extends HttpServlet {
 		}
 		
 		
-		//sendemailprenotazione   mi appoggio su questa classe già creata per mandare il messaggio per email
-		else if(comando.equals("sendemailprenotazione")) {
-		try {
-			  //creazione del codice di verifica
-	       /* int new_code;
-	         new_code = 10000 + new Random().nextInt(90000); // 10000 - 99999
-	         code=new_code;
-	         System.out.println("il codice è :"+code);
-	         */
-	         
-	         String from = USER_NAME;
-		        String pass = PASSWORD;
-		        RECIPIENT=email;
-		        String[] to = { RECIPIENT }; // list of recipient email addresses
-		        String subject = "Codice di verifica per il recupero della password";
-		        String body = "Gentile utente il suo codice di verifica è il seguente : "+code+ " la preghiamo di inserirlo nel sito per autenticare l'account";
 
-		        sendFromGMail(from, pass, to, subject, body);
-		        
-		        response.sendRedirect("ForgotPSW\\verifyCode.html");
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
 		
 		
 		

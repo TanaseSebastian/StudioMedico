@@ -26,9 +26,12 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+	
+  <!-- Date -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/themes/dark.css"> -->
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -189,8 +192,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 form-group mt-3">
-              <input type="date" name="date" id="date" class="form-control datepicker" >
+          <br>
+          <div class="col-md-6 form-group mt-3">
+                 <input id="date" name="date" placeholder="YYYY/MM/DD" data-input class="form-select">
             </div>
             <div class="col-md-6 form-group mt-3">
               <select name="orario" id="orario" class="form-select" >
@@ -213,6 +217,8 @@
 				<%}}%>
               </select>
             </div>
+            
+
           </div>
 
           <div class="form-group mt-3">
@@ -441,30 +447,30 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- jQuery -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <!--  Flatpickr  -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.2.3/flatpickr.js"></script>
+  </body>
+  <script>
+  
+  $("#date").flatpickr({
+		minDate: "today",
+ 	    maxDate: new Date().fp_incr(100),
+	    dateFormat: "Y-m-d",
+	    "disable": [
+	        function(date) {
+	           return (date.getDay() === 0 || date.getDay() === 6);  // disable weekends
+	        }
+	    ],
+	    "locale": {
+	        "firstDayOfWeek": 1 // set start day of week to Monday
+	    }
+	});
+  </script>
   <script>
 $(document).ready(function(){
 	
-    var dtToday = new Date();
-    
-    var month = dtToday.getMonth() + 1;
-    var month2 = dtToday.getMonth() + 3;
-    var day = dtToday.getDate();
-    var year = dtToday.getFullYear();
-    if(month < 10)
-        month = '0' + month.toString();
-    if(day < 10)
-        day = '0' + day.toString();
-    if(month2 < 10)
-        month2 = '0' + month2.toString();
-    
-    var minDate = year + '-' + month + '-' + day;
-    var maxDate = year + '-' + month2 + '-' + day;
-    //alert(minDate+" "+maxDate);
-    $('#date').attr('min', minDate);
-    $('#date').attr('max', maxDate);
-    
 	  var loggato="<%=autente_loggato%>";
 	  if(loggato=="true"){
 		  $("#userLogged").show();

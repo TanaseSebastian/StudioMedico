@@ -3,6 +3,7 @@ package it.meucci;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,14 +76,9 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 	try {
 		DBManager db=new DBManager();
 		db.insertPrenotazione(p);
-		
-		//elenco=db.getCustomers();
-		//elenco clienti in sessione
-		//request.getSession().setAttribute("ELENCO_CLIENTI", elenco);
-		//response.sendRedirect("clienti.jsp");
 		String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
 				+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie!Il tuo appuntamento è stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
-				+ "  <p class=\"lead\"><strong>Verifica la tua email! </strong>Ti abbiamo mandato un promemoria contenente i dettagli della prenotazione.</p>\r\n"
+				+ "  <p class=\"lead\"><strong>Verifica la tua email! </strong>Ti manderemo un promemoria contenente i dettagli della prenotazione.</p>\r\n"
 				+ "  <hr>\r\n"
 				+ "</div>";
 		request.getSession().setAttribute("MESSAGGIO", thankyoupage);
