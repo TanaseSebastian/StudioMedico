@@ -14,9 +14,9 @@ public class DBManager {
 
 	public DBManager() throws Exception {
 
-		urlDB = "jdbc:mysql://localhost:3306/STUDIOMEDICO?serverTimezone=UTC";
+		urlDB = "jdbc:mysql://127.0.0.1:3306/STUDIOMEDICO?serverTimezone=UTC";
 		userDB = "root";
-		pwDB = "";
+		pwDB = "Samuele2003";
 
 		// creazione della connessione
 		// registrazione dei driver
@@ -81,7 +81,6 @@ public class DBManager {
 		int nRighe= pstm.executeUpdate();
 		return nRighe;
 	}
-
 
 
 	

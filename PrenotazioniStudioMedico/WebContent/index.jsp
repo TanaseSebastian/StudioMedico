@@ -105,7 +105,7 @@
           <div class="col-lg-4 d-flex align-items-stretch">
             <div class="content">
                <h3>Perch&egrave; scegliere Medilab?</h3>
-              <p>Siamo un team di dentisti e odontoiatri appassionati del proprio lavoro con il focus sul benessere del cliente, lavoriamo per rendere ogni nostro cliente felice di collaborare con noi e&nbsp; dargli un sorriso smagliante.</p>
+              <p>Siamo un team di medici appassionati del proprio lavoro con il focus sul benessere del cliente, lavoriamo per rendere ogni nostro cliente felice di collaborare con noi e&nbsp; dargli un sorriso per il resto della propria vita.</p>
               <div class="text-center">
                 <a href="#about" class="more-btn">Scopri di pi&ugrave; <i class="bx bx-chevron-right"></i></a>
               </div>
@@ -149,7 +149,7 @@
 
         <div class="row">
           <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch position-relative">
-            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a>
+            <a href="https://youtu.be/HiHeplEale4" class="glightbox play-btn mb-4"></a>
           </div>
 
           <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
