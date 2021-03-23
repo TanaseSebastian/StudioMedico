@@ -3,7 +3,7 @@ CREATE DATABASE STUDIOMEDICO;
 USE STUDIOMEDICO;
 CREATE TABLE DIPARTIMENTI (
   codDipartimenti int NOT NULL AUTO_INCREMENT,
-  piano int NOT NULL,
+  piano varchar(50) NOT NULL,
   phone varchar(45) NOT NULL,
   nome varchar(45) NOT NULL,
   PRIMARY KEY (codDipartimenti)
@@ -50,7 +50,12 @@ insert into utenti values("TNSHSGTRHGST543S","Sebastian","Tanase","Tanase_Sebast
 -- select * from utenti WHERE USERNAME="Reppo";
 -- delete from utenti where cf="GJGHGDFJTNFTREJT";
 insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW) values("GJGHGDFJTNFTREJT","Samuele", "Restino", "Reppo","reppo@gmail.com","3422222234",md5("Reppo2021"));
+insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW) values("TTTTGDFJTNFTREJT","Seb", "Tanase", "Seba","sebastianlaszlo2002@gmail.com","3422222234",md5("ciao"));
 -- select * from dipartimenti;
 insert into dipartimenti(Nome,Piano,Phone) values("Cardiologia","1 Piano","0833212121"),("Neurologia","2 Piano","0833212122"),("Gastroenterologia ","3 Piano","0833212123"),("Pediatria","4 Piano","0833212124"),("Oculistica","5 Piano","0833212125");
 insert into dottori(NOME,COGNOME,PHONE,EMAIL,codDipartimento) values("Mario","Rossi","3290987654","mariorossi@medilab.it",1),("Luigi","Bianchi","3290987644","luigibianchi@medilab.it",2),("Giuseppe","Verdi","3290987600","giuseppeverdi@medilab.it",3),("Francesco","Alemanno","3290987699","francescoalemanno@medilab.it",4),("Matteo","Toma","3290987688","matteotoma@medilab.it",5);
 -- select * from dottori;
+-- describe prenotazioni;
+-- select * from prenotazioni;
+ALTER TABLE studiomedico.prenotazioni
+  ADD CONSTRAINT uq_prenotazioni UNIQUE(dateTime, codDottore);
