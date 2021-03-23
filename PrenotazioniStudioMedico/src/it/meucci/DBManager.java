@@ -45,7 +45,7 @@ public class DBManager {
 		return count;
 	}
 	
-	//FUNZIONE CHE RESTITUISCE I DETTAGLI DEL CLIENTE PRODOTTI
+	//FUNZIONE CHE RESTITUISCE GLI UTENTI
 		public Utente getUser(String username) throws Exception 
 		{
 			String sql="SELECT * FROM UTENTI WHERE USERNAME=?";
@@ -82,7 +82,105 @@ public class DBManager {
 		return nRighe;
 	}
 
+    //metodo che mi verifica se l'email esiste nel database-----------------
+    public boolean controlEmail(String email) throws SQLException {
+		 String email_validation="";
+		 
+       	 String sql = "Select * from UTENTI Where Email='" + email +"';";
+            rs = query.executeQuery(sql);
 
+        	while(rs.next())
+   		{
+              email_validation = rs.getString("Email");
+   		}
+        	if(email.equals(email_validation)){
+        		System.out.println("email true");
+        		return true;
+        		
+        	}
+        	
+        	else
+        		System.out.println("email false");
+        		return false;
+    }
+    //----------------------------------------------------------------------------
+	
+  //metodo che resetta la password------------------------------------------
+  		public void resetPassword(String email,String password) throws SQLException {
+  			
+  			try {
+  	  			Statement update = connessione.createStatement();
+  	  			 String sql = "UPDATE Utenti "+ "SET" + " PSW = "+"md5('"+password+"') " + "WHERE"+ " Email = "+"'"+email+"'; ";
+  	  			 System.out.println(sql);
+  	  			 update.executeUpdate(sql);
+  	  		        
+  	  		  System.out.println("password modificata ");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+  		  
+  			
+  		}
+  		//----------------------------------------------------------------------------------
+	
+	
+  		//funzione che mi resituisce i dottori di un particolare dipartimento
+  		public ArrayList<Dottore> getDottori(String dipartimento) throws Exception 
+  		{
+  			ArrayList<Dottore> elenco = new ArrayList<Dottore>();
+  			
+  			String sql="SELECT * FROM DOTTORI WHERE codDipartimento ="+dipartimento+";";
+  			rs=query.executeQuery(sql);
+  			Dottore d;
+  			
+  			while(rs.next())
+  			{
+  				d=new Dottore(rs.getInt(1),rs.getString(2),rs.getString(3),
+  	                    rs.getString(4),rs.getString(5),rs.getInt(6)); 
+  				elenco.add(d);
+  			}
+  			
+  			System.out.println("DOTTORI CARICATI: " + elenco.size());
+  			
+  			return elenco;
+  		}
+  		
+  		
+  		
+  		//funzione che permette l'inserimento di una prenotazione
+  		public int insertPrenotazione(Prenotazione p) throws Exception
+  		{
+  		int nRighe=0;
+  		String sqlInsert = "INSERT INTO PRENOTAZIONI(codFisc,codDottore,tipo,dateTime,commento) VALUES (?,?,?,?,?);";
+  		PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
+  		pstm.setString(1, p.getCodFisc());
+  		pstm.setInt(2, p.getCodDottore());
+  		pstm.setString(3, p.getTipo());
+  		pstm.setString(4, p.getDateTime());
+  		pstm.setString (5, p.getCommento());
+  		nRighe= pstm.executeUpdate();
+  		return nRighe;
+  		}
+  		
+  		
+  		
+  		/*FUNZIONE CHE RESTITUISCE L'EMAIL DI UN UTENTE
+		public String getEmail(String cf) throws Exception 
+		{
+			String sql="SELECT EMAIL FROM UTENTI WHERE CF=?";
+			PreparedStatement pstm=connessione.prepareStatement(sql);
+			pstm.setString(1,cf);
+			rs= pstm.executeQuery();
+			String email;
+			while(rs.next())
+			{
+				email=rs.getString(1); 
+			}
+			return email;
+		}*/
+  		
+  		
 	
 	//--------------------------INIZIO PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI CLIENTI---------------------------
 	

@@ -13,6 +13,12 @@
 	
 	<link rel="stylesheet" href="css/style.css">
 	
+	<style type="text/css">
+	#forgot:hover{
+	color: #066FB1;
+	}
+	</style>
+	
 	</head>
 	
 	<body>
@@ -56,7 +62,7 @@
 										</label>
 									</div>
 									<div class="w-50 text-md-right">
-										<a href="forgot.jsp">Password Dimenticata?</a>
+										<a id="forgot" href="forgot.jsp">Password Dimenticata?</a>
 									</div>
 		            </div>
 		          </form>
