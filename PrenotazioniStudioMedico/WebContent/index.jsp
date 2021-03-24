@@ -82,7 +82,8 @@
 
       
       <%if(autente_loggato!="true"){%>  <a href="login.jsp"  class="login-btn scrollto"><span class="d-none d-md-inline">Esegui Login</span></a><%}else if(autente_loggato.equals("true")){ %>
-      <a><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 20px;">Benvenuto <%=user.getNOME() %> </span></a> <%} %>
+   	  <a><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 16px;">Benvenuto <%=user.getNOME() %> </span></a> 
+      <a href="logout"><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 16px;">Logout </span></a> <%} %>
     </div>
   </header><!-- End Header -->
 
