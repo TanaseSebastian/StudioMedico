@@ -73,7 +73,7 @@
           <li><a class="nav-link scrollto" href="#about">Chi siamo</a></li>
           <li><a class="nav-link scrollto" href="#services">Servizi</a></li>
           <li><a class="nav-link scrollto" href="#doctors">Dottori</a></li>
-          <li><a class="nav-link scrollto" href="#departments">Dipartimenti</a></li>
+                    <li><a class="nav-link scrollto" href="#departments">Dipartimenti</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contattaci</a></li>
           <li><a class="nav-link scrollto" href="#appointment"><span class="d-none d-md-inline">Prenota un appuntamento</span></a></li>
         </ul>
@@ -82,11 +82,8 @@
 
       
       <%if(autente_loggato!="true"){%>  <a href="login.jsp"  class="login-btn scrollto"><span class="d-none d-md-inline">Esegui Login</span></a><%}else if(autente_loggato.equals("true")){ %>
-      <a><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 16px;">Benvenuto <%=user.getNOME() %> </span></a> 
-      <a href="logout"><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 16px;">Logout </span></a> <%} %>
-	
+      <a><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 20px;">Benvenuto <%=user.getNOME() %> </span></a> <%} %>
     </div>
-    
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
@@ -199,47 +196,47 @@
             <div class="icon-box">
               <div class="icon"><i class="fas fa-heartbeat"></i></div>
               <h4><a href="">Cardio</a></h4>
-              <p>L‚Äôimplantologia eÃÄ una specializzazione dell‚Äôodontoiatria che permette di sostituire denti mancanti, attraverso il posizionamento di impianti dentali fissi.</p>
+              <p>… la nostra maggiore specializzazione. Abbiamo una cultura esperienziale in questo settore da oltre 50 anni.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
             <div class="icon-box">
               <div class="icon"><i class="fas fa-pills"></i></div>
-              <h4><a href="">Pedodonzia</a></h4>
-              <p>Anche i denti dei piuÃÄ piccoli hanno bisogno di cure, indispensabili per garantire un corretto sviluppo orale e scheletrico. Ci dedichiamo alla salute dei vostri figli comunicando con loro nel modo piuÃÄ adeguato alla loro etaÃÄ.</p>
+              <h4><a href="">Bambini al primo posto</a></h4>
+              <p>Il nostro personale ha sempre un occhio di riguardo verso i bambini, con Noi una visita diventa un giocoÄ.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
             <div class="icon-box">
               <div class="icon"><i class="fas fa-hospital-user"></i></div>
-              <h4><a href="">Ortodonzia</a></h4>
-              <p>L‚Äôortodonzia si occupa di correggere i difetti di occlusione, di allineamento dentale e di armonizzare lo sviluppo delle ossa mascellari.</p>
+              <h4><a href="">Struttura</a></h4>
+              <p>Una struttura di ultima generazione, accogliente e affidabile per i nostri clienti.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
             <div class="icon-box">
               <div class="icon"><i class="fas fa-dna"></i></div>
-              <h4><a href="">Endodonzia con microscopio</a></h4>
-              <p>Si occupa dei tessuti interni del dente e delle sue patologie. Il supporto del microscopio operatorio ci permette di avere un maggior controllo di operare in ergonomia.</p>
+              <h4><a href="">Utilizzo del microscopio</a></h4>
+              <p>Tecniche innovative per notare particolari patologie all'interno del corpo umano. Il microscopio Ë uno tra gli strumenti pi˘ all'avanguardia per sopperire a queste difficolt‡.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
             <div class="icon-box">
               <div class="icon"><i class="fas fa-wheelchair"></i></div>
-              <h4><a href="">Protesi estetica e riabilitativa</a></h4>
-              <p>EÃÄ quella parte dell‚Äôodontoiatria che si occupa di progettare e costruire protesi dentali fisse per ripristinare la dentatura originaria percheÃÅ persa o compromessa.</p>
+              <h4><a href="">Trattamento persone anziane</a></h4>
+              <p>Nella nostra clinica, il nostro personale Ë altamente qualificato per muoversi in caso di necessit‡ nei confronti di una persona anziana.</p>
             </div>
           </div>
 
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4">
             <div class="icon-box">
               <div class="icon"><i class="fas fa-notes-medical"></i></div>
-              <h4><a href="">Parodontologia</a></h4>
-              <p>Si occupa della diagnosi e della cura delle malattie dei tessuti che sostengono i denti cioeÃÄ le gengive i legamenti e le ossa alveolari.</p>
+              <h4><a href="">Sicurezza</a></h4>
+              <p>I nostri macchinari sono all'avanguardia in quest'ambito, sono certificati e di ultima generazione. Sentitevi sicuri in tutti i nostri dipartimenti.</p>
             </div>
           </div>
 
@@ -321,7 +318,7 @@
                 <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Pediatria</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Oculistico</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Oculistica</a>
               </li>
             </ul>
           </div>
@@ -331,8 +328,8 @@
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
                     <h3>Cardiologia</h3>
-                    <p class="font-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                    <p class="font-italic">La cardiologia Ë quella branca della medicina interna che si occupa dello studio, della diagnosi e della cura delle malattie cardiovascolari acquisite o congenite.</p>
+                    <p>Oltre che della cura delle malattie cardiovascolari, scompenso cardiaco, anomalie del ritmo, il cardiologo si occupa della prevenzione cardiovascolare e della riabilitazione del paziente sottoposto ad intervento di rivascolarizzazione sia esso cardiochirurgico, che di angioplastica percutanea.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/departments-1.jpg" alt="" class="img-fluid">
@@ -342,9 +339,9 @@
               <div class="tab-pane" id="tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Et blanditiis nemo veritatis excepturi</h3>
-                    <p class="font-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                    <h3>Neurologia</h3>
+                    <p class="font-italic">La neurologia Ë la branca specialistica della medicina che studia le patologie del sistema nervoso centrale (cervello, cervelletto, tronco encefalico e midollo spinale), del sistema periferico somatico (radici e gangli spinali, plessi e tronchi nervosi) e del sistema nervoso periferico autonomo (gangli simpatici e parasimpatici, plessi extraviscerali e intraviscerali).</p>
+                    <p>Le malattie del sistema nervoso vengono distinte sia in base all'anatomia sia in base all'etiopatogenesi.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/departments-2.jpg" alt="" class="img-fluid">
@@ -354,21 +351,21 @@
               <div class="tab-pane" id="tab-3">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                    <p class="font-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                    <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
+                    <h3>Gastroenterologia</h3>
+                    <p class="font-italic">La gastroenterologia Ë quella branca della medicina interna che si occupa dello studio e della terapia delle malattie del tratto gastrointestinale. Si tratta di una branca medica, il cui medico specialista si chiama gastroenterologo.</p>
+                    <p>Studia gli organi interessati grazie soprattutto a procedure endoscopiche con le quali procede alla diagnosi e successivamente al trattamento di queste patologie.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
-                    <img src="assets/img/departments-3.jpg" alt="" class="img-fluid">
+                    <img src="assets/img/gastroenterologia.png" style="height:250px;" alt="" class="img-fluid">
                   </div>
                 </div>
               </div>
               <div class="tab-pane" id="tab-4">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                    <p class="font-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
+                    <h3>Pediatria</h3>
+                    <p class="font-italic">La pediatria Ë una branca della medicina che si occupa dello sviluppo psicofisico dei bambini e della diagnosi e terapia delle malattie infantili.</p>
+                    <p>La neonatologia Ë la branca della pediatria che si occupa dei neonati entro il primo mese di vita. La cooperazione tra pediatria e ostetricia permette di prevenire le malformazioni del feto e di curare le malattie dalla nascita.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/departments-4.jpg" alt="" class="img-fluid">
@@ -378,9 +375,10 @@
               <div class="tab-pane" id="tab-5">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                    <p class="font-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
+                    <h3>Oculistica</h3>
+                    <p class="font-italic">L'oftalmologia, anche detta oculistica o oftalmoiatria Ë la branca della medicina che si occupa di prevenzione, diagnosi, riabilitazione e terapia sia medica che chirurgica delle malattie dell'apparato visivo, ossia dell'occhio e dei suoi annessi, della correzione dei vizi refrattivi e delle patologie visive correlate</p>
+                    <p>Si tratta di una delle discipline mediche e chirurgiche pi˘ antiche e viene praticata dal medico detto oculista, chiamato anche oftalmologo.
+                    </p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/departments-5.jpg" alt="" class="img-fluid">
@@ -429,7 +427,7 @@
               <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Sara De Giovanni</h4>
-                <span>Anesthesiologist</span>
+                <span>Oculista</span>
 <!--                <p>Lavorare in Dentilab mi permette di migliorare ogni giorno.</p>-->
                 <div class="social">
                   <a href=""><i class="ri-twitter-fill"></i></a>
@@ -446,7 +444,7 @@
               <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>William Milone</h4>
-                 <span>Cardiology</span>
+                 <span>Cardiologo</span>
 <!--                <p>Clienti felici sempre,Dentilab</p>-->
                 <div class="social">
                   <a href=""><i class="ri-twitter-fill"></i></a>
@@ -463,7 +461,7 @@
               <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid" alt=""></div>
               <div class="member-info">
                 <h4>Amanda Giaffreda</h4>
-               <span>Neurosurgeon</span>
+               <span>Neurologa</span>
 <!--                <p>Facciamo il possibile per avere sempre il sorriso sia nostro che dei clienti.</p>-->
                 <div class="social">
                   <a href=""><i class="ri-twitter-fill"></i></a>
@@ -497,7 +495,7 @@
                   <h4>Ceo &amp; Founder</h4>
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Consigliatissimo, veramente ottimo lavoro. Ho fatto uno sbiancamento dei denti eccezzionale!
+                    Consigliatissimo, veramente ottimo lavoro. Medici molto preparati!
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                   </p>
                 </div>
@@ -524,10 +522,10 @@
                 <div class="testimonial-item">
                   <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
                   <h3>Jennifer Leopizzi</h3>
-                  <h4>Store Owner</h4>
+                  <h4>Ristoratore</h4>
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    la mia bambina aveva un paio di carie, personale molto simpatico e professionale,consiglio a tutti!
+                    la mia bambina aveva alcuni problemi di vista, personale molto simpatico e professionale,consiglio a tutti!
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                   </p>
                 </div>
@@ -542,7 +540,7 @@
                   <h4>Freelancer</h4>
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Ho eseguito una pulizia dei denti,rapporto qualita/prezzo non trovabile da nessuna altra parte,consigliatissimo!
+                    Ho eseguito una visita cardiologica,rapporto qualita/prezzo non trovabile da nessuna altra parte,consigliatissimo!
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                   </p>
                 </div>
@@ -554,10 +552,10 @@
                 <div class="testimonial-item">
                   <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
                   <h3>John De Pascalis</h3>
-                  <h4>Entrepreneur</h4>
+                  <h4>Imprenditore</h4>
                   <p>
                     <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                    Ho dovuto fare un impianto dentale,veramente ottimo personale super qualificato,esperienza molto positiva,ho consigliato a tutti i miei conoscenti Dentilab!
+                    Ho dovuto fare una visita neurologica,veramente ottimo personale super qualificato,esperienza molto positiva,ho consigliato a tutti i miei conoscenti Medilab!
                     <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                   </p>
                 </div>
