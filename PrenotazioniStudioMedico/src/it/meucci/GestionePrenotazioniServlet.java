@@ -77,7 +77,7 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		DBManager db=new DBManager();
 		db.insertPrenotazione(p);
 		String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
-				+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie!Il tuo appuntamento è stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
+				+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie!Il tuo appuntamento ï¿½ stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
 				+ "  <p class=\"lead\"><strong>Verifica la tua email! </strong>Ti manderemo un promemoria contenente i dettagli della prenotazione.</p>\r\n"
 				+ "  <hr>\r\n"
 				+ "</div>";
@@ -85,11 +85,12 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		response.sendRedirect("inviaprenotazione.jsp");
 	}
 	catch(Exception e){
-		e.printStackTrace();
+		//e.printStackTrace();
 		System.out.println("Operazione non andata a buon fine");
+		System.out.println("Causa errore: Record della prenotazione giÃ  esistente");
 		String errorpage="<div class=\"jumbotron text-center\">\r\n"
-				+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non è possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
-				+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario già occupato da un altro cliente.</p>\r\n"
+				+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non ï¿½ possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
+				+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario giï¿½ occupato da un altro cliente.</p>\r\n"
 				+ "  <hr>\r\n"
 				+ "</div>";
 		request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -100,9 +101,6 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 	
 	
 	}
-		
-		
-		
 		
 		
 	}
