@@ -1,22 +1,37 @@
 package it.meucci;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Properties;
 
 
-public class DBManager {
+public class DBManager{
 
+	private static Properties prop;
 	private Connection connessione;
 	private Statement query;
 	private ResultSet rs;
+	private ResultSet rs2;
 	private String urlDB;
 	private String userDB;
 	private String pwDB;
 
-	public DBManager() throws Exception {
+	public DBManager() throws Exception{
 
-		urlDB = "jdbc:mysql://localhost:3306/STUDIOMEDICO?serverTimezone=UTC";
-		userDB = "root";
-		pwDB = "";
+		// Leggo le proprietà da file properties
+				ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+				prop = obj.loadProperties("DB.properties");
+		
+		urlDB = prop.getProperty("Url");
+		userDB = prop.getProperty("Username");
+		pwDB = prop.getProperty("Pasword");
+		
+		
 
 		// creazione della connessione
 		// registrazione dei driver
@@ -28,6 +43,7 @@ public class DBManager {
 		// creo la query
 		query = connessione.createStatement();
 	}
+
 
 	
 	public int verificaCredenziali(String username, String password) throws Exception {
@@ -148,15 +164,41 @@ public class DBManager {
   		
   		
   		
+  		
+  		
+  	//funzione che mi resituisce le prestazioni di un particolare dipartimento
+  		public ArrayList<Prestazione> getPrestazioni(String dipartimento) throws Exception 
+  		{
+  			ArrayList<Prestazione> elenco = new ArrayList<Prestazione>();
+  			
+  			String sql="SELECT * FROM PRESTAZIONI WHERE codDipartimento ="+dipartimento+";";
+  			rs=query.executeQuery(sql);
+  			Prestazione p;
+  			
+  			while(rs.next())
+  			{
+  				p=new Prestazione(rs.getInt(1),rs.getString(2),rs.getInt(3)); 
+  				elenco.add(p);
+  			}
+  			
+  			System.out.println("PRESTAZIONI CARICATE: " + elenco.size());
+  			
+  			return elenco;
+  		}
+  		
+  		
+  		
+  		
+  		
   		//funzione che permette l'inserimento di una prenotazione
   		public int insertPrenotazione(Prenotazione p) throws Exception
   		{
   		int nRighe=0;
-  		String sqlInsert = "INSERT INTO PRENOTAZIONI(codFisc,codDottore,tipo,dateTime,commento) VALUES (?,?,?,?,?);";
+  		String sqlInsert = "INSERT INTO PRENOTAZIONI(codFisc,codDottore,codPrestazione,dateTime,commento) VALUES (?,?,?,?,?);";
   		PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
   		pstm.setString(1, p.getCodFisc());
   		pstm.setInt(2, p.getCodDottore());
-  		pstm.setString(3, p.getTipo());
+  		pstm.setInt(3, p.getCodPrestazione());
   		pstm.setString(4, p.getDateTime());
   		pstm.setString (5, p.getCommento());
   		nRighe= pstm.executeUpdate();
@@ -165,21 +207,69 @@ public class DBManager {
   		
   		
   		
-  		/*FUNZIONE CHE RESTITUISCE L'EMAIL DI UN UTENTE
-		public String getEmail(String cf) throws Exception 
-		{
-			String sql="SELECT EMAIL FROM UTENTI WHERE CF=?";
-			PreparedStatement pstm=connessione.prepareStatement(sql);
-			pstm.setString(1,cf);
-			rs= pstm.executeQuery();
-			String email;
-			while(rs.next())
-			{
-				email=rs.getString(1); 
+
+		//funzione che restituisce la email di un utente
+		public String getEmail(String cf)throws Exception {
+			String sql="SELECT EMAIL FROM UTENTI WHERE CF="+cf+" ;";
+			rs = query.executeQuery(sql);
+			String s = "";
+			if (rs.next()) {
+				String EMAIL = rs.getString("EMAIL");
+				s = EMAIL;
 			}
-			return email;
-		}*/
-  		
+			System.out.println(s);
+			return s;
+		}
+		
+		
+		//funzione che restituisce il nome di un dottore dato il codice identificativo
+		public String getDoctorName(String codDottore)throws Exception {
+			String sql="SELECT Cognome,Nome FROM DOTTORI WHERE codDottore="+codDottore+" ;";
+			rs = query.executeQuery(sql);
+			String s = "";
+			if (rs.next()) {
+				String Cognome= rs.getString("Cognome");
+				String Name=rs.getString("Nome");
+				s = Cognome+" "+Name;
+			}
+			System.out.println(s);
+			return s;
+		}
+		
+		
+		//funzione che restituisce il nome della prestazione dato il codice identificativo
+		public String getPrestazioneName(String codPrestazione)throws Exception {
+			String sql="SELECT Nome FROM PRESTAZIONI WHERE codPrestazione="+codPrestazione+" ;";
+			rs = query.executeQuery(sql);
+			String s = "";
+			if (rs.next()) {
+				String Name = rs.getString("Nome");
+				s =Name;
+			}
+			System.out.println(s);
+			return s;
+		}
+
+		
+		//funzione che restituisce la data in formato italiano
+		public String getItalianDate(String date)throws Exception {
+			String sql1="  SET lc_time_names = 'it_IT';";
+			System.out.println("Stringa arrivata = "+date);
+			String sql="select date_format("+"'"+date+"'"+",'%W %d %M %Y') as DATA;";
+			System.out.println(sql);
+			rs2 = query.executeQuery(sql1);
+			rs = query.executeQuery(sql);
+			System.out.println("Query scritta");
+			String s="";
+			if (rs.next()) {
+				System.out.println("entrato nell'if");
+				String data = rs.getString(1);
+				s =data; 
+				System.out.println("ho preso la data dal db,data in italiano: "+ s);
+			}
+			return s;
+		}
+
   		
 	
 	//--------------------------INIZIO PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI CLIENTI---------------------------

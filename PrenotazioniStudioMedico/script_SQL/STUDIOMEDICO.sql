@@ -2,11 +2,11 @@ DROP DATABASE if exists studiomedico;
 CREATE DATABASE STUDIOMEDICO;
 USE STUDIOMEDICO;
 CREATE TABLE DIPARTIMENTI (
-  codDipartimenti int NOT NULL AUTO_INCREMENT,
+  codDipartimento int NOT NULL AUTO_INCREMENT,
   piano varchar(50) NOT NULL,
   phone varchar(45) NOT NULL,
   nome varchar(45) NOT NULL,
-  PRIMARY KEY (codDipartimenti)
+  PRIMARY KEY (codDipartimento)
 );
 CREATE TABLE UTENTI (
   CF char(16) NOT NULL unique,
@@ -29,22 +29,33 @@ CREATE TABLE DOTTORI (
   codDipartimento int NOT NULL,
   PRIMARY KEY (codDottore),
   KEY codDipartimento_idx (codDipartimento),
-  CONSTRAINT codDipartimento FOREIGN KEY (codDipartimento) REFERENCES DIPARTIMENTI (codDipartimenti) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT codDipartimento FOREIGN KEY (codDipartimento) REFERENCES DIPARTIMENTI (codDipartimento) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE PRESTAZIONI(
+codPrestazione INT NOT NULL auto_increment primary key,
+Nome varchar(255) NOT NULL,
+codDipartimento INT NOT NULL,
+FOREIGN KEY (codDipartimento) REFERENCES DIPARTIMENTI(codDipartimento) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE PRENOTAZIONI (
   codPrenotazione int NOT NULL AUTO_INCREMENT,
   dateTime datetime NOT NULL,
   commento varchar(250) DEFAULT NULL,
-  tipo varchar(250) NOT NULL,
+  codPrestazione INT NOT NULL,
   codFisc char(16) NOT NULL,
   codDottore int NOT NULL,
   PRIMARY KEY (codPrenotazione),
   KEY CF_idx (codFisc),
   KEY codDottore_idx (codDottore),
   CONSTRAINT CF FOREIGN KEY (codFisc) REFERENCES UTENTI (CF) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT codDottore FOREIGN KEY (codDottore) REFERENCES DOTTORI (codDottore) ON DELETE CASCADE ON UPDATE CASCADE
-) ;
+  CONSTRAINT codDottore FOREIGN KEY (codDottore) REFERENCES DOTTORI (codDottore) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT codPrestazione FOREIGN KEY (codPrestazione) REFERENCES PRESTAZIONI(codPrestazione) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+
 
 insert into utenti values("TNSHSGTRHGST543S","Sebastian","Tanase","Tanase_Sebastian","sebastiantanase18@gmail.com","3490596202",md5("pippo"),"Y");
 -- select * from utenti WHERE USERNAME="Reppo";
@@ -59,3 +70,101 @@ insert into dottori(NOME,COGNOME,PHONE,EMAIL,codDipartimento) values("Mario","Ro
 -- select * from prenotazioni;
 ALTER TABLE studiomedico.prenotazioni
   ADD CONSTRAINT uq_prenotazioni UNIQUE(dateTime, codDottore);
+  
+  -- prestazioni del reparto cardiologia
+  insert into prestazioni(Nome,codDipartimento) values
+  ("Visita Cardiologica",1),
+  ("Visita Cardiologica Con Ec",1),
+  ("Visita Cardiologica Con Ecocardiogramma",1),
+  ("Visita Cardiologica Di Controllo Con Ecg",1),
+  ("Controllo Elettronico Pacemaker",1),
+  ("Ecg Secondo Holter",1),
+  ("Ecocardiogramma",1),
+  ("Ecocardiogramma Color Doppler",1),
+  ("Elettrocardiogramma",1),
+  ("Monitoraggio Pressione Arteriosa Delle 24 Ore",1);
+  
+  
+  -- prestazioni del reparto neurologia
+  insert into prestazioni(Nome,codDipartimento) values
+    ("Visita Neurologica",2),
+	("Elettromiografia 1 Distretto",2),
+    ("Visita Neurologica Di Controllo",2),
+	("Visita Per Vertigini",2),
+	("Visita Per Cefalee",2);
+      
+      
+	-- prestazioni del reparto gastroenterologia
+	insert into prestazioni(Nome,codDipartimento) values
+    ("Tampone Faringeo",3),
+	("Visita Gastroenterologica",3),
+	("Visita Epatologica",3),
+    ("Colonscopia + Eventuale Biopsia",3),
+    ("Colonscopia In Sedazione Profonda + Eventuale Biopsia",3),
+    ("Enteroscopia Con Videocapsula",3),
+    ("Gastroscopia + Eventuale Biopsia",3),
+    ("Gastroscopia In Sedazione Profonda + Eventuale Biopsia",3),
+    ("Gastroscopia Transnasale",3),
+    ("Gastroscopia Transnasale + Eventuale Biopsia",3),
+    ("Idrocolonterapia",3),
+    ("Rettoscopia Rigida con Biopsia",3),
+    ("Rettosigmoidoscopia",3),
+    ("Rettosigmoidoscopia Rigida con Biopsia",3),
+	("Urea Breath Test Per Helicobacter",3), 
+	("Test Diagnostico Intolleranze Alimentari",3),  
+	("Visita Disturbi Del Comportamento Alimentare",3);
+    
+    -- prestazioni del reparto pediatria
+	insert into prestazioni(Nome,codDipartimento) values
+    ("Visita Pediatrica",4),
+	("Visita Pediatrica Con Tampone Faringeo",4),
+    ("Spirometria Pediatrica",4),  
+	("Visita Neonatologica",4),
+    ("Visita Pediatrica Allergologica",4),
+    ("Visita Pediatrica Allergologica Con Pricktest",4),
+    ("Visita Pediatrica Allergologica Con Spirometria",4),
+    ("Visita Cardiologica Pediatrica",4),
+    ("Visita Cardiologica Pediatrica Con Ecg",4),
+    ("Visita Pediatrica Della Crescita (Auxologica)",4),
+    ("Visita Pediatrica Filtro (Bilanci Di Salute)",4),
+    ("Visita Pediatrica Gastroenterologica",4),
+    ("Visita Pediatrica Neurologica",4),
+    ("Visita Pediatrica Pneumologica",4);
+    
+    
+    
+    
+	-- prestazioni del reparto oculistica
+	insert into prestazioni(Nome,codDipartimento) values
+    ("Visita Oculistica",5),
+    ("Aberrometria",5),
+    ("Analisi del Film Lacrimale con TearLab",5),
+    ("Angio OCT",5),
+    ("Argon Laser Retinico Fotocoagulativo",5),
+    ("Capsulotomia Yag Laser per Cataratta",5),
+    ("Ecobiometria",5),
+	("Ecografia Oculare",5),
+    ("Esame Campo Visivo Computerizzato",5),
+    ("Esame del Fondo Oculare",5),
+    ("Fluorangiografia",5),
+    ("Fotografia Segmento Anteriore",5),
+    ("Microperimetria",5),
+    ("Oct Tomografia Ottica A Radiazione Coerente",5),
+    ("Pachimetria Corneale",5),
+    ("Pupillometria",5),
+    ("Retinografia",5),
+    ("Test di Schirmer",5),
+    ("Tonometria",5),
+	("Topografia Corneale",5),
+	("Visita Oculistica Con Tonometria Ed Esame Del Fondo Dell'Occhio",5),
+	("Visita Oculistica Medico Legale",5),
+	("Visita Ortottica",5),
+    ("Visita Per Idoneita A Chirurgia Refrattiva",5);
+    
+   --    use studiomedico;
+ --      select * from utenti;
+--  SELECT EMAIL FROM UTENTI WHERE CF="GJGHGDFJTNFTREJT";
+  
+  -- SET lc_time_names = 'it_IT';
+  -- select date_format("2021-05-07", '%W %d %M %Y') as DATA;
+  

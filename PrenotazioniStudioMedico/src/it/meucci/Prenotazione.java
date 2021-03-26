@@ -5,7 +5,7 @@ public class Prenotazione {
 	private int codPrenotazione;
 	private String dateTime;
 	private String commento;
-	private String 	tipo;
+	private int  codPrestazione;
 	private String 	codFisc;
 	private int codDottore;
 	
@@ -15,13 +15,13 @@ public class Prenotazione {
 	}
 
 
-	public Prenotazione(int codPrenotazione, String dateTime, String commento, String tipo, String codFisc,
+	public Prenotazione(int codPrenotazione, String dateTime, String commento, int codPrestazione, String codFisc,
 			int codDottore) {
 		super();
 		this.codPrenotazione = codPrenotazione;
 		this.dateTime = dateTime;
 		this.commento = commento;
-		this.tipo = tipo;
+		this.codPrestazione = codPrestazione;
 		this.codFisc = codFisc;
 		this.codDottore = codDottore;
 	}
@@ -57,13 +57,13 @@ public class Prenotazione {
 	}
 
 
-	public String getTipo() {
-		return tipo;
+	public int getCodPrestazione() {
+		return codPrestazione;
 	}
 
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setCodPrestazione(int codPrestazione) {
+		this.codPrestazione = codPrestazione;
 	}
 
 
@@ -90,8 +90,9 @@ public class Prenotazione {
 	@Override
 	public String toString() {
 		return "Prenotazione [codPrenotazione=" + codPrenotazione + ", dateTime=" + dateTime + ", commento=" + commento
-				+ ", tipo=" + tipo + ", codFisc=" + codFisc + ", codDottore=" + codDottore + "]";
+				+ ", codPrestazione=" + codPrestazione + ", codFisc=" + codFisc + ", codDottore=" + codDottore + "]";
 	}
+
 
 	
 	

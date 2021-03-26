@@ -6,9 +6,10 @@
     Utente user;
     user=(Utente)session.getAttribute("SESSION_USER");
     String orario;
-    ArrayList<Dottore> elenco;
+    ArrayList<Dottore> elencoDottori = (ArrayList<Dottore>)session.getAttribute("ELENCO_DOTTORI");
+    ArrayList<Prestazione> elencoPrestazioni = (ArrayList<Prestazione>)session.getAttribute("ELENCO_PRESTAZIONI");
     Dottore d;
-  	elenco = (ArrayList<Dottore>)session.getAttribute("ELENCO_DOTTORI");
+    Prestazione p;
   	String dipartimento=(String)session.getAttribute("DIPARTIMENTO");
   	System.out.println("dipartimento selezionato :"+dipartimento);
   	String messaggio =(String)session.getAttribute("MESSAGGIO");
@@ -88,7 +89,8 @@
 
       
       <%if(autente_loggato!="true"){%>  <a href="login.jsp"  class="login-btn scrollto"><span class="d-none d-md-inline">Esegui Login</span></a><%}else if(autente_loggato.equals("true")){ %>
-      <a><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 20px;">Benvenuto <%=user.getNOME() %> </span></a> <%} %>
+   	  <a><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 16px;">Benvenuto <%=user.getNOME() %> </span></a> 
+      <a href="logout"><span class="d-none d-md-inline logo me-auto" style="margin-left: 15px; font-size: 16px;">Logout </span></a> <%} %>
     </div>
   </header><!-- End Header -->
 
@@ -146,13 +148,13 @@
 				<input type="text" class="form-control" name="phone" id="phone" placeholder="Il Numero Cellulare" data-rule="minlen:10" maxlength="13" data-msg="Please enter at least 10"  readonly="readonly">
 			</div>
           </div>
-                    <div class="row">
+          <div class="row">
             <div class="col-md-6 form-group mt-3">
               <select name="dottore" id="dottore" class="form-select" >
                <option value="" disabled selected hidden>Seleziona il dottore</option>
-					 <% for(int j=0;j<elenco.size();j++) 
+					 <% for(int j=0;j<elencoDottori.size();j++) 
 						    {
-							 d=(Dottore)elenco.get(j);
+							 d=(Dottore)elencoDottori.get(j);
 						    
 						 %>
 						    <option value=<%=d.getCodDottore()%>><%=d.getCognome()+" "+d.getNome() %></option>
@@ -162,33 +164,20 @@
  
               </select>
             </div>
-            <div class="col-md-6 form-group mt-3">
-              
-              <% switch(dipartimento)
-              
-              {
-              case "1": %>
-              <%@include file="..//dipartimenti//cardiologia.jsp"%>
-              <% break;
-              case "2":%>
-              <%@include file="..//dipartimenti//neurologia.jsp"%>
-              <% break;
-              case  "3":%>
-              <%@include file="..//dipartimenti//gastroenterologia.jsp"%>
-              <% break;
-              case  "4":%>
-              <%@include file="..//dipartimenti//pediatria.jsp"%>
-              <% break;
-              case  "5":%>
-              <%@include file="..//dipartimenti//oculistica.jsp"%>
-              <% break;
-              }
-              
-             
-              %>
-             
-              
-
+           <div class="col-md-6 form-group mt-3">
+              <select name="prestazione" id="prestazione" class="form-select" >
+               <option value="" disabled selected hidden>Seleziona il tipo di visita</option>
+					 <% for(int i=0;i<elencoPrestazioni.size();i++) 
+						    {
+							 p=(Prestazione)elencoPrestazioni.get(i);
+						    
+						 %>
+						    <option value=<%=p.getCodPrestazione()%>><%=p.getNome()%></option>
+						  <%
+						    }
+						 %>
+ 
+              </select>
             </div>
           </div>
           <div class="row">

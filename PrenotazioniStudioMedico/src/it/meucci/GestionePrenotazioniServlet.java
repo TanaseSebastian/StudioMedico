@@ -1,7 +1,10 @@
 package it.meucci;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,19 +35,24 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		String dipartimento=request.getParameter("select-dipartimenti");
 		System.out.println("dipartimento slezionato dall'utente :"+dipartimento);
 		DBManager db;
-		ArrayList<Dottore> elenco= new ArrayList<Dottore>();
+		ArrayList<Dottore> elencoDottori= new ArrayList<Dottore>();
+		ArrayList<Prestazione> elencoPrestazioni= new ArrayList<Prestazione>();
 		try 
 		{
 			db= new DBManager();
-			elenco=db.getDottori(dipartimento);
+			elencoDottori=db.getDottori(dipartimento);
+			elencoPrestazioni=db.getPrestazioni(dipartimento);
 			db.close();
 			
 			//ELENCO DOTTORI IN SESSIONE
-			request.getSession().setAttribute("ELENCO_DOTTORI", elenco);
+			request.getSession().setAttribute("ELENCO_DOTTORI", elencoDottori);
+			//ELENCO PRESTAZIONI IN SESSIONE
+			request.getSession().setAttribute("ELENCO_PRESTAZIONI", elencoPrestazioni);
 			//DIPARTIMENTO SELEZIONATO IN SESSIONE
 			request.getSession().setAttribute("DIPARTIMENTO", dipartimento);
 			response.sendRedirect("inviaprenotazione.jsp");
-			System.out.println(elenco);
+			System.out.println("Lista dei dottori \n"+elencoDottori);
+			System.out.println("Lista delle prestazioni \n"+elencoPrestazioni);
 			
 			
 		} catch (Exception e) {
@@ -67,7 +75,7 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		p.setCodDottore(Integer.parseInt(request.getParameter("dottore")));
 		p.setCodFisc(request.getParameter("cf"));
 		p.setDateTime(request.getParameter("date")+" "+request.getParameter("orario"));
-		p.setTipo(request.getParameter("visita"));
+		p.setCodPrestazione(Integer.parseInt(request.getParameter("prestazione")));
 		p.setCommento(request.getParameter("message"));
 		
 		//System.out.println(p.toString());
@@ -76,21 +84,67 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 	try {
 		DBManager db=new DBManager();
 		db.insertPrenotazione(p);
+		String data=db.getItalianDate(request.getParameter("date"));
+		String fullName=request.getParameter("name");
+		String email=request.getParameter("email");
+		//String messaggio=request.getParameter("message");
+		String dottore=db.getDoctorName(request.getParameter("dottore"));
+		String prestazione=  db.getPrestazioneName(request.getParameter("prestazione"));
+		String orario=request.getParameter("orario");
+		System.out.println(fullName+" "+email+" "+data+" "+orario+" "+dottore+" "+prestazione);
+		SendMail sender = new SendMail();
+		String RECIPIENT="sebastiantanase18@gmail.com";
+		String[] to = { RECIPIENT }; // list of recipient email addresses
+		
+		
+		String messaggioDaInviare ="<!DOCTYPE html>"
+		+ "<html lang='en'>"
+		+ " <head>"
+		+ "<meta charset='UTF-8'>"
+				+ "<meta http-equiv='X-UA-Compatible' content='IE=edge'>"
+						+ "<meta name='viewport' content='width=device-width, initial-scale=1.0\'>"
+				+ "<title>Messaggio</title>"
+				+ "</head>"
+				+ "<body style='text-align: center; font-size: larger;'>"
+				+ "<p style=\"color: #2C4964; font-size:40px; font-weight: 900; font-family:sans-serif;\">Medilab</p>"
+						+ "<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Gentile cliente, Medilab la ringrazia per aver prenotato un appuntamento presso il nostro studio medico.</p>"
+								+ "<p>Le riportiamo di seguito i dettagli della prenotazione da lei effettuata:</p>"
+								+ "<p>Nome e Cognome :<strong>"+fullName+"</strong></p>"
+										+ "<p>In data: <strong>"+data+"</strong> alle ore :<strong>"+orario+"</strong></p>"
+										+"<h3>Deve effettuare: <strong>"+prestazione+"</strong> insieme al Dottor: <strong>"+dottore+"</strong></h3>"
+		+"<p style=\"color: yellowgreen;\"><strong>Per qualsiasi dubbio o problema non esitare a contattarci tramite telefono o email,siamo a vostra disposizione.</strong></p>"
+		+"<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Medilab le augura una buona giornata.</p>"
+		+"</body>"
+		+"</html>";
+		
+		
+		
+		
+		
+		
+		
+		
+		//invio dell'email con i parametri
+		sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare);
+		
+		//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice è stato eseguito correttamente
 		String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
-				+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie!Il tuo appuntamento ï¿½ stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
+				+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie! Il tuo appuntamento è stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
 				+ "  <p class=\"lead\"><strong>Verifica la tua email! </strong>Ti manderemo un promemoria contenente i dettagli della prenotazione.</p>\r\n"
 				+ "  <hr>\r\n"
 				+ "</div>";
+		
+		
 		request.getSession().setAttribute("MESSAGGIO", thankyoupage);
 		response.sendRedirect("inviaprenotazione.jsp");
 	}
 	catch(Exception e){
-		//e.printStackTrace();
+		e.printStackTrace();
 		System.out.println("Operazione non andata a buon fine");
-		System.out.println("Causa errore: Record della prenotazione giÃ  esistente");
+		System.out.println("Causa errore: Record della prenotazione è già esistente");
 		String errorpage="<div class=\"jumbotron text-center\">\r\n"
-				+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non ï¿½ possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
-				+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario giï¿½ occupato da un altro cliente.</p>\r\n"
+				+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non è possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
+				+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario già occupato da un altro cliente.</p>\r\n"
 				+ "  <hr>\r\n"
 				+ "</div>";
 		request.getSession().setAttribute("MESSAGGIO", errorpage);

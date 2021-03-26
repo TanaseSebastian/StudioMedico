@@ -23,62 +23,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/gestforgot")
 public class GestioneForgotPSW extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static String email;
+	public  String email;
 	public int code;
-	
-	
-	
-	//funzione che invia l'email
-	private static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
-        Properties props = System.getProperties();
-        String host = "smtp.gmail.com";
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.user", from);
-        props.put("mail.smtp.password", pass);
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        
-        Session session = Session.getDefaultInstance(props);
-        
-
-        MimeMessage message = new MimeMessage(session);
-
-        try {
-            message.setFrom(new InternetAddress(from));
-            InternetAddress[] toAddress = new InternetAddress[to.length];
-
-            // To get the array of addresses
-            for( int i = 0; i < to.length; i++ ) {
-                toAddress[i] = new InternetAddress(to[i]);
-            }
-
-            for( int i = 0; i < toAddress.length; i++) {
-                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
-            }
-
-            message.setSubject(subject);
-            message.setText(body);
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, from, pass);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-        }
-        catch (AddressException ae) {
-            ae.printStackTrace();
-        }
-        catch (MessagingException me) {
-            me.printStackTrace();
-        }
-    }
-
-	//dati account
-	 private static String USER_NAME = "prglogin@gmail.com";  // Inserire lo username GMail (la parte prima di "@gmail.com")
-	    private static String PASSWORD = "ApplicationTest"; //  password dell'account Gmail
-	    private static String RECIPIENT; //email destinatari TO
-	
-
-       
+	   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -102,58 +49,11 @@ public class GestioneForgotPSW extends HttpServlet {
 		
 		
 		String comando = request.getParameter("cmd");;
-				
-		if(comando.equals("codecontrol")) {
-		
-		//control code
-		int code_validation=Integer.parseInt(request.getParameter("code"));
-		System.out.println("sto controllando il codice");
-		System.out.println("codice giusto : " +code);
-		System.out.println("codice inserito dall'utente "+code_validation);
-		if(code==code_validation) {
-			System.out.println("i codici corrispondono");
-			System.out.println("reindirizzo il client verso resetPSW.html");
-			response.sendRedirect("ForgotPSW\\resetPSW.html");
-		}
-		else {
-			System.out.println("l'utente ha sbagliato il codice lo inoltro su verifyCodeError.html");
-			response.sendRedirect("ForgotPSW\\verifyCodeError.html");
-		}
-		
-		}
-		
-		
-		//sendcode
-		else if(comando.equals("sendcode")) {
-		try {
-			  //creazione del codice di verifica
-	        int new_code;
-	         new_code = 10000 + new Random().nextInt(90000); // 10000 - 99999
-	         code=new_code;
-	         System.out.println("il codice è :"+code);
-	         
-	         
-	         String from = USER_NAME;
-		        String pass = PASSWORD;
-		        RECIPIENT=email;
-		        String[] to = { RECIPIENT }; // list of recipient email addresses
-		        String subject = "Codice di verifica per il recupero della password";
-		        String body = "Gentile utente il suo codice di verifica è il seguente : "+code+ " la preghiamo di inserirlo nel sito per autenticare l'account";
-
-		        sendFromGMail(from, pass, to, subject, body);
-		        
-		        response.sendRedirect("ForgotPSW\\verifyCode.html");
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		}
 		
 		
 		
 		//verifyemail
-		else if(comando.equals("verifyemail")) {
+		if(comando.equals("verifyemail")) {
 		try {
 
 		    email=request.getParameter("email");
@@ -173,6 +73,79 @@ public class GestioneForgotPSW extends HttpServlet {
 			e.printStackTrace();
 		}
 		}
+		
+		
+		//sendcode
+		else if(comando.equals("sendcode")) {
+		try {
+			  //creazione del codice di verifica
+	        int new_code;
+	         new_code = 10000 + new Random().nextInt(90000); // 10000 - 99999
+	         code=new_code;
+	         System.out.println("il codice è :"+code);
+	         
+	         
+		        SendMail sender = new SendMail();
+		 		String RECIPIENT=email;
+		 		String[] to = { RECIPIENT }; // list of recipient email addresses
+		        String subject = "Codice di verifica per il recupero della password";
+		        String body = "Gentile utente il suo codice di verifica è il seguente : "+code+ " la preghiamo di inserirlo nel sito per autenticare l'account";
+		        
+				String messaggioDaInviare ="<!DOCTYPE html>"
+						+ "<html lang='en'>"
+						+ " <head>"
+						+ "<meta charset='UTF-8'>"
+								+ "<meta http-equiv='X-UA-Compatible' content='IE=edge'>"
+										+ "<meta name='viewport' content='width=device-width, initial-scale=1.0\'>"
+								+ "<title>Messaggio</title>"
+								+ "</head>"
+								+ "<body style='text-align: center; font-size: larger;'>"
+								+ "<p style=\"color: #2C4964; font-size:40px; font-weight: 900; font-family:sans-serif;\">Medilab</p>"
+										+ "<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Gentile cliente, per reimpostare la password utilizzare il seguende codice:</p>"
+												+ "<p style=\"color: green; font-size: 40px; font-weight: 900;\"><strong>"+code+"</strong></p>"
+						+"<p style=\"color: yellowgreen;\"><strong>Per qualsiasi dubbio o problema non esitare a contattarci tramite telefono o email,siamo a vostra disposizione.</strong></p>"
+						+"<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Medilab le augura una buona giornata.</p>"
+						+"</body>"
+						+"</html>";
+						
+		        
+		      //invio dell'email con i parametri
+				sender.sendFromGMail(to, subject,messaggioDaInviare);
+		        
+		        response.sendRedirect("ForgotPSW\\verifyCode.html");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		}
+		
+		
+		
+		
+		
+		
+				
+		else if(comando.equals("codecontrol")) {
+		
+		//control code
+		int code_validation=Integer.parseInt(request.getParameter("code"));
+		System.out.println("sto controllando il codice");
+		System.out.println("codice giusto : " +code);
+		System.out.println("codice inserito dall'utente "+code_validation);
+		if(code==code_validation) {
+			System.out.println("i codici corrispondono");
+			System.out.println("reindirizzo il client verso resetPSW.html");
+			response.sendRedirect("ForgotPSW\\resetPSW.html");
+		}
+		else {
+			System.out.println("l'utente ha sbagliato il codice lo inoltro su verifyCodeError.html");
+			response.sendRedirect("ForgotPSW\\verifyCodeError.html");
+		}
+		
+		}
+		
+		
 		
 		
 		//resetpsw

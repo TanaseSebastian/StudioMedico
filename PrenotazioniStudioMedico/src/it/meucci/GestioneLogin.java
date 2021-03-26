@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
  * Servlet implementation class gestioneLogin
  */
 @WebServlet("/gestlogin")
-public class gestioneLogin extends HttpServlet {
+public class GestioneLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public gestioneLogin() {
+    public GestioneLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
