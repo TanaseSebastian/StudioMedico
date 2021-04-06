@@ -8,22 +8,11 @@ public class Prenotazione {
 	private int  codPrestazione;
 	private String 	codFisc;
 	private int codDottore;
+	private String stato;
 	
 	
 	public Prenotazione() {
 		super();
-	}
-
-
-	public Prenotazione(int codPrenotazione, String dateTime, String commento, int codPrestazione, String codFisc,
-			int codDottore) {
-		super();
-		this.codPrenotazione = codPrenotazione;
-		this.dateTime = dateTime;
-		this.commento = commento;
-		this.codPrestazione = codPrestazione;
-		this.codFisc = codFisc;
-		this.codDottore = codDottore;
 	}
 
 
@@ -87,10 +76,34 @@ public class Prenotazione {
 	}
 
 
+	public String getStato() {
+		return stato;
+	}
+
+
+	public void setStato(String stato) {
+		this.stato = stato;
+	}
+
+
+	public Prenotazione(int codPrenotazione, String dateTime, String commento, int codPrestazione, String codFisc,
+			int codDottore, String stato) {
+		super();
+		this.codPrenotazione = codPrenotazione;
+		this.dateTime = dateTime;
+		this.commento = commento;
+		this.codPrestazione = codPrestazione;
+		this.codFisc = codFisc;
+		this.codDottore = codDottore;
+		this.stato = stato;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Prenotazione [codPrenotazione=" + codPrenotazione + ", dateTime=" + dateTime + ", commento=" + commento
-				+ ", codPrestazione=" + codPrestazione + ", codFisc=" + codFisc + ", codDottore=" + codDottore + "]";
+				+ ", codPrestazione=" + codPrestazione + ", codFisc=" + codFisc + ", codDottore=" + codDottore
+				+ ", stato=" + stato + "]";
 	}
 
 

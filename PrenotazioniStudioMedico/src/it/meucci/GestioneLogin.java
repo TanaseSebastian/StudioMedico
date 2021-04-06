@@ -76,12 +76,12 @@ public class GestioneLogin extends HttpServlet {
 			//UTENTE IN SESSIONE
 			user = db.getUser(username);
 			request.getSession().setAttribute("SESSION_USER", user);
+			request.getSession().setAttribute("utente_loggato", "true");
 			if(user.getAMMINISTRATORE().equals("N")) {
-				request.getSession().setAttribute("utente_loggato", "true");
 				response.sendRedirect("index.jsp");
 			}
 			else if(user.getAMMINISTRATORE().equals("Y")) {
-				response.sendRedirect("app.jsp");
+				response.sendRedirect("dashboard.jsp");
 			}
 		}
 		else

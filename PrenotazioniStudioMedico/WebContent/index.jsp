@@ -255,7 +255,7 @@
           <p>Seleziona il dipartimento interessato e  prenota subito il tuo appuntamento,ti aspettiamo!</p>
         </div>
 
-        <form action="gestprenotazioni" method="get" role="form" >
+        <form action="gestprenotazioni?cmd=getoptions" method="post"  role="form" >
           <div class="row">
             <div class="col-md-12 form-group">
 				<center>

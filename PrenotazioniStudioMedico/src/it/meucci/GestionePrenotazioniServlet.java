@@ -1,10 +1,12 @@
 package it.meucci;
 
 import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,33 +34,80 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String dipartimento=request.getParameter("select-dipartimenti");
-		System.out.println("dipartimento slezionato dall'utente :"+dipartimento);
+		
+		String comando = request.getParameter("cmd");
 		DBManager db;
-		ArrayList<Dottore> elencoDottori= new ArrayList<Dottore>();
-		ArrayList<Prestazione> elencoPrestazioni= new ArrayList<Prestazione>();
-		try 
-		{
-			db= new DBManager();
-			elencoDottori=db.getDottori(dipartimento);
-			elencoPrestazioni=db.getPrestazioni(dipartimento);
-			db.close();
-			
-			//ELENCO DOTTORI IN SESSIONE
-			request.getSession().setAttribute("ELENCO_DOTTORI", elencoDottori);
-			//ELENCO PRESTAZIONI IN SESSIONE
-			request.getSession().setAttribute("ELENCO_PRESTAZIONI", elencoPrestazioni);
-			//DIPARTIMENTO SELEZIONATO IN SESSIONE
-			request.getSession().setAttribute("DIPARTIMENTO", dipartimento);
-			response.sendRedirect("inviaprenotazione.jsp");
-			System.out.println("Lista dei dottori \n"+elencoDottori);
-			System.out.println("Lista delle prestazioni \n"+elencoPrestazioni);
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-		}
+		
+		
+		
+		
+		//funzione che visualizza e restituisce alla jsp i dettagli di un prodotto
+				if(comando.equals("visualizza"))
+				{
+					
+					String id= request.getParameter("id");
+					Prenotazione p=new Prenotazione();
+					try {
+						db= new DBManager();
+						p = db.getPrenotazione(id);
+						db.close();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					//System.out.println(p.toString());
+					request.setAttribute("PRENOTAZIONE", p);
+					RequestDispatcher rd = request.getRequestDispatcher("dettaglioPrenotazione.jsp");
+					rd.forward(request, response);
+
+				}
+				
+		
+				else if(comando.equals("viewall")) {
+					ArrayList<Prenotazione> elenco= new ArrayList<Prenotazione>();
+					try 
+					{
+						db= new DBManager();
+						elenco=db.getPrenotazioni();
+						db.close();
+						
+						//ELENCO PRENOTAZIONI
+						request.setAttribute("ELENCO_PRENOTAZIONI", elenco);
+						RequestDispatcher rd = request.getRequestDispatcher("visualizzaPrenotazioni.jsp");
+						rd.forward(request, response);
+						
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+						response.sendRedirect("404.jsp");
+						// TODO: handle exception
+					}
+				}
+		
+		//funzione che aggiorna i dati di una prenotazione
+				else if(comando.equals("aggiorna"))
+				{
+					
+					String id= request.getParameter("id");
+					Prenotazione p=new Prenotazione();
+					try {
+						db= new DBManager();
+						p = db.getPrenotazione(id);
+						db.close();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					//System.out.println(p.toString());
+					request.setAttribute("PRENOTAZIONE", p);
+					RequestDispatcher rd = request.getRequestDispatcher("aggiornaPrenotazione.jsp");
+					rd.forward(request, response);
+
+				}	
+		
+		
 		
 	}
 
@@ -68,93 +117,262 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String comando = request.getParameter("cmd");
-		ArrayList<Prenotazione> elenco= new ArrayList<Prenotazione>();
+		//ArrayList<Prenotazione> elenco= new ArrayList<Prenotazione>();
 		
 		if(comando.equals("inserisci")) {
-		Prenotazione p=new Prenotazione();
-		p.setCodDottore(Integer.parseInt(request.getParameter("dottore")));
-		p.setCodFisc(request.getParameter("cf"));
-		p.setDateTime(request.getParameter("date")+" "+request.getParameter("orario"));
-		p.setCodPrestazione(Integer.parseInt(request.getParameter("prestazione")));
-		p.setCommento(request.getParameter("message"));
-		
-		//System.out.println(p.toString());
-		
-		
-	try {
-		DBManager db=new DBManager();
-		db.insertPrenotazione(p);
-		String data=db.getItalianDate(request.getParameter("date"));
-		String fullName=request.getParameter("name");
-		String email=request.getParameter("email");
-		//String messaggio=request.getParameter("message");
-		String dottore=db.getDoctorName(request.getParameter("dottore"));
-		String prestazione=  db.getPrestazioneName(request.getParameter("prestazione"));
-		String orario=request.getParameter("orario");
-		System.out.println(fullName+" "+email+" "+data+" "+orario+" "+dottore+" "+prestazione);
-		SendMail sender = new SendMail();
-		String RECIPIENT="sebastiantanase18@gmail.com";
-		String[] to = { RECIPIENT }; // list of recipient email addresses
-		
-		
-		String messaggioDaInviare ="<!DOCTYPE html>"
-		+ "<html lang='en'>"
-		+ " <head>"
-		+ "<meta charset='UTF-8'>"
-				+ "<meta http-equiv='X-UA-Compatible' content='IE=edge'>"
-						+ "<meta name='viewport' content='width=device-width, initial-scale=1.0\'>"
-				+ "<title>Messaggio</title>"
-				+ "</head>"
-				+ "<body style='text-align: center; font-size: larger;'>"
-				+ "<p style=\"color: #2C4964; font-size:40px; font-weight: 900; font-family:sans-serif;\">Medilab</p>"
-						+ "<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Gentile cliente, Medilab la ringrazia per aver prenotato un appuntamento presso il nostro studio medico.</p>"
-								+ "<p>Le riportiamo di seguito i dettagli della prenotazione da lei effettuata:</p>"
-								+ "<p>Nome e Cognome :<strong>"+fullName+"</strong></p>"
-										+ "<p>In data: <strong>"+data+"</strong> alle ore :<strong>"+orario+"</strong></p>"
-										+"<h3>Deve effettuare: <strong>"+prestazione+"</strong> insieme al Dottor: <strong>"+dottore+"</strong></h3>"
-		+"<p style=\"color: yellowgreen;\"><strong>Per qualsiasi dubbio o problema non esitare a contattarci tramite telefono o email,siamo a vostra disposizione.</strong></p>"
-		+"<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Medilab le augura una buona giornata.</p>"
-		+"</body>"
-		+"</html>";
-		
-		
-		
-		
-		
-		
-		
-		
-		//invio dell'email con i parametri
-		sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare);
-		
-		//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice Ë stato eseguito correttamente
-		String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
-				+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie! Il tuo appuntamento Ë stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
-				+ "  <p class=\"lead\"><strong>Verifica la tua email! </strong>Ti manderemo un promemoria contenente i dettagli della prenotazione.</p>\r\n"
-				+ "  <hr>\r\n"
-				+ "</div>";
-		
-		
-		request.getSession().setAttribute("MESSAGGIO", thankyoupage);
-		response.sendRedirect("inviaprenotazione.jsp");
+				Prenotazione p=new Prenotazione();
+				p.setCodDottore(Integer.parseInt(request.getParameter("dottore")));
+				p.setCodFisc(request.getParameter("cf"));
+				p.setDateTime(request.getParameter("date")+" "+request.getParameter("orario"));
+				p.setCodPrestazione(Integer.parseInt(request.getParameter("prestazione")));
+				p.setCommento(request.getParameter("message"));
+				
+				System.out.println(p.toString());		
+				
+			try {
+				DBManager db=new DBManager();
+				db.insertPrenotazione(p);
+				String data=db.getItalianDate(request.getParameter("date"));
+				String fullName=request.getParameter("name");
+				String email=request.getParameter("email");
+				//String messaggio=request.getParameter("message");
+				String dottore=db.getDoctorName(request.getParameter("dottore"));
+				String prestazione=  db.getPrestazioneName(request.getParameter("prestazione"));
+				String orario=request.getParameter("orario");
+				System.out.println(fullName+" "+email+" "+data+" "+orario+" "+dottore+" "+prestazione);
+				SendMail sender = new SendMail();
+				String RECIPIENT="sebastiantanase18@gmail.com";
+				String[] to = { RECIPIENT }; // list of recipient email addresses
+				
+				
+				String messaggioDaInviare ="<!DOCTYPE html>"
+				+ "<html lang='en'>"
+				+ " <head>"
+				+ "<meta charset='UTF-8'>"
+						+ "<meta http-equiv='X-UA-Compatible' content='IE=edge'>"
+								+ "<meta name='viewport' content='width=device-width, initial-scale=1.0\'>"
+						+ "<title>Messaggio</title>"
+						+ "</head>"
+						+ "<body style='text-align: center; font-size: larger;'>"
+						+ "<p style=\"color: #2C4964; font-size:40px; font-weight: 900; font-family:sans-serif;\">Medilab</p>"
+								+ "<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Gentile cliente, Medilab la ringrazia per aver prenotato un appuntamento presso il nostro studio medico.</p>"
+										+ "<p>Le riportiamo di seguito i dettagli della prenotazione da lei effettuata:</p>"
+										+ "<p>Nome e Cognome :<strong>"+fullName+"</strong></p>"
+												+ "<p>In data: <strong>"+data+"</strong> alle ore :<strong>"+orario+"</strong></p>"
+												+"<h3>Deve effettuare: <strong>"+prestazione+"</strong> insieme al Dottor: <strong>"+dottore+"</strong></h3>"
+				+"<p style=\"color: yellowgreen;\"><strong>Per qualsiasi dubbio o problema non esitare a contattarci tramite telefono o email,siamo a vostra disposizione.</strong></p>"
+				+"<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Medilab le augura una buona giornata.</p>"
+				+"</body>"
+				+"</html>";
+				
+				
+				//invio dell'email con i parametri
+				sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare);
+				
+				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice √® stato eseguito correttamente
+				String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
+						+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie! Il tuo appuntamento √® stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
+						+ "  <p class=\"lead\"><strong>Verifica la tua email! </strong>Ti manderemo un promemoria contenente i dettagli della prenotazione.</p>\r\n"
+						+ "  <hr>\r\n"
+						+ "</div>";
+				
+				
+				request.getSession().setAttribute("MESSAGGIO", thankyoupage);
+				response.sendRedirect("inviaprenotazione.jsp");
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				System.out.println("Operazione non andata a buon fine");
+				System.out.println("Causa errore: Record della prenotazione √® gi√† esistente");
+				String errorpage="<div class=\"jumbotron text-center\">\r\n"
+						+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
+						+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gi√† occupato da un altro cliente.</p>\r\n"
+						+ "  <hr>\r\n"
+						+ "</div>";
+				request.getSession().setAttribute("MESSAGGIO", errorpage);
+				response.sendRedirect("inviaprenotazione.jsp");
+			}
 	}
-	catch(Exception e){
-		e.printStackTrace();
-		System.out.println("Operazione non andata a buon fine");
-		System.out.println("Causa errore: Record della prenotazione Ë gi‡ esistente");
-		String errorpage="<div class=\"jumbotron text-center\">\r\n"
-				+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non Ë possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
-				+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gi‡ occupato da un altro cliente.</p>\r\n"
-				+ "  <hr>\r\n"
-				+ "</div>";
-		request.getSession().setAttribute("MESSAGGIO", errorpage);
-		response.sendRedirect("inviaprenotazione.jsp");
-	}
-	
+		
+		if(comando.equals("getoptions")) {
+			String dipartimento=request.getParameter("select-dipartimenti");
+			System.out.println("dipartimento slezionato dall'utente :"+dipartimento);
+			ArrayList<Dottore> elencoDottori= new ArrayList<Dottore>();
+			ArrayList<Prestazione> elencoPrestazioni= new ArrayList<Prestazione>();
+			try 
+			{
+				DBManager db=new DBManager();
+				elencoDottori=db.getDottori(dipartimento);
+				elencoPrestazioni=db.getPrestazioni(dipartimento);
+				db.close();
+				
+				//ELENCO DOTTORI IN SESSIONE
+				request.getSession().setAttribute("ELENCO_DOTTORI", elencoDottori);
+				//ELENCO PRESTAZIONI IN SESSIONE
+				request.getSession().setAttribute("ELENCO_PRESTAZIONI", elencoPrestazioni);
+				//DIPARTIMENTO SELEZIONATO IN SESSIONE
+				request.getSession().setAttribute("DIPARTIMENTO", dipartimento);
+				response.sendRedirect("inviaprenotazione.jsp");
+				System.out.println("Lista dei dottori \n"+elencoDottori);
+				System.out.println("Lista delle prestazioni \n"+elencoPrestazioni);
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				// TODO: handle exception
+			}
+			}
+				
+		
+		else if(comando.equals("elimina")) {
 
-	
-	
-	}
+			
+			if(request.getParameterValues("check")==null) {
+				System.out.println("nessun elemento selezionato");
+			}
+			else {
+				String idPrenotazioni[]=request.getParameterValues("check");
+				System.out.println("PRENOTAZIONI DA ELIMINARE :");
+				for(int i=0;i<idPrenotazioni.length;i++) {
+				System.out.println("ID PRENOTAZIONE = "+idPrenotazioni[i]);
+					}
+				DBManager db;
+				try {
+					db = new DBManager();
+					db.deletePrenotazioni(idPrenotazioni);
+					db.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				}
+			
+			response.sendRedirect("gestprenotazioni?cmd=viewall");
+			
+			
+		}
+		//funzione che cambio lo stato della Prenotazione in:Eseguita
+		else if(comando.equals("eseguita")) {
+
+			
+			if(request.getParameterValues("check")==null) {
+				System.out.println("nessun elemento selezionato");
+			}
+			else {
+				String idPrenotazioni[]=request.getParameterValues("check");
+				for(int i=0;i<idPrenotazioni.length;i++) {
+					}
+				DBManager db;
+				try {
+					db = new DBManager();
+					db.setStatoPrenotazioni(idPrenotazioni, "Eseguita");
+					db.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				}
+
+			response.sendRedirect("gestprenotazioni?cmd=viewall");
+			
+			
+		}
+		
+		//funzione che cambio lo stato della Prenotazione in:Non eseguita
+		else if(comando.equals("noneseguita")) {
+
+			
+			if(request.getParameterValues("check")==null) {
+				System.out.println("nessun elemento selezionato");
+			}
+			else {
+				String idPrenotazioni[]=request.getParameterValues("check");
+				for(int i=0;i<idPrenotazioni.length;i++) {
+					}
+				DBManager db;
+				try {
+					db = new DBManager();
+					db.setStatoPrenotazioni(idPrenotazioni, "Non eseguita");
+					db.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				}
+
+			response.sendRedirect("gestprenotazioni?cmd=viewall");
+			
+			
+		}
+		
+		//funzione che cambio lo stato della Prenotazione in:Attesa
+		else if(comando.equals("attesa")) {
+			
+			if(request.getParameterValues("check")==null) {
+				System.out.println("nessun elemento selezionato");
+			}
+			else {
+				String idPrenotazioni[]=request.getParameterValues("check");
+				for(int i=0;i<idPrenotazioni.length;i++) {
+					}
+				DBManager db;
+				try {
+					db = new DBManager();
+					db.setStatoPrenotazioni(idPrenotazioni, "In attesa");
+					db.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				}
+			
+			response.sendRedirect("gestprenotazioni?cmd=viewall");
+			
+		}
+		
+		else if(comando.equals("modifica")) {
+			Prenotazione p=new Prenotazione();
+			p.setCodPrenotazione(Integer.parseInt(request.getParameter("codPrenotazione")));	
+			p.setCodDottore(Integer.parseInt(request.getParameter("codDottore")));	
+			p.setCodFisc(request.getParameter("cf"));		
+			p.setDateTime(request.getParameter("date")+" "+request.getParameter("orario"));	
+			p.setCodPrestazione(Integer.parseInt(request.getParameter("codPrestazione")));	
+			p.setCommento(request.getParameter("message"));
+			//System.out.println(p.toString());		
+			
+		try {
+			DBManager db=new DBManager();
+			db.modificaPrenotazione(p);	
+			db.close();
+			response.sendRedirect("gestprenotazioni?cmd=viewall");
+			}
+		catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Operazione non andata a buon fine");
+			System.out.println("Causa errore: Record della prenotazione √® gi√† esistente");
+			String errorpage="<div class=\"jumbotron text-center\">\r\n"
+					+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
+					+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gi√† occupato da un altro cliente.</p>\r\n"
+					+ "  <hr>\r\n"
+					+ "</div>";
+			request.getSession().setAttribute("MESSAGGIO", errorpage);
+			response.sendRedirect("404.jsp");
+		}
+}
+		
+		
+		
+		
+		
+		
 		
 		
 	}

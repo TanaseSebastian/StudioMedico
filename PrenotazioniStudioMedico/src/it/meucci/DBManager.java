@@ -23,7 +23,7 @@ public class DBManager{
 
 	public DBManager() throws Exception{
 
-		// Leggo le proprietà da file properties
+		// Leggo le proprietï¿½ da file properties
 				ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
 				prop = obj.loadProperties("DB.properties");
 		
@@ -121,7 +121,7 @@ public class DBManager{
     }
     //----------------------------------------------------------------------------
 	
-  //metodo che resetta la password------------------------------------------
+    	//metodo che resetta la password------------------------------------------
   		public void resetPassword(String email,String password) throws SQLException {
   			
   			try {
@@ -210,7 +210,7 @@ public class DBManager{
 
 		//funzione che restituisce la email di un utente
 		public String getEmail(String cf)throws Exception {
-			String sql="SELECT EMAIL FROM UTENTI WHERE CF="+cf+" ;";
+			String sql="SELECT EMAIL FROM UTENTI WHERE CF='"+cf+"' ;";
 			rs = query.executeQuery(sql);
 			String s = "";
 			if (rs.next()) {
@@ -218,6 +218,21 @@ public class DBManager{
 				s = EMAIL;
 			}
 			System.out.println(s);
+			return s;
+		}
+		
+		
+		//funzione che restituisce il nome completp di un utente
+		public String getFullName(String cf)throws Exception {
+			String sql="SELECT COGNOME,NOME FROM UTENTI WHERE CF='"+cf+"' ;";
+			rs = query.executeQuery(sql);
+			String s = "";
+			if (rs.next()) {
+				String COGNOME = rs.getString("COGNOME");
+				String NOME = rs.getString("NOME");
+				s = COGNOME+" "+NOME;
+			}
+			//System.out.println(s);
 			return s;
 		}
 		
@@ -232,77 +247,171 @@ public class DBManager{
 				String Name=rs.getString("Nome");
 				s = Cognome+" "+Name;
 			}
-			System.out.println(s);
+			//System.out.println(s);
 			return s;
 		}
 		
-		
-		//funzione che restituisce il nome della prestazione dato il codice identificativo
-		public String getPrestazioneName(String codPrestazione)throws Exception {
-			String sql="SELECT Nome FROM PRESTAZIONI WHERE codPrestazione="+codPrestazione+" ;";
-			rs = query.executeQuery(sql);
-			String s = "";
-			if (rs.next()) {
-				String Name = rs.getString("Nome");
-				s =Name;
-			}
-			System.out.println(s);
-			return s;
-		}
+	
 
 		
 		//funzione che restituisce la data in formato italiano
 		public String getItalianDate(String date)throws Exception {
 			String sql1="  SET lc_time_names = 'it_IT';";
-			System.out.println("Stringa arrivata = "+date);
+			//System.out.println("Stringa arrivata = "+date);
 			String sql="select date_format("+"'"+date+"'"+",'%W %d %M %Y') as DATA;";
-			System.out.println(sql);
+			//System.out.println(sql);
 			rs2 = query.executeQuery(sql1);
 			rs = query.executeQuery(sql);
-			System.out.println("Query scritta");
+			//System.out.println("Query scritta");
 			String s="";
 			if (rs.next()) {
-				System.out.println("entrato nell'if");
+				//System.out.println("entrato nell'if");
 				String data = rs.getString(1);
 				s =data; 
-				System.out.println("ho preso la data dal db,data in italiano: "+ s);
+				//System.out.println("ho preso la data dal db,data in italiano: "+ s);
 			}
 			return s;
 		}
 
   		
 	
-	//--------------------------INIZIO PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI CLIENTI---------------------------
+	//--------------------------INIZIO PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SULLE PRENOTAZIONI---------------------------
 	
-	/*public ArrayList<Cliente> getCustomers() throws Exception 
+	public ArrayList<Prenotazione> getPrenotazioni() throws Exception 
 	{
-		ArrayList<Cliente> elenco = new ArrayList<Cliente>();
+		ArrayList<Prenotazione> elenco = new ArrayList<Prenotazione>();
 		
-		String sql="SELECT * FROM CLIENTI;";
+		String sql="SELECT * FROM Prenotazioni;";
 		rs=query.executeQuery(sql);
-		Cliente c;
+		Prenotazione p;
 		
 		while(rs.next())
 		{
-			c=new Cliente(rs.getString(1),rs.getString(2),rs.getString(3),
-                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),
-                    rs.getString(8),rs.getString(9),rs.getString(10),rs.getString(11)); 
-			elenco.add(c);
+			p=new Prenotazione(rs.getInt(1),rs.getString(2),rs.getString(3),
+                    rs.getInt(4),rs.getString(5),rs.getInt(6),rs.getString(7)); 
+			elenco.add(p);
 		}
 		
-		System.out.println("CLIENTI CARICATI: " + elenco.size());
+		System.out.println("PRENOTAZIONI CARICATE: " + elenco.size());
 		
 		return elenco;
 	}
 	
-	public int deleteCustomer(String id) throws Exception 
+	//funzione che restituisce i dati di una particolare Prenotazione
+	public Prenotazione getPrenotazione(String id) throws Exception 
 	{
-		String deleteSql="DELETE FROM CLIENTI WHERE CUSTOMERID = '"+id+"';";
+		Prenotazione p = new Prenotazione();
 		
+		String sql="SELECT * FROM Prenotazioni WHERE codPrenotazione='"+id+"';";
+		rs=query.executeQuery(sql);
+		
+		if (rs.next()) {
+			p=new Prenotazione(rs.getInt(1),rs.getString(2),rs.getString(3),
+                    rs.getInt(4),rs.getString(5),rs.getInt(6),rs.getString(7)); 
+		}
+		return p;
+	}
+	
+	
+	
+	
+	
+	
+	//funzione che restituisce il nome della prestazione dato il codice identificativo
+	public String getPrestazioneName(String codPrestazione)throws Exception {
+		String sql="SELECT Nome FROM PRESTAZIONI WHERE codPrestazione="+codPrestazione+" ;";
+		rs = query.executeQuery(sql);
+		String s = "";
+		if (rs.next()) {
+			String Name = rs.getString("Nome");
+			s =Name;
+		}
+		//System.out.println(s);
+		return s;
+	}
+	
+	
+	//funzione che elimina un array di Ogetti di tipo Prenotazione
+	
+	public int deletePrenotazioni(String[] id) throws Exception 
+	{
+		String delimiter = ",";
+		String s=String.join(delimiter, id);
+		String deleteSql="DELETE FROM prenotazioni  WHERE codPrenotazione IN ("+s+");";
+		System.out.println("QUERY:"+deleteSql);
 		int nRighe=query.executeUpdate(deleteSql);
-		
+		System.out.println("Numero Prenotazioni eliminate dal db:"+nRighe);
 		return nRighe;
 	}
+	
+	public int setStatoPrenotazioni(String[] id,String stato) throws Exception 
+	{
+		String delimiter = ",";
+		String s=String.join(delimiter, id);
+		String sql="UPDATE prenotazioni\r\n"
+		+"SET stato ='"+stato+"' WHERE codPrenotazione IN ("+s+");";
+		System.out.println("QUERY:"+sql);
+		int nRighe=query.executeUpdate(sql);
+		System.out.println("Numero Prenotazioni modificate dal db:"+nRighe);
+		return nRighe;
+	}
+	
+	
+	
+	//FUNZIONE CHE MODIFICA UNA PRENOTAZIONE
+	public int modificaPrenotazione(Prenotazione p) throws Exception
+	{			
+	int nRighe=0;
+	String sqlInsert = "UPDATE prenotazioni\r\n"
+			+ "SET codPrenotazione= ?, dateTime= ?, commento= ?, codPrestazione= ?, codFisc= ?, codDottore= ? \r\n"
+			+ "WHERE codPrenotazione= ?;";
+	PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
+	pstm.setInt(1, p.getCodPrenotazione());
+	pstm.setString(2,  p.getDateTime());
+	pstm.setString(3, p.getCommento());
+	pstm.setInt(4, p.getCodPrestazione());
+	pstm.setString (5, p.getCodFisc());
+	pstm.setFloat(6,p.getCodDottore());
+	pstm.setInt(7,p.getCodPrenotazione());
+	nRighe= pstm.executeUpdate();
+	return nRighe;
+	}
+	
+	
+	//FUNZIONE CHE RESTITUISCE IL NUMERO DI PRENOTAZIONI DATO LO STATO
+		public String getNumPrenotazioni(String stato) throws Exception
+		{		
+		String s="";
+		String sql = "SELECT count(*) FROM PRENOTAZIONI WHERE STATO=? ;";
+		PreparedStatement pstm=connessione.prepareStatement(sql);
+		pstm.setString(1, stato);
+		rs=pstm.executeQuery();
+		if (rs.next()) {
+			String count = rs.getString(1);
+			s =count;
+		}
+		//System.out.println(s);
+		return s;
+		}
+	
+		
+		//FUNZIONE CHE RESTITUISCE IL NUMERO DI CLIENTI
+				public String getNumClienti() throws Exception
+				{		
+				String s="";
+				String sql = "SELECT DISTINCT COUNT(*) FROM UTENTI WHERE AMMINISTRATORE=\"N\" ;";
+				rs = query.executeQuery(sql);
+				if (rs.next()) {
+					String count = rs.getString(1);
+					s =count;
+				}
+				//System.out.println(s);
+				return s;
+				}
+	
+	
+	
+	/*
 	
 	public int insertCustomer(Cliente c) throws Exception
 	{
