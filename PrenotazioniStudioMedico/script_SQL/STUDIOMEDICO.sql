@@ -65,7 +65,27 @@ insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW) values("GJGHGDFJTNF
 insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW) values("TTTTGDFJTNFTREJT","Seb", "Tanase", "Seba","sebastianlaszlo2002@gmail.com","3422222234",md5("ciao"));
 -- select * from dipartimenti;
 insert into dipartimenti(Nome,Piano,Phone) values("Cardiologia","1 Piano","0833212121"),("Neurologia","2 Piano","0833212122"),("Gastroenterologia ","3 Piano","0833212123"),("Pediatria","4 Piano","0833212124"),("Oculistica","5 Piano","0833212125");
-insert into dottori(NOME,COGNOME,PHONE,EMAIL,codDipartimento) values("Mario","Rossi","3290987654","mariorossi@medilab.it",1),("Luigi","Bianchi","3290987644","luigibianchi@medilab.it",2),("Giuseppe","Verdi","3290987600","giuseppeverdi@medilab.it",3),("Francesco","Alemanno","3290987699","francescoalemanno@medilab.it",4),("Matteo","Toma","3290987688","matteotoma@medilab.it",5);
+insert into dottori(NOME,COGNOME,PHONE,EMAIL,codDipartimento) values
+("Mario","Rossi","3290987654","mariorossi@medilab.it",1),
+("Matteo","Primiceri","3204567890","matteoprimiceri@medilab.it",1),
+("Marco","Papallo","3270878890","marcopapallo@medilab.it",1),
+("Davide","Solidoro","3203221890","davidesolidoro@medilab.it",1),
+("Luigi","Zaia","3276532190","luigizaia@medilab.it",2),
+("Samuele","Rossetto","3258793901","samuelerossetto@medilab.it",2),
+("Abramo","Persano","3207893303","abramopersano@medilab.it",2),
+("Luigi","Bianchi","3290987644","luigibianchi@medilab.it",2),
+("Giuseppe","Verdi","3290987600","giuseppeverdi@medilab.it",3),
+("Alberto","Stefanì","3278562901","albertostefani@medilab.it",3),
+("Gabriele","Piccinno","3208710303","gabrielepiccinno@medilab.it",3),
+("Antonio","Restino","3256782303","antoniorestino@medilab.it",3),
+("Francesco","Alemanno","3290987699","francescoalemanno@medilab.it",4),
+("Marco","Leo","3278907650","marcoleo@medilab.it",4),
+("Italo","Ravenna","3278239091","italoravenna@medilab.it",4),
+("Paolo","Solida","3278009303","paolosolida@medilab.it",4),
+("Matteo","Toma","3290987688","matteotoma@medilab.it",5),
+("Marcus","Murano","3207882091","marcusmurano@medilab.it",5),
+("Sebastian","Picciolo","3279076303","sebastianpicciolo@medilab.it",5),
+("Samuele","Grande","3293027303","samuelegrande@medilab.it",5);
 -- select * from dottori;
 -- describe prenotazioni;
 -- select * from prenotazioni;
