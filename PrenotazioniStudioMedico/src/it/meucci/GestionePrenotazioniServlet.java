@@ -282,6 +282,10 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 			
 		}
 		
+		else if(comando.equals("view")) {
+            response.sendRedirect("gestprenotazioni?cmd=viewall");
+        }
+		
 		//funzione che cambio lo stato della Prenotazione in:Non eseguita
 		else if(comando.equals("noneseguita")) {
 
