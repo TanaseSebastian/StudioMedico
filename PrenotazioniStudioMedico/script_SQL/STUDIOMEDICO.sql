@@ -46,6 +46,7 @@ CREATE TABLE PRENOTAZIONI (
   codPrestazione INT NOT NULL,
   codFisc char(16) NOT NULL,
   codDottore int NOT NULL,
+  stato varchar(20) NOT NULL DEFAULT "In attesa",
   PRIMARY KEY (codPrenotazione),
   KEY CF_idx (codFisc),
   KEY codDottore_idx (codDottore),
@@ -162,9 +163,15 @@ ALTER TABLE studiomedico.prenotazioni
     ("Visita Per Idoneita A Chirurgia Refrattiva",5);
     
    --    use studiomedico;
- --      select * from utenti;
+    --   select * from utenti;
 --  SELECT EMAIL FROM UTENTI WHERE CF="GJGHGDFJTNFTREJT";
   
   -- SET lc_time_names = 'it_IT';
   -- select date_format("2021-05-07", '%W %d %M %Y') as DATA;
-  
+  -- SELECT count(*) FROM PRENOTAZIONI WHERE STATO="Eseguita";
+  -- SELECT count(*) FROM PRENOTAZIONI WHERE STATO="Non eseguita";
+  -- SELECT count(*) FROM PRENOTAZIONI WHERE STATO="In attesa";
+  -- SELECT DISTINCT COUNT(*) FROM UTENTI WHERE AMMINISTRATORE="N";
+  -- SELECT DISTINCT * FROM UTENTI WHERE AMMINISTRATORE="N";
+  -- SELECT DISTINCT COUNT(*) FROM UTENTI WHERE AMMINISTRATORE="Y";
+  -- SELECT DISTINCT * FROM UTENTI WHERE AMMINISTRATORE="Y";
