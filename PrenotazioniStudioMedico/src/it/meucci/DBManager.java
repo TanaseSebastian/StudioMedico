@@ -409,7 +409,79 @@ public class DBManager{
 				return s;
 				}
 	
-	
+				
+		//GESTIONE DEI CLIENTI ----------------------------------------
+				public ArrayList<Utente> getClienti() throws Exception 
+				{
+					ArrayList<Utente> elenco = new ArrayList<Utente>();
+					
+					String sql="SELECT * FROM UTENTI WHERE AMMINISTRATORE='N';";
+					rs=query.executeQuery(sql);
+					Utente c;
+					
+					while(rs.next())
+					{
+						c=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+						elenco.add(c);
+					}
+					
+					System.out.println("CLIENTI CARICATI: " + elenco.size());
+					
+					return elenco;
+				}
+				
+				//funzione che restituisce i dati di un particolare cliente 
+				public Utente getCliente(String id) throws Exception 
+				{
+					Utente c = new Utente();
+					
+					String sql="SELECT * FROM UTENTI WHERE CF='"+id+"';";
+					rs=query.executeQuery(sql);
+					
+					if (rs.next()) {
+						c=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+					}
+					return c;
+				}
+				
+		//GESTIONE DEGLI AMMINISTRATORI ----------------------------------------
+				public ArrayList<Utente> getAmministratori() throws Exception 
+				{
+					ArrayList<Utente> elenco = new ArrayList<Utente>();
+					
+					String sql="SELECT * FROM UTENTI WHERE AMMINISTRATORE='Y';";
+					rs=query.executeQuery(sql);
+					Utente a;
+					
+					while(rs.next())
+					{
+						a=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+						elenco.add(a);
+					}
+					
+					System.out.println("AMMINISTRATORI CARICATI: " + elenco.size());
+					
+					return elenco;
+				}
+				
+				//funzione che restituisce i dati di un particolare amministratore 
+				public Utente getAmministratore(String id) throws Exception 
+				{
+					Utente a = new Utente();
+					
+					String sql="SELECT * FROM UTENTI WHERE CF='"+id+"';";
+					rs=query.executeQuery(sql);
+					
+					if (rs.next()) {
+						a=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+					}
+					return a;
+				}
+				
 	
 	/*
 	

@@ -71,10 +71,10 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Clienti:</h6>
-                        <a class="collapse-item" href="#">Visualizza Clienti</a>
+                        <a class="collapse-item" href="gestutenti?cmd=viewall">Visualizza Clienti</a>
                         <a class="collapse-item" href="#">Nuovo Cliente</a>
                         <h6 class="collapse-header">Amministratori:</h6>
-                        <a class="collapse-item" href="#">Visualizza Amministratori</a>
+                        <a class="collapse-item" href="gestutenti?cmd=view">Visualizza Amministratori</a>
                         <a class="collapse-item" href="#">Nuovo Amministratore</a>
                     </div>
                 </div>
