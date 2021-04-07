@@ -124,7 +124,53 @@ public class GestioneUtentiServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+String comando = request.getParameter("cmd");;
+		
+		if(comando.equals("clientregister")) {
+		String cf = request.getParameter("codiceFiscale");
+		String nome = request.getParameter("nome");
+		String cognome = request.getParameter("cognome");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String confirm_password = request.getParameter("confirm_password");
+		System.out.println(cf+ " "+nome+" "+cognome+" "+username+" "+email+" "+phone+" "+password+" "+confirm_password);
+		try {
+			DBManager db = new DBManager();
+			if (db.checkUsername(username) == false) {
+				db.insertRegistration(cf,nome, cognome, username, email, phone, password);
+				response.sendRedirect("gestutenti?cmd=viewall");
+			} else
+				response.sendRedirect("nuovoCliente.jsp");
+			db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+		else if(comando.equals("adminregister")) {
+			String cf = request.getParameter("codiceFiscale");
+			String nome = request.getParameter("nome");
+			String cognome = request.getParameter("cognome");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			String confirm_password = request.getParameter("confirm_password");
+			System.out.println(cf+ " "+nome+" "+cognome+" "+username+" "+email+" "+phone+" "+password+" "+confirm_password);
+			try {
+				DBManager db = new DBManager();
+				if (db.checkUsername(username) == false) {
+					db.insertAmministrator(cf,nome, cognome, username, email, phone, password);
+					response.sendRedirect("gestutenti?cmd=view");
+				} else
+					response.sendRedirect("nuovoAmministratore.jsp");
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
 }

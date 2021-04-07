@@ -23,10 +23,13 @@
 				<div class="col-md-12 col-lg-10">
 					<div class="wrap d-md-flex">
 				  <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
-							<div class="text w-100">
+							<div class="text w-100" style="margin-bottom: 720px;">
 								<h2>Accedi</h2>
-								<p style="color:white;background-color: rgba(8,8,8,0.50);">Hai già un account?</p>
+								<p style="color:white;">Hai già un account?</p>
 								<a href="login.jsp" class="btn btn-white btn-outline-white">Login</a>
+								<br> <br> 
+								<a id="forgot" href="index.jsp" style="color: white;">---Torna alla Home---</a>
+								
 							</div>
 			      </div> 	
 						<div class="login-wrap p-4 p-lg-5">

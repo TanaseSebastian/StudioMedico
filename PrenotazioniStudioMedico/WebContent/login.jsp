@@ -30,11 +30,11 @@
 				<div class="col-md-12 col-lg-10">
 					<div class="wrap d-md-flex">
 						<div  class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
-							<div class="text w-100" style="margin-top: -60px;">
+							<div class="text w-100" style="margin-top: -170px;">
 								<h2>Registrati</h2>
 								<p style="color:white;">Non hai ancora un account?</p>
 								<a href="registration.jsp" class="btn btn-white btn-outline-white">Registrati</a>
-								<br> <br> <br> <br> <br> <br>
+								<br> <br> 
 								<a id="forgot" href="index.jsp" style="color: white;">---Torna alla Home---</a>
 							</div>
 									

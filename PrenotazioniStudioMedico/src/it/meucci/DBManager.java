@@ -97,7 +97,21 @@ public class DBManager{
 		int nRighe= pstm.executeUpdate();
 		return nRighe;
 	}
-
+	public int insertAmministrator(String cf, String nome, String cognome, String username, String email,String phone, String password)
+			throws Exception {
+		String sql = "INSERT INTO utenti  VALUES (?,?,?,?,?,?,md5(?),?);";
+		PreparedStatement pstm=connessione.prepareStatement(sql);
+		pstm.setString(1,cf);
+		pstm.setString(2,nome);
+		pstm.setString(3,cognome);
+		pstm.setString(4,username);
+		pstm.setString(5,email);
+		pstm.setString(6,phone);
+		pstm.setString(7,password);
+		pstm.setString(8,"Y");
+		int nRighe= pstm.executeUpdate();
+		return nRighe;
+	}
     //metodo che mi verifica se l'email esiste nel database-----------------
     public boolean controlEmail(String email) throws SQLException {
 		 String email_validation="";
