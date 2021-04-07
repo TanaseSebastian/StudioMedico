@@ -40,7 +40,7 @@ public class GestioneUtentiServlet extends HttpServlet {
 				elenco=db.getClienti();
 				db.close();
 				
-				//ELENCO PRENOTAZIONI
+				//ELENCO CLIENTI
 				request.setAttribute("ELENCO_CLIENTI", elenco);
 				RequestDispatcher rd = request.getRequestDispatcher("visualizzaClienti.jsp");
 				rd.forward(request, response);
@@ -61,7 +61,7 @@ public class GestioneUtentiServlet extends HttpServlet {
 				elenco=db.getAmministratori();
 				db.close();
 				
-				//ELENCO PRENOTAZIONI
+				//ELENCO AMMINISTRATORI
 				request.setAttribute("ELENCO_AMMINISTRATORI", elenco);
 				RequestDispatcher rd = request.getRequestDispatcher("VisualizzaAmministratori.jsp");
 				rd.forward(request, response);

@@ -77,7 +77,7 @@
 				String[] parts = string.split(" ");
 				String data = parts[0];
 				String ora = parts[1]; %>
-			<input id="date" name="date" data-input class="form-select"
+			<input id="date" name="date" data-input class="form-select col-md-12"
 				value="<%=data%>"> <span class="help-block">Data
 				Prenotazione</span>
 		</div>
@@ -85,7 +85,7 @@
 		<!-- Text input-->
 		<div class="form-group col-md-6">
 			<div class="">
-				<select name="orario" id="orario" class="form-select">
+				<select name="orario" id="orario" class="form-select col-md-12">
 					<option value="<%=ora%>" selected><%=ora%></option>
 					<option value="" disabled>--MATTINA--</option>
 					<% for(int i=8;i<21;i++){
@@ -113,8 +113,7 @@
 		<textarea class="form-control" name="message" rows="5" maxlength="250" placeholder="Nessun messaggio opzionale lasciato dall'utente"><%=p.getCommento()%></textarea>
 	</div>
 	<div class="text-center" style="margin-top: 30px;">
-		<a href="prodotti.jsp" class="btn btn-danger" id="elimina"
-			name="elimina">Annulla</a>
+	<button type="reset" class="btn btn-danger" id="elimina" name="elimina">Annulla</button>
 		<button type="submit" class="btn btn-primary">Modifica
 			appuntamento</button>
 	</div>

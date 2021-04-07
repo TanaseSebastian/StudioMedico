@@ -92,7 +92,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Scegli:</h6>
                   		 <a class="collapse-item" href="gestprenotazioni?cmd=viewall">Visualizza Prenotazioni</a>
-                        <a class="collapse-item" href="#">Inserisci Prenotazioni</a>
+                        <a style="cursor: pointer;"  class="collapse-item" data-target="#chooseDepartment" data-toggle="modal">Inserisci Prenotazioni</a>
                     </div>
                 </div>
             </li>

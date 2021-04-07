@@ -43,6 +43,38 @@
             </div>
         </div>
     </div>
+    <!-- modulo per scelta del dipartimento-->
+ <div class="modal" id="chooseDepartment"" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4>
+                Seleziona il dipartimento interessato.
+              </h4>
+          </div>
+          <div class="modal-body">
+          <form action="gestprenotazioni?cmd=getoptions2" method="post" id="chooseDepartmentForm" name="chooseDepartmentForm" role="form" >
+            <div class="col-md-12 form-group">
+				<center>
+				<select id="select-dipartimenti" name="select-dipartimenti" class="col-md-6 " required>
+				 <option value="" disabled selected hidden>Seleziona dipartimento</option>
+					<option value="1">Cardiologia</option>
+					<option value="2">Neurologia</option>
+					<option value="3">Gastroenterologia</option>
+					<option value="4">Pediatria</option>
+					<option value="5">Oculistica</option>
+				</select>
+				</center>
+            </div>
+          <div class="text-center" style="margin-top: 30px;">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+          <button type="submit" class="btn btn-primary">Prosegui <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+          </div>
+        </form>
+          </div>
+      </div>
+  </div>
+  </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="app/vendor/jquery/jquery.min.js"></script>

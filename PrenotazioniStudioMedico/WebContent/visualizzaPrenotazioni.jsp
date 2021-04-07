@@ -6,7 +6,8 @@
   int i;
   Prenotazione p;
 %>
-<%
+<%  String messaggio =(String)session.getAttribute("MESSAGGIO");
+	if(messaggio==null) messaggio="";
 	DBManager db=new DBManager();
 	elenco = (ArrayList<Prenotazione>)request.getAttribute("ELENCO_PRENOTAZIONI");
 %>
@@ -20,7 +21,8 @@
     
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+				<%=messaggio%>
+				<%request.getSession().setAttribute("MESSAGGIO", ""); %>
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tabella Prenotazioni</h1>
                     <p class="mb-4">In questa Tabella vi è una paronamica di tutte le prenotazioni registate nel sistema,puoi visualizzare
