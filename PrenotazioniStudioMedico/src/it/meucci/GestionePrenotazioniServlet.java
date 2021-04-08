@@ -285,11 +285,11 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 				db.close();
 				
 				//ELENCO DOTTORI
-				request.setAttribute("ELENCO_DOTTORI", elencoDottori);
+				request.getSession().setAttribute("ELENCO_DOTTORI", elencoDottori);
 				//ELENCO PRESTAZIONI 
-				request.setAttribute("ELENCO_PRESTAZIONI", elencoPrestazioni);
+				request.getSession().setAttribute("ELENCO_PRESTAZIONI", elencoPrestazioni);
 				//DIPARTIMENTO SELEZIONATO 
-				request.setAttribute("DIPARTIMENTO", dipartimento);
+				request.getSession().setAttribute("DIPARTIMENTO", dipartimento);
 				RequestDispatcher rd = request.getRequestDispatcher("inviaprenotazione.jsp");
 				rd.forward(request, response);
 				//System.out.println("Lista dei dottori \n"+elencoDottori);
