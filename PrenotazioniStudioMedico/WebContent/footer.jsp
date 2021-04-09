@@ -44,7 +44,7 @@
         </div>
     </div>
     <!-- modulo per scelta del dipartimento-->
- <div class="modal" id="chooseDepartment"" role="dialog" aria-hidden="true">
+ <div class="modal" id="chooseDepartment" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -75,6 +75,7 @@
       </div>
   </div>
   </div>
+  			   
 
     <!-- Bootstrap core JavaScript-->
     <script src="app/vendor/jquery/jquery.min.js"></script>
@@ -98,13 +99,26 @@
 		$("#checkboxAll").click(function(){
 			$(".check").prop("checked",$ (this).prop("checked"));
 		});
+		  var password = document.getElementById("password")
+		  , confirm_password = document.getElementById("confirm_password");
+
+		function validatePassword(){
+		  if(password.value != confirm_password.value) {
+		    confirm_password.setCustomValidity("Passwords Non Corrispondono");
+		  } else {
+		    confirm_password.setCustomValidity('');
+		  }
+		}
+
+		password.onchange = validatePassword;
+		confirm_password.onkeyup = validatePassword;
 	});
     </script>
     <script>
     function submitForm(action)
     {
-        document.getElementById('formPrenotazioni').action = action;
-        document.getElementById('formPrenotazioni').submit();
+        document.getElementById('form').action = action;
+        document.getElementById('form').submit();
     }
 </script>
 	<!--  Flatpickr  -->
@@ -125,6 +139,10 @@
 	        "firstDayOfWeek": 1 // set start day of week to Monday
 	    }
 	});
+  </script>
+  
+  <script>
+
   </script>
 
 </body>

@@ -9,6 +9,8 @@
 <%
 	DBManager db=new DBManager();
 	elenco = (ArrayList<Utente>)request.getAttribute("ELENCO_CLIENTI");
+	String messaggio =(String)session.getAttribute("MESSAGGIO");
+	if(messaggio==null) messaggio="";
 %>
     
     
@@ -20,7 +22,10 @@
     
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+                
+					<%=messaggio%>
+					<%request.getSession().setAttribute("MESSAGGIO", ""); %>
+		
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tabella Clienti</h1>
                     <p class="mb-4">In questa Tabella vi è una paronamica di tutti i clienti registati nel sistema,puoi visualizzare

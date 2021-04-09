@@ -116,6 +116,30 @@ public class GestioneUtentiServlet extends HttpServlet {
 			rd.forward(request, response);
 
 		}
+		
+		//funzione che aggiorna i dati di un cliente
+		else if(comando.equals("aggiorna"))
+		{
+			
+			String id= request.getParameter("id");
+			Utente c=new Utente();
+			try {
+				db= new DBManager();
+				c = db.getCliente(id);
+				db.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//System.out.println(p.toString());
+			request.setAttribute("CLIENTE", c);
+			RequestDispatcher rd = request.getRequestDispatcher("aggiornaCliente.jsp");
+			rd.forward(request, response);
+
+		}
+		
+		
 	}
 		
 
@@ -171,6 +195,73 @@ String comando = request.getParameter("cmd");;
 			}
 		}
 		
+		else if(comando.equals("resetPassword"))
+		{
+			String cf = request.getParameter("codiceFiscale");
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			try
+			{
+				DBManager db = new DBManager();
+				db.resetPassword(email, password);
+				
+				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice è stato eseguito correttamente
+				String passCorretta="<div class=\"jumbotron text-center\">\r\n"
+						+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">La password è stata modificata con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
+						+ "  <hr>\r\n"
+						+ "</div>";
+				
+				
+				request.getSession().setAttribute("MESSAGGIO", passCorretta);
+				
+				response.sendRedirect("gestutenti?cmd=aggiorna&id="+cf);
+				
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+				
+				String errorpage="<div class=\"jumbotron text-center\">\r\n"
+						+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> la password non è stata modificata</h5>\r\n"		
+						+ "  <hr>\r\n"
+						+ "</div>";
+				request.getSession().setAttribute("MESSAGGIO", errorpage);
+				
+				response.sendRedirect("gestutenti?cmd=aggiorna&id="+cf);
+			}
+		}
+		
+		
+		else if(comando.equals("modifica")) {
+			String cf = request.getParameter("codiceFiscale");
+			String email = request.getParameter("email");
+			String phone = request.getParameter("phone");
+			String username = request.getParameter("username");
+			
+		try {
+			DBManager db=new DBManager();
+			db.modificaCliente(cf,email,phone,username);	
+			db.close();
+			//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice è stato eseguito correttamente
+			String modCorretto="<div class=\"jumbotron text-center\">\r\n"
+					+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">Il cliente è stato modificato con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
+					+ "  <hr>\r\n"
+					+ "</div>";
+			
+			
+			request.getSession().setAttribute("MESSAGGIO", modCorretto);
+			response.sendRedirect("gestutenti?cmd=viewall");
+			}
+		catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Operazione non andata a buon fine");
+			System.out.println("Causa errore: Record della prenotazione è già esistente");
+			String errorpage="<div class=\"jumbotron text-center\">\r\n"
+					+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non è possibile modificare il cliente.</h1>\r\n"
+					+ "  <hr>\r\n"
+					+ "</div>";
+			request.getSession().setAttribute("MESSAGGIO", errorpage);
+			response.sendRedirect("gestutenti?cmd=viewall");
+		}
 	}
-
+	}
 }

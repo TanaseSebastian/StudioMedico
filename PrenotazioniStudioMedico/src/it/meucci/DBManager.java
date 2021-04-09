@@ -460,6 +460,21 @@ public class DBManager{
 					return c;
 				}
 				
+				public int modificaCliente(String cf,String email,String phone,String username) throws SQLException 
+				{			
+					int nRighe=0;
+					String sqlInsert = "UPDATE UTENTI\r\n"
+							+ "SET USERNAME= ?, EMAIL= ?, PHONE= ?\r\n"
+							+ "WHERE CF= ?;";
+					PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
+					pstm.setString(1, username);
+					pstm.setString(2,  email);
+					pstm.setString(3, phone);
+					pstm.setString(4, cf);
+					nRighe= pstm.executeUpdate();
+					return nRighe;
+				}
+				
 		//GESTIONE DEGLI AMMINISTRATORI ----------------------------------------
 				public ArrayList<Utente> getAmministratori() throws Exception 
 				{

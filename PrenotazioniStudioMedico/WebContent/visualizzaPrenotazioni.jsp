@@ -36,7 +36,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<form action="" method="post" id="formPrenotazioni">
+                            	<form action="" method="post" id="form">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <h3>Una volta selezionate le Prenotazioni interessate è possibile utilizzare le seguenti funzioni:</h3>
 								<button type="submit" class="col-md-3 btn btn-success" onclick="if(confirm('Sei sicuro di voler modificare lo stato di queste operazioni in: Eseguita ?')){submitForm('gestprenotazioni?cmd=eseguita')}else{submitForm('gestprenotazioni?cmd=view')}">Cambia stato delle Prenotazioni selezionate in:<strong>Eseguite </strong>  <i class="far fa-calendar-check"></i></button>
