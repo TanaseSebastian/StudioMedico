@@ -25,11 +25,15 @@
 		<%=messaggio%>
 		<%request.getSession().setAttribute("MESSAGGIO", ""); %>
 	
-	<form class="form-horizontal" method="post"
+	
+	
+	<legend>Modifica dati del Cliente</legend>
+	<button type="submit" class="btn btn-outline-success" style="margin-left: 0%;" data-target="#resetPassword" data-toggle="modal">Modifica Password</button>
+	
+	<form class="form-horizontal" style="margin-top: 20px" method="post"
 		action="gestutenti?cmd=modifica" id="form">
 		<fieldset>
 			<!-- Form Name -->
-			<legend>Modifica dati del Cliente</legend>
 			<div class="row">
 
 				<!-- Text input-->
@@ -137,8 +141,6 @@
   </div>
   </div>
 			
-			<div class="text-center" style="margin-top: 30px; position: absolute; right: 37%; top: 44%;">
-			<button type="submit" class="btn btn-outline-secondary" data-target="#resetPassword" data-toggle="modal">Modifica Password</button>
-			</div>
+			
 
 <%@include file="footer.jsp"%>
