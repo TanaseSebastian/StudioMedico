@@ -25,7 +25,18 @@
 
     <!-- Custom styles for this template-->
     <link href="app/css/sb-admin-2.min.css" rel="stylesheet">
-
+	<style>
+	
+	.paginate_button{
+	
+	padding: 10px;
+	margin: 5px;
+	cursor: pointer;
+	border: 1px solid #4268D6;
+	}
+	
+	
+	</style>
 </head>
 
 <body id="page-top">
