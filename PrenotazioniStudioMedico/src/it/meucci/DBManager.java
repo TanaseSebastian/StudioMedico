@@ -475,6 +475,19 @@ public class DBManager{
 					return nRighe;
 				}
 				
+				//funzione che elimina un array di Ogetti di tipo Cliente
+				
+				public int deleteClienti(String[] id) throws Exception 
+				{
+					String delimiter = ",";
+					String s=String.join(delimiter, id);
+					String deleteSql="DELETE FROM UTENTI  WHERE CF IN ('"+s+"');";
+					System.out.println("QUERY:"+deleteSql);
+					int nRighe=query.executeUpdate(deleteSql);
+					System.out.println("Numero Clienti eliminati dal db:"+nRighe);
+					return nRighe;
+				}
+				
 		//GESTIONE DEGLI AMMINISTRATORI ----------------------------------------
 				public ArrayList<Utente> getAmministratori() throws Exception 
 				{
@@ -511,6 +524,19 @@ public class DBManager{
 					return a;
 				}
 				
+				public Utente getUtente(String id) throws Exception 
+				{
+					Utente u = new Utente();
+					
+					String sql="SELECT * FROM UTENTI WHERE CF='"+id+"';";
+					rs=query.executeQuery(sql);
+					
+					if (rs.next()) {
+						u=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+					}
+					return u;
+				}
 	
 	/*
 	

@@ -119,26 +119,27 @@ public class GestioneUtentiServlet extends HttpServlet {
 		
 		//funzione che aggiorna i dati di un cliente
 		else if(comando.equals("aggiorna"))
-		{
-			
-			String id= request.getParameter("id");
-			Utente c=new Utente();
-			try {
-				db= new DBManager();
-				c = db.getCliente(id);
-				db.close();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//System.out.println(p.toString());
-			request.setAttribute("CLIENTE", c);
-			RequestDispatcher rd = request.getRequestDispatcher("aggiornaCliente.jsp");
-			rd.forward(request, response);
+			{
+					
+					String id= request.getParameter("id");
+					String utente= request.getParameter("utente");
+					Utente u=new Utente();
+					try {
+						db= new DBManager();
+						u = db.getUtente(id);
+						db.close();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					//System.out.println(p.toString());
+					request.setAttribute("UTENTE", u);
+					request.setAttribute("tipoutente", utente);
+					RequestDispatcher rd = request.getRequestDispatcher("aggiornaUtente.jsp?");
+					rd.forward(request, response);
 
-		}
-		
+			}
 		
 	}
 		
@@ -236,6 +237,7 @@ String comando = request.getParameter("cmd");;
 			String email = request.getParameter("email");
 			String phone = request.getParameter("phone");
 			String username = request.getParameter("username");
+			String tipoutente = request.getParameter("tipoutente");
 			
 		try {
 			DBManager db=new DBManager();
@@ -249,6 +251,10 @@ String comando = request.getParameter("cmd");;
 			
 			
 			request.getSession().setAttribute("MESSAGGIO", modCorretto);
+			if (tipoutente.equals("amministratore")) {
+				response.sendRedirect("gestutenti?cmd=view");
+			}
+			else
 			response.sendRedirect("gestutenti?cmd=viewall");
 			}
 		catch(Exception e){
@@ -263,5 +269,52 @@ String comando = request.getParameter("cmd");;
 			response.sendRedirect("gestutenti?cmd=viewall");
 		}
 	}
+		
+			else if(comando.equals("elimina")) {
+			if(request.getParameterValues("check")==null) {
+				System.out.println("nessun elemento selezionato");
+			}
+			else {
+				String idCliente[]=request.getParameterValues("check");
+				System.out.println("CLIENTI DA ELIMINARE :");
+				for(int i=0;i<idCliente.length;i++) {
+				System.out.println("ID CLIENTE = "+idCliente[i]);
+					}
+				DBManager db;
+				try {
+					db = new DBManager();
+					db.deleteClienti(idCliente);
+					db.close();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+			response.sendRedirect("gestutenti?cmd=viewall");
+		}
+		
+			else if(comando.equals("eliminaAmm")) {
+				if(request.getParameterValues("check")==null) {
+					System.out.println("nessun elemento selezionato");
+				}
+				else {
+					String idAmm[]=request.getParameterValues("check");
+					System.out.println("AMMINISTRATORI DA ELIMINARE :");
+					for(int i=0;i<idAmm.length;i++) {
+					System.out.println("ID AMMINISTRATORE = "+idAmm[i]);
+						}
+					DBManager db;
+					try {
+						db = new DBManager();
+						db.deleteClienti(idAmm);
+						db.close();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}
+				response.sendRedirect("gestutenti?cmd=view");
+			}
+
 	}
 }

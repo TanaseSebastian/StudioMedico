@@ -88,10 +88,10 @@
     <script src="app/js/sb-admin-2.min.js"></script>
     
     <!--  Page level plugins -->
-    <!-- <script src="app/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="app/vendor/datatables/dataTables.bootstrap4.min.js"></script>  -->
+    <script src="app/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="app/vendor/datatables/dataTables.bootstrap4.min.js"></script> 
     
-   <!--  <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
    <script src=" https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>

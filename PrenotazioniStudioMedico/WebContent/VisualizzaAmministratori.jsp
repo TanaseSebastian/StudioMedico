@@ -34,10 +34,10 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<form action="" method="post" id="formPrenotazioni">
+                            	<form action="" method="post" id="form">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <h3>Una volta selezionati gli amministratori interessati è possibile eliminarli tramite l'apposita funzione:</h3>
-                                 <button type="submit" class="col-md-3 btn btn-danger" onclick="if(confirm('Sei sicuro di voler eliminare definitivamente queste operazioni dal database?')){submitForm('gestprenotazioni?cmd=elimina')}else{submitForm('gestprenotazioni?cmd=view')}">Elimina le Prenotazioni selezionate <i class="fas fa-trash-alt"></i></button>
+                                 <button type="submit" class="col-md-3 btn btn-danger" onclick="if(confirm('Sei sicuro di voler eliminare definitivamente queste operazioni dal database?')){submitForm('gestutenti?cmd=eliminaAmm')}else{return false}">Elimina gli amministratori selezionati <i class="fas fa-trash-alt"></i></button>
                                   <h3></h3>
                                     <thead>
                                         <tr>
@@ -63,7 +63,7 @@
 										 	<td><%=a.getCF()%></td>
 										 	<td><%=db.getFullName(a.getCF())%></td>
 											<td><%= a.getUSERNAME()%></td>
-										 	<td><a href="gestutenti?cmd=aggiorna&id=<%=a.getCF()%>"><i class="fas fa-user-edit"></i></a></td>
+										 	<td><a href="gestutenti?cmd=aggiorna&id=<%=a.getCF()%>&utente=amministratore"><i class="fas fa-user-edit"></i></a></td>
 										 	<!-- <td><a class="btn btn-outline-success" href="#">Crea fattura per questa prenotazione <i class="fas fa-file-invoice"></i></a></td> -->
 										 </tr>
 										 

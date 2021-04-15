@@ -1,7 +1,9 @@
 <%@ page language="java" import="it.meucci.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	Utente c = (Utente)request.getAttribute("CLIENTE");
+	Utente u = (Utente)request.getAttribute("UTENTE");
+     String utente = (String)request.getAttribute("tipoutente");
+    System.out.println(utente);
 	DBManager db=new DBManager();
 	String messaggio =(String)session.getAttribute("MESSAGGIO");
 	if(messaggio==null) messaggio="";
@@ -27,11 +29,11 @@
 	
 	
 	
-	<legend>Modifica dati del Cliente</legend>
+	<legend>Modifica dati dell' Utente</legend>
 	<button type="submit" class="btn btn-outline-success" style="margin-left: 0%;" data-target="#resetPassword" data-toggle="modal">Modifica Password</button>
 	
 	<form class="form-horizontal" style="margin-top: 20px" method="post"
-		action="gestutenti?cmd=modifica" id="form">
+		action="gestutenti?cmd=modifica&tipoutente=<%=utente %>" id="form">
 		<fieldset>
 			<!-- Form Name -->
 			<div class="row">
@@ -40,7 +42,7 @@
 				<div class="form-group col-md-6">
 					<div>
 						<input type="text" class="form-control" name="codiceFiscale" id="codiceFiscale"
-							value="<%=c.getCF() %>" readonly="readonly">
+							value="<%=u.getCF() %>" readonly="readonly">
 						<span class="help-block">Codice Fiscale</span>
 					</div>
 				</div>
@@ -49,7 +51,7 @@
 			<div class="form-group col-md-6">
 				<div>
 					<input type="text" class="form-control" name="cognome" id="cognome"
-						value=<%=c.getCOGNOME() %> readonly="readonly"> <span
+						value=<%=u.getCOGNOME() %> readonly="readonly"> <span
 						class="help-block">Cognome</span>
 				</div>
 			</div>
@@ -59,7 +61,7 @@
 		<div class="form-group col-md-6">
 				<div>
 					<input type="text" class="form-control" name="nome" id="nome"
-						value=<%=c.getNOME() %> readonly="readonly"> <span
+						value=<%=u.getNOME() %> readonly="readonly"> <span
 						class="help-block">Nome</span>
 				</div>
 			</div>
@@ -67,7 +69,7 @@
 	<div class="form-group col-md-6">
 				<div>
 					<input type="text" class="form-control" name="username" id="username"
-						value=<%=c.getUSERNAME() %>> <span
+						value=<%=u.getUSERNAME() %>> <span
 						class="help-block">Username</span>
 				</div>
 			</div>
@@ -77,7 +79,7 @@
 	<div class="form-group col-md-6">
 				<div>
 					<input type="text" class="form-control" name="email" id="email"
-						value=<%=c.getEMAIL() %>> <span
+						value=<%=u.getEMAIL() %>> <span
 						class="help-block">Email</span>
 				</div>
 			</div>
@@ -85,7 +87,7 @@
 				<div class="form-group col-md-6">
 				<div>
 					<input type="text" class="form-control" name="phone" id="phone"
-						value=<%=c.getPHONE() %>> <span
+						value=<%=u.getPHONE() %>> <span
 						class="help-block">Phone</span>
 				</div>
 			</div>
@@ -98,7 +100,7 @@
 	<div class="text-center" style="margin-top: 30px;">
 	<button type="reset" class="btn btn-danger" id="elimina" name="elimina">Annulla</button>
 		<button type="submit" class="btn btn-primary"> <!--onclick="if(confirm('Sei sicuro di voler modificare la password di questo cliente ?')){submitForm('gestutenti?cmd=modifica')}else{ return false }" -->Modifica
-			cliente</button>
+			utente</button>
 	</div>
 	</fieldset>
 	</form>
@@ -111,7 +113,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h4>
-                Modifica Password del cliente interessato.
+                Modifica Password dell'utente interessato.
               </h4>
           </div>
           <div class="modal-body">
@@ -119,9 +121,9 @@
             <div class="col-md-12 form-group">
 				  <div class="form-group mb-3">
 				  <input type="text" class="form-control" name="codiceFiscale" id="codiceFiscale"
-							value="<%=c.getCF() %>" hidden="hidden" readonly="readonly">
+							value="<%=u.getCF() %>" hidden="hidden" readonly="readonly">
 							<input type="text" class="form-control" hidden="hidden" name="email" id="email"
-						value=<%=c.getEMAIL() %>>
+						value=<%=u.getEMAIL() %>>
 		            	<label class="label" for="password">Password</label>
 		              <input type="password" name="password" id="password" class="form-control" placeholder="Inserisci Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Deve contenere almeno un numero,una lettera maiuscola e una lettera minuscola, e deve essere composta da almeno 8 o più caratteri" required>
 		            </div>

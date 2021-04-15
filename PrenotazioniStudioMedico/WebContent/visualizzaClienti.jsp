@@ -39,10 +39,10 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<form action="" method="post" id="formPrenotazioni">
+                            	<form action="" method="post" id="form">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <h3>Una volta selezionati i clienti interessati è possibile eliminarli tramite l'apposita funzione:</h3>
-                                 <button type="submit" class="col-md-3 btn btn-danger" onclick="if(confirm('Sei sicuro di voler eliminare definitivamente queste operazioni dal database?')){submitForm('gestprenotazioni?cmd=elimina')}else{submitForm('gestprenotazioni?cmd=view')}">Elimina le Prenotazioni selezionate <i class="fas fa-trash-alt"></i></button>
+                                 <button type="submit" class="col-md-3 btn btn-danger" onclick="if(confirm('Sei sicuro di voler eliminare definitivamente queste operazioni dal database?')){submitForm('gestutenti?cmd=elimina')}else{return false}">Elimina i clienti selezionati <i class="fas fa-trash-alt"></i></button>
                                   <h3></h3>
                                     <thead>
                                         <tr>
