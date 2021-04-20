@@ -75,6 +75,39 @@
       </div>
   </div>
   </div>
+  
+      <!-- modulo per scelta della quantità di elementi datatables-->
+ <div class="modal" id="chooseEntries" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4>
+                Indicare il numero di righe che si vuole vedere.
+              </h4>
+          </div>
+          <div class="modal-body">
+          <form action="" method="post" id="chooseEntriesForm" name="chooseEntriesForm" role="form" >
+            <div class="col-md-12 form-group">
+				<center>
+				<select id="select-entries" name="select-entries" class="col-md-6 " required>
+				 <option value="" disabled selected hidden>Seleziona numero righe</option>
+					<option value="10">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+					<option value="-1">TUTTE</option>
+				</select>
+				</center>
+            </div>
+          <div class="text-center" style="margin-top: 30px;">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+          <button type="submit" class="btn btn-primary">Prosegui <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+          </div>
+        </form>
+          </div>
+      </div>
+  </div>
+  </div>
   			   
 
     <!-- Bootstrap core JavaScript-->
@@ -156,9 +189,13 @@
   </script>
   
   <script>
-
+  $(document).on("click", "#changeEntriesButton", function () {
+	     var requestPage = $(this).data('id');
+	     var servlet="gestutenti?cmd=entries&page=";
+	     var action=servlet+requestPage;
+	     $("#chooseEntriesForm").attr('action', action);
+	});
   </script>
-
 </body>
 
 </html>

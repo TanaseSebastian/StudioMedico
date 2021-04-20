@@ -315,6 +315,15 @@ String comando = request.getParameter("cmd");;
 					}
 				response.sendRedirect("gestutenti?cmd=view");
 			}
+		
+			else if(comando.equals("entries")) {
+				String requestPage=request.getParameter("page");
+				System.out.println("La request page è "+requestPage);
+				String righe=request.getParameter("select-entries");
+				request.setAttribute("numeroRighe", righe);
+				RequestDispatcher rd = request.getRequestDispatcher(requestPage);
+				rd.forward(request, response);
+			}
 
 	}
 }
