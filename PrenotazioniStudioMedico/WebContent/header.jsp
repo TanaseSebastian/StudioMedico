@@ -87,6 +87,9 @@
                         <h6 class="collapse-header">Amministratori:</h6>
                         <a class="collapse-item" href="gestutenti?cmd=view">Visualizza Amministratori</a>
                         <a class="collapse-item" href="nuovoAmministratore.jsp">Nuovo Amministratore</a>
+                        <h6 class="collapse-header">Dottori:</h6>
+                        <a class="collapse-item" href="visualizzaDottori.jsp">Visualizza Dottori</a>
+                        <a class="collapse-item" href="nuovoAmministratore.jsp">Nuovo Dottore</a>
                     </div>
                 </div>
             </li>
