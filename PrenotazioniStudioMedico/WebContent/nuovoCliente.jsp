@@ -8,7 +8,7 @@
 						<form action="gestutenti?cmd=clientregister" method="POST"  class="signin-form">
 						 <div class="form-group mb-3">
 			      			<label class="label" for="codiceFiscale">Codice Fiscale</label>
-			      			<input type="text" name="codiceFiscale" class="form-control" placeholder=" Codice Fiscale" required minlength="16" maxlength="16">
+			      			<input type="text" name="codiceFiscale" class="form-control" placeholder=" " required minlength="16" maxlength="16">
 			      		</div>
 			      		<div class="form-group mb-3">
 			      			<label class="label" for="name">Nome</label>

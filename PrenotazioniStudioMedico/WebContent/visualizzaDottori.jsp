@@ -4,6 +4,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <%
+Properties prop;
+// Leggo le proprietà da file properties
+ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+prop = obj.loadProperties("DB.properties");
+String userDB = prop.getProperty("Username");
+String pwDB = prop.getProperty("Pasword");
+%>
+<%
 String righe=(String)session.getAttribute("numeroRighe");
 if(righe==null){
 	righe="10";
@@ -13,7 +21,7 @@ if(righe==null){
 
 <sql:setDataSource var="myDS" driver="com.mysql.cj.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/STUDIOMEDICO?serverTimezone=UTC"
-		user="root" password="" />
+		user='<%=userDB%>' password='<%=pwDB%>' />
 
 	<sql:query var="dottori" dataSource="${myDS}">
         SELECT * FROM DOTTORI;
@@ -55,7 +63,7 @@ if(righe==null){
 						</button>
 						<thead>
 						<div style="margin-bottom: 10px; margin-top: 20px;"">
-                                     <button type="button" class="col-md-1 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaDottori.jsp" id="changeEntriesButton">Cambia numero righe</button>
+                                     <button type="button" class="col-md-3 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaDottori.jsp" id="changeEntriesButton">Cambia numero righe</button>
 						</div>
 							<tr>
 								<th><input type="checkbox" id="checkboxAll">Seleziona tutto</th>

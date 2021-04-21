@@ -53,7 +53,7 @@ if(righe==null){
                                  <button type="submit" class="col-md-3 btn btn-danger" onclick="if(confirm('Sei sicuro di voler eliminare definitivamente queste operazioni dal database?')){submitForm('gestprenotazioni?cmd=elimina')}else{submitForm('gestprenotazioni?cmd=view')}">Elimina le Prenotazioni selezionate <i class="fas fa-trash-alt"></i></button>
                                     <thead>
                                      <div style="margin-bottom: 10px; margin-top: 20px;"">
-                                     <button type="button" class="col-md-1 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaPrenotazioni.jsp" id="changeEntriesButton">Cambia numero righe</button>
+                                     <button type="button" class="col-md-3 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaPrenotazioni.jsp" id="changeEntriesButton">Cambia numero righe</button>
                                   </div>
                                     
                                         <tr>
