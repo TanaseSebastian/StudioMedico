@@ -106,6 +106,30 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 					rd.forward(request, response);
 
 				}	
+				
+				
+				
+				//funzione che aggiorna i dati di una prenotazione
+				else if(comando.equals("fattura"))
+				{
+					
+					String id= request.getParameter("id");
+					Prenotazione p=new Prenotazione();
+					try {
+						db= new DBManager();
+						p = db.getPrenotazione(id);
+						db.close();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					//System.out.println(p.toString());
+					request.setAttribute("PRENOTAZIONE", p);
+					RequestDispatcher rd = request.getRequestDispatcher("inserisciFattura.jsp");
+					rd.forward(request, response);
+
+				}
 		
 		
 		

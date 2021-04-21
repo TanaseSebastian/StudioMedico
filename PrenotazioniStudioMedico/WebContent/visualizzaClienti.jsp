@@ -7,6 +7,12 @@
   Utente c;
 %>
 <%
+String righe=(String)session.getAttribute("numeroRighe");
+if(righe==null){
+	righe="10";
+}
+%>
+<%
 	DBManager db=new DBManager();
 	elenco = (ArrayList<Utente>)request.getAttribute("ELENCO_CLIENTI");
 	String messaggio =(String)session.getAttribute("MESSAGGIO");
@@ -40,11 +46,14 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<form action="" method="post" id="form">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-page-length=<%=righe%>>
+                                 <%request.getSession().setAttribute("numeroRighe", "10"); %>
                                 <h3>Una volta selezionati i clienti interessati è possibile eliminarli tramite l'apposita funzione:</h3>
                                  <button type="submit" class="col-md-3 btn btn-danger" onclick="if(confirm('Sei sicuro di voler eliminare definitivamente queste operazioni dal database?')){submitForm('gestutenti?cmd=elimina')}else{return false}">Elimina i clienti selezionati <i class="fas fa-trash-alt"></i></button>
-                                  <h3></h3>
                                     <thead>
+                                    <div style="margin-bottom: 10px; margin-top: 20px;"">
+                                     <button type="button" class="col-md-1 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaClienti.jsp" id="changeEntriesButton">Cambia numero righe</button>
+                                  </div>
                                         <tr>
                                         	<th><input type="checkbox" id="checkboxAll"> Seleziona tutto</th>
                                          	<th>Dettagli</th>

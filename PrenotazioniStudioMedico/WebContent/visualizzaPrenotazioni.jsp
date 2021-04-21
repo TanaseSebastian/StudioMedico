@@ -6,6 +6,12 @@
   int i;
   Prenotazione p;
 %>
+<%
+String righe=(String)session.getAttribute("numeroRighe");
+if(righe==null){
+	righe="10";
+}
+%>
 <%  String messaggio =(String)session.getAttribute("MESSAGGIO");
 	if(messaggio==null) messaggio="";
 	DBManager db=new DBManager();
@@ -37,14 +43,19 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<form action="" method="post" id="form">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" data-page-length=<%=righe%>>
+                                <%request.getSession().setAttribute("numeroRighe", "10"); %>
                                 <h3>Una volta selezionate le Prenotazioni interessate è possibile utilizzare le seguenti funzioni:</h3>
+                              <!--   <div style="margin-bottom: 30px;"> -->
 								<button type="submit" class="col-md-3 btn btn-success" onclick="if(confirm('Sei sicuro di voler modificare lo stato di queste operazioni in: Eseguita ?')){submitForm('gestprenotazioni?cmd=eseguita')}else{submitForm('gestprenotazioni?cmd=view')}">Cambia stato delle Prenotazioni selezionate in:<strong>Eseguite </strong>  <i class="far fa-calendar-check"></i></button>
                                  <button type="submit" class="col-md-3 btn btn-warning" onclick="if(confirm('Sei sicuro di voler modificare lo stato di queste operazioni in: Non eseguita ?')){submitForm('gestprenotazioni?cmd=noneseguita')}else{submitForm('gestprenotazioni?cmd=view')}">Cambia stato delle Prenotazioni selezionate in: <strong>Non Eseguite </strong> <i class="fas fa-times-circle"></i></button>
                                  <button type="submit" class="col-md-3 btn btn-primary" onclick="if(confirm('Sei sicuro di voler modificare lo stato di queste operazioni in: In attesa ?')){submitForm('gestprenotazioni?cmd=attesa')}else{submitForm('gestprenotazioni?cmd=view')}">Cambia stato delle Prenotazioni selezionate in: <strong>Attesa </strong> <i class="fas fa-user-clock"></i></button>
                                  <button type="submit" class="col-md-3 btn btn-danger" onclick="if(confirm('Sei sicuro di voler eliminare definitivamente queste operazioni dal database?')){submitForm('gestprenotazioni?cmd=elimina')}else{submitForm('gestprenotazioni?cmd=view')}">Elimina le Prenotazioni selezionate <i class="fas fa-trash-alt"></i></button>
-                                  <h3></h3>
                                     <thead>
+                                     <div style="margin-bottom: 10px; margin-top: 20px;"">
+                                     <button type="button" class="col-md-1 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaPrenotazioni.jsp" id="changeEntriesButton">Cambia numero righe</button>
+                                  </div>
+                                    
                                         <tr>
                                         	<th><input type="checkbox" id="checkboxAll"> Seleziona tutto</th>
                                         	<th>Stato</th>
@@ -81,7 +92,7 @@
 										 	<td><%=p.getDateTime()%></td>
 										 	<td><%= db.getDoctorName(String.valueOf(p.getCodDottore())) %></td>
 										 	<td><a href="gestprenotazioni?cmd=aggiorna&id=<%=p.getCodPrenotazione()%>"><i class="fas fa-user-edit"></i></a></td>
-										 	<td><a class="btn btn-outline-success" href="#">Crea fattura per questa prenotazione <i class="fas fa-file-invoice"></i></a></td>
+										 	<td><a class="btn btn-outline-success" href="gestprenotazioni?cmd=fattura&id=<%=p.getCodPrenotazione()%>">Crea fattura per questa prenotazione <i class="fas fa-file-invoice"></i></a></td>
 										 </tr>
 										 
 										  <%

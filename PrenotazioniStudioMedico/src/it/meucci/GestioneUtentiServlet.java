@@ -63,7 +63,7 @@ public class GestioneUtentiServlet extends HttpServlet {
 				
 				//ELENCO AMMINISTRATORI
 				request.setAttribute("ELENCO_AMMINISTRATORI", elenco);
-				RequestDispatcher rd = request.getRequestDispatcher("VisualizzaAmministratori.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("visualizzaAmministratori.jsp");
 				rd.forward(request, response);
 				
 				
@@ -320,9 +320,22 @@ String comando = request.getParameter("cmd");;
 				String requestPage=request.getParameter("page");
 				System.out.println("La request page è "+requestPage);
 				String righe=request.getParameter("select-entries");
-				request.setAttribute("numeroRighe", righe);
-				RequestDispatcher rd = request.getRequestDispatcher(requestPage);
-				rd.forward(request, response);
+				request.getSession().setAttribute("numeroRighe", righe);
+				RequestDispatcher rd;
+				switch (requestPage) {
+				case "visualizzaAmministratori.jsp":
+					response.sendRedirect("gestutenti?cmd=view");
+					break;
+				case "visualizzaClienti.jsp":
+					response.sendRedirect("gestutenti?cmd=viewall");
+					break;
+				case "visualizzaPrenotazioni.jsp":
+					response.sendRedirect("gestprenotazioni?cmd=viewall");
+					break;
+				case "visualizzaDottori.jsp":
+					response.sendRedirect(requestPage);
+					break;
+				}
 			}
 
 	}
