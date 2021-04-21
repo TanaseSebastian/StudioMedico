@@ -55,7 +55,7 @@
                                             <th>Data e ora</th>
                                             <th>Dottore</th>
                                             <th>Aggiorna</th>
-                                           <!--  <th>Fattura</th> -->
+                                            <th>Fattura</th> 
                                         </tr>
                                     </thead>
 										<tbody>
@@ -81,7 +81,7 @@
 										 	<td><%=p.getDateTime()%></td>
 										 	<td><%= db.getDoctorName(String.valueOf(p.getCodDottore())) %></td>
 										 	<td><a href="gestprenotazioni?cmd=aggiorna&id=<%=p.getCodPrenotazione()%>"><i class="fas fa-user-edit"></i></a></td>
-										 	<!-- <td><a class="btn btn-outline-success" href="#">Crea fattura per questa prenotazione <i class="fas fa-file-invoice"></i></a></td> -->
+										 	<td><a class="btn btn-outline-success" href="#">Crea fattura per questa prenotazione <i class="fas fa-file-invoice"></i></a></td>
 										 </tr>
 										 
 										  <%
