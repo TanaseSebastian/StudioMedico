@@ -59,7 +59,8 @@ CREATE TABLE fatture (
 codiceFattura INT NOT NULL AUTO_INCREMENT , 
 codicePrenotazione INT NOT NULL , 
 importo DECIMAL(8,2) NOT NULL ,
-dataEmissione DATE  NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+dataEmissione DATE NOT NULL ,
+documento BLOB NULL DEFAULT NULL,
  PRIMARY KEY (codiceFattura),
  FOREIGN KEY (codicePrenotazione) REFERENCES PRENOTAZIONI(codPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE
  );
@@ -73,6 +74,8 @@ insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW) values("GJGHGDFJTNF
 insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW) values("TTTTGDFJTNFTREJT","Seb", "Tanase", "Seba","sebastianlaszlo2002@gmail.com","3422222234",md5("ciao"));
 -- select * from dipartimenti;
 insert into dipartimenti(Nome,Piano,Phone) values("Cardiologia","1 Piano","0833212121"),("Neurologia","2 Piano","0833212122"),("Gastroenterologia ","3 Piano","0833212123"),("Pediatria","4 Piano","0833212124"),("Oculistica","5 Piano","0833212125");
+
+-- delete  from dottori;
 insert into dottori(NOME,COGNOME,PHONE,EMAIL,codDipartimento) values
 ("Mario","Rossi","3290987654","mariorossi@medilab.it",1),
 ("Matteo","Primiceri","3204567890","matteoprimiceri@medilab.it",1),
