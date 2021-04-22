@@ -59,7 +59,7 @@ CREATE TABLE fatture (
 codiceFattura INT NOT NULL AUTO_INCREMENT , 
 codicePrenotazione INT NOT NULL , 
 importo DECIMAL(8,2) NOT NULL ,
-dataEmissione DATE NOT NULL ,
+dataEmissione DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;,
 documento BLOB NULL DEFAULT NULL,
  PRIMARY KEY (codiceFattura),
  FOREIGN KEY (codicePrenotazione) REFERENCES PRENOTAZIONI(codPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE
