@@ -9,7 +9,7 @@
     String orario;
 	%>  
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -38,7 +38,19 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
+	<script type="text/javascript">
+   function googleTranslateElementInit() {
+   new google.translate.TranslateElement({pageLanguage: 'it',
+   includedLanguages: 'en,es,jv,pt,fr,de,ru,zh-CN',
+   layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false}, 'google_translate_element');
+	}
+</script>
+	
+	<script type="text/javascript" src=
+"https://translate.google.com/translate_a/element.js?
+		cb=googleTranslateElementInit">
+	</script>
 </head>
 
 <body>
@@ -50,10 +62,12 @@
         <i class="bi bi-envelope"></i> <a href="mailto:contact@example.com">contact@medilab.com</a>
         <i class="bi bi-phone"></i> +0833 57652
       </div>
+      
       <div class="d-none d-lg-flex social-links align-items-center">
-        <a href="#" ><img alt="" src="assets/img/italy.png" style="height:23px;"></a>
+      <div id="google_translate_element"></div>
+<!--         <a href="#" ><img alt="" src="assets/img/italy.png" style="height:23px;"></a>
         <a href="#" ><img alt="" src="assets/img/united-kingdom.png" style="height:23px;"></a>
-        <a href="#" ><img alt="" src="assets/img/china.png" style="height:23px;"></a>
+        <a href="#" ><img alt="" src="assets/img/china.png" style="height:23px;"></a> -->
       </div>
     </div>
   </div>
