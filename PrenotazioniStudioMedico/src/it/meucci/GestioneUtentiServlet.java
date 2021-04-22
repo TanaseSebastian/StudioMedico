@@ -196,6 +196,23 @@ String comando = request.getParameter("cmd");;
 			}
 		}
 		
+		else if(comando.equals("doctorregister")) {
+			String nome = request.getParameter("nome");
+			String cognome = request.getParameter("cognome");
+			String phone = request.getParameter("phone");
+			String email = request.getParameter("email");
+			int codDipartimento = (Integer.parseInt(request.getParameter("select-dipartimenti")));
+			try {
+				DBManager db = new DBManager();
+					db.insertDoctor(nome, cognome, phone, email, codDipartimento);
+					response.sendRedirect("visualizzaDottori.jsp");
+				db.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
 		else if(comando.equals("resetPassword"))
 		{
 			String cf = request.getParameter("codiceFiscale");

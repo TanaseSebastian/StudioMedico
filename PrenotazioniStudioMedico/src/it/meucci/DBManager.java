@@ -555,6 +555,18 @@ public class DBManager{
 	return nRighe;
 	}
 	
+	public int insertDoctor( String nome, String cognome, String phone, String email, int codDipartimento )
+			throws Exception {
+		String sql = "INSERT INTO DOTTORI(nome,cognome,phone,email,codDipartimento)  VALUES (?,?,?,?,?);";
+		PreparedStatement pstm=connessione.prepareStatement(sql);
+		pstm.setString(1,nome);
+		pstm.setString(2,cognome);
+		pstm.setString(3,phone);
+		pstm.setString(4,email);
+		pstm.setInt(5,codDipartimento);
+		int nRighe= pstm.executeUpdate();
+		return nRighe;
+	}
 	/*
 	public int modifyCustomer(Cliente c) throws Exception
 	{
