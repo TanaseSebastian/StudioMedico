@@ -92,7 +92,11 @@ if(righe==null){
 										 	<td><%=p.getDateTime()%></td>
 										 	<td><%= db.getDoctorName(String.valueOf(p.getCodDottore())) %></td>
 										 	<td><a href="gestprenotazioni?cmd=aggiorna&id=<%=p.getCodPrenotazione()%>"><i class="fas fa-user-edit"></i></a></td>
+										 	<%if(p.getStato().equals("Eseguita")){ %>
 										 	<td><a class="btn btn-outline-success" href="gestprenotazioni?cmd=fattura&id=<%=p.getCodPrenotazione()%>">Crea fattura per questa prenotazione <i class="fas fa-file-invoice"></i></a></td>
+											<%}else{%>
+											<td><a class="btn btn-outline-warning">Eseguire prima la prenotazione<i class="fas fa-file-invoice"></i></a></td>
+											<%}%>
 										 </tr>
 										 
 										  <%

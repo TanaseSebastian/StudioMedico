@@ -27,118 +27,107 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 @WebServlet("/gestprenotazioni")
 public class GestionePrenotazioniServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GestionePrenotazioniServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public GestionePrenotazioniServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String comando = request.getParameter("cmd");
 		DBManager db;
-		
-		
-		
-		
-		//funzione che visualizza e restituisce alla jsp i dettagli di un prodotto
-				if(comando.equals("visualizza"))
-				{
-					
-					String id= request.getParameter("id");
-					Prenotazione p=new Prenotazione();
-					try {
-						db= new DBManager();
-						p = db.getPrenotazione(id);
-						db.close();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					//System.out.println(p.toString());
-					request.setAttribute("PRENOTAZIONE", p);
-					RequestDispatcher rd = request.getRequestDispatcher("dettaglioPrenotazione.jsp");
-					rd.forward(request, response);
 
-				}
-				
-		
-				else if(comando.equals("viewall")) {
-					ArrayList<Prenotazione> elenco= new ArrayList<Prenotazione>();
-					try 
-					{
-						db= new DBManager();
-						elenco=db.getPrenotazioni();
-						db.close();
-						
-						//ELENCO PRENOTAZIONI
-						request.setAttribute("ELENCO_PRENOTAZIONI", elenco);
-						RequestDispatcher rd = request.getRequestDispatcher("visualizzaPrenotazioni.jsp");
-						rd.forward(request, response);
-						
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-						response.sendRedirect("404.jsp");
-						// TODO: handle exception
-					}
-				}
-		
-		//funzione che aggiorna i dati di una prenotazione
-				else if(comando.equals("aggiorna"))
-				{
-					
-					String id= request.getParameter("id");
-					Prenotazione p=new Prenotazione();
-					try {
-						db= new DBManager();
-						p = db.getPrenotazione(id);
-						db.close();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					//System.out.println(p.toString());
-					request.setAttribute("PRENOTAZIONE", p);
-					RequestDispatcher rd = request.getRequestDispatcher("aggiornaPrenotazione.jsp");
-					rd.forward(request, response);
+		// funzione che visualizza e restituisce alla jsp i dettagli di un prodotto
+		if (comando.equals("visualizza")) {
 
-				}	
-				
-				
-				
-				//funzione che aggiorna i dati di una prenotazione
-				else if(comando.equals("fattura"))
-				{
-					
-					String id= request.getParameter("id");
-					Prenotazione p=new Prenotazione();
-					try {
-						db= new DBManager();
-						p = db.getPrenotazione(id);
-						db.close();
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					//System.out.println(p.toString());
-					request.setAttribute("PRENOTAZIONE", p);
-					RequestDispatcher rd = request.getRequestDispatcher("inserisciFattura.jsp");
-					rd.forward(request, response);
+			String id = request.getParameter("id");
+			Prenotazione p = new Prenotazione();
+			try {
+				db = new DBManager();
+				p = db.getPrenotazione(id);
+				db.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-				}
-		
-		
-		
+			// System.out.println(p.toString());
+			request.setAttribute("PRENOTAZIONE", p);
+			RequestDispatcher rd = request.getRequestDispatcher("dettaglioPrenotazione.jsp");
+			rd.forward(request, response);
+
+		}
+
+		else if (comando.equals("viewall")) {
+			ArrayList<Prenotazione> elenco = new ArrayList<Prenotazione>();
+			try {
+				db = new DBManager();
+				elenco = db.getPrenotazioni();
+				db.close();
+
+				// ELENCO PRENOTAZIONI
+				request.setAttribute("ELENCO_PRENOTAZIONI", elenco);
+				RequestDispatcher rd = request.getRequestDispatcher("visualizzaPrenotazioni.jsp");
+				rd.forward(request, response);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendRedirect("404.jsp");
+				// TODO: handle exception
+			}
+		}
+
+		// funzione che aggiorna i dati di una prenotazione
+		else if (comando.equals("aggiorna")) {
+
+			String id = request.getParameter("id");
+			Prenotazione p = new Prenotazione();
+			try {
+				db = new DBManager();
+				p = db.getPrenotazione(id);
+				db.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// System.out.println(p.toString());
+			request.setAttribute("PRENOTAZIONE", p);
+			RequestDispatcher rd = request.getRequestDispatcher("aggiornaPrenotazione.jsp");
+			rd.forward(request, response);
+
+		}
+
+		// funzione che aggiorna i dati di una prenotazione
+		else if (comando.equals("fattura")) {
+
+			String id = request.getParameter("id");
+			Prenotazione p = new Prenotazione();
+			try {
+				db = new DBManager();
+				p = db.getPrenotazione(id);
+				db.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// System.out.println(p.toString());
+			request.setAttribute("PRENOTAZIONE", p);
+			RequestDispatcher rd = request.getRequestDispatcher("inserisciFattura.jsp");
+			rd.forward(request, response);
+
+		}
+
 	}
 
 	/**
@@ -197,7 +186,7 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 				
 				
 				//invio dell'email con i parametri
-				sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare);
+				sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare,null,null);
 				
 				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice è stato eseguito correttamente
 				String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
@@ -273,7 +262,7 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 			
 			
 			//invio dell'email con i parametri
-			sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare);
+			sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare,null,null);
 			
 			//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice è stato eseguito correttamente
 			String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
@@ -523,49 +512,44 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 			Fattura f = new Fattura();
 			f.setCodicePrenotazione(request.getParameter("codPrenotazione"));
 			f.setPrezzo(Integer.parseInt(request.getParameter("Prezzo")));
-			String file="/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
+			String filePATH="/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
+			String allegatoName="fattura.pdf";
+			String messaggio="<!DOCTYPE html>"
+					+ "<html lang='en'>"
+					+ " <head>"
+					+ "<meta charset='UTF-8'>"
+							+ "<meta http-equiv='X-UA-Compatible' content='IE=edge'>"
+									+ "<meta name='viewport' content='width=device-width, initial-scale=1.0\'>"
+							+ "<title>Messaggio</title>"
+							+ "</head>"
+							+ "<body style='text-align: center; font-size: larger;'>"
+							+ "<p style=\"color: #2C4964; font-size:40px; font-weight: 900; font-family:sans-serif;\">Medilab</p>"
+									+ "<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Gentile cliente, Medilab la ringrazia per aver eseguito l'appuntamento presso il nostro studio medico.</p>"
+											+ "<p>Le riportiamo di seguito la copia della fattura sulla visita da lei effettuata:</p>"			
+					+"<p style=\"color: yellowgreen;\"><strong>Per qualsiasi dubbio o problema non esitare a contattarci tramite telefono o email,siamo a vostra disposizione.</strong></p>"
+					+"<p style=\"color: #2C4964; font-size: x-large; font-weight: 900;\">Medilab le augura una buona giornata.</p>"
+					+"</body>"
+					+"</html>";
+		
 		try {
 			pdf=new createFatturaPDF();
 			pdf.stampa(f);
 			System.out.println("funzione stampa fattura eseguita");
+			DBManager db=new DBManager();
+			System.out.println("inserimento fattura");
+			db.insertFattura(f,filePATH);	
+			SendMail sender = new SendMail();
+			String RECIPIENT=db.getEmail(request.getParameter("cf"));
+			String[] to = { RECIPIENT }; // list of recipient email addresses
+			//invio dell'email con i parametri
+			System.out.println("invio email");
+			sender.sendFromGMail(to, "Medilab,Copia della Fattura",messaggio,filePATH,allegatoName);
+			System.out.println("email inviata con successo");
+			db.close();	
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-
-		try {
-			DBManager db=new DBManager();
-			db.insertFattura(f,file);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		/*
-		 * //pdf convertito in flusso di byte e inviato all'interno del browser
-		 * 
-		 * OutputStream out =null; String filePath=
-		 * "/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
-		 * File file=new File(filePath); if(file.exists()) { out =
-		 * response.getOutputStream();
-		 * response.setContentType("application/pdf;charset=UTF-8");
-		 * response.setHeader("Content-Disposition","inline;filename=fattura.pdf");
-		 * FileInputStream fis = new FileInputStream(file); ByteArrayOutputStream bos =
-		 * new ByteArrayOutputStream(); byte[] buf = new byte [4096];
-		 * 
-		 * try { for (int readNum; (readNum = fis.read(buf)) != -1;) { bos.write(buf, 0
-		 * ,readNum); } } catch (Exception e) { e.printStackTrace(); }
-		 * 
-		 * byte[] bytes =bos.toByteArray(); int lengthRead = 0; InputStream is = new
-		 * ByteArrayInputStream(bytes);
-		 * 
-		 * while ((lengthRead = is.read(buf)) > 0) { out.write(buf); }
-		 * 
-		 * fis.close(); bos.close(); is.close(); out.close();
-		 * 
-		 * }
-		 */
 		
 		
 		response.sendRedirect("visualizzaFatture.jsp");

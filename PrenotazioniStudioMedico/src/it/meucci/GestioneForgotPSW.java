@@ -82,14 +82,14 @@ public class GestioneForgotPSW extends HttpServlet {
 	        int new_code;
 	         new_code = 10000 + new Random().nextInt(90000); // 10000 - 99999
 	         code=new_code;
-	         System.out.println("il codice è :"+code);
+	         System.out.println("il codice ï¿½ :"+code);
 	         
 	         
 		        SendMail sender = new SendMail();
 		 		String RECIPIENT=email;
 		 		String[] to = { RECIPIENT }; // list of recipient email addresses
 		        String subject = "Codice di verifica per il recupero della password";
-		        String body = "Gentile utente il suo codice di verifica è il seguente : "+code+ " la preghiamo di inserirlo nel sito per autenticare l'account";
+		        String body = "Gentile utente il suo codice di verifica ï¿½ il seguente : "+code+ " la preghiamo di inserirlo nel sito per autenticare l'account";
 		        
 				String messaggioDaInviare ="<!DOCTYPE html>"
 						+ "<html lang='en'>"
@@ -110,7 +110,7 @@ public class GestioneForgotPSW extends HttpServlet {
 						
 		        
 		      //invio dell'email con i parametri
-				sender.sendFromGMail(to, subject,messaggioDaInviare);
+				sender.sendFromGMail(to, subject,messaggioDaInviare,null,null);
 		        
 		        response.sendRedirect("ForgotPSW\\verifyCode.html");
 			

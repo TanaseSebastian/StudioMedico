@@ -63,7 +63,7 @@ if(righe==null){
 						</button>
 						<thead>
 						<div style="margin-bottom: 10px; margin-top: 20px;"">
-                                     <button type="button" class="col-md-3 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaDottori.jsp" id="changeEntriesButton">Cambia numero righe</button>
+                                     <button type="button" class="col-md-3 btn btn-outline-primary ml-10 " data-target="#chooseEntries" data-toggle="modal" data-id="visualizzaFatture.jsp" id="changeEntriesButton">Cambia numero righe</button>
 						</div>
 							<tr>
 								<th><input type="checkbox" id="checkboxAll">Seleziona tutto</th>
@@ -82,7 +82,7 @@ if(righe==null){
 						<td><c:out value="${row.codicePrenotazione}" /></td>
 						<td><c:out value="${row.importo}" /></td>
 						<td><c:out value="${row.dataEmissione}" /></td>
-						<td><a class="btn btn-outline-success" href="gestfatture?cmd=fattura&id=${row.codiceFattura}">Visualizza fattura <i class="fas fa-file-invoice"></i></a></td>
+						<td><a class="btn btn-outline-success" href="gestfatture?cmd=visualizzaFattura&id=${row.codiceFattura}" target="_blank">Visualizza fattura <i class="fas fa-file-invoice"></i></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

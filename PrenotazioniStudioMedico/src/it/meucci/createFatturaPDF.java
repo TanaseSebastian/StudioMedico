@@ -20,6 +20,12 @@ public class createFatturaPDF {
 
 	public void stampa(Fattura f) throws Exception
 	{
+		DBManager db = new DBManager();
+		int prezzo=f.getPrezzo();
+		int iva=(f.getPrezzo()*15)/100;
+		int totale=prezzo+iva;
+		String nome=db.getPrestazioneName(f.getCodicePrenotazione());
+		
 		String outputFileName = "/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
         // Create a document and add a page to it
         PDDocument document = new PDDocument();
@@ -51,11 +57,8 @@ public class createFatturaPDF {
 		
 		  // Define a text content stream using the selected font, move the cursor and draw some text
 		  cos.beginText(); cos.setFont(fontBold, 40);
-		  cos.setNonStrokingColor(Color.black); cos.newLineAtOffset(190,
-		  rect.getHeight() - 50*(++line)); cos.showText("FATTURA n.1"); cos.endText();
-		 
-        
-		
+		  cos.setNonStrokingColor(Color.black); cos.newLineAtOffset(200,
+		  rect.getHeight() - 50*(++line)); cos.showText("FATTURA"); cos.endText();
 		  cos.beginText(); cos.setFont(fontPlain, 12);
 		  cos.setNonStrokingColor(Color.BLACK); cos.newLineAtOffset(60,
 		  rect.getHeight() - 320*(++line)); cos.showText("Medilab S.R.L");
@@ -78,18 +81,18 @@ public class createFatturaPDF {
 		  //prestazione
 		  cos.beginText(); cos.setFont(fontBold, 15);
 		  cos.setNonStrokingColor(Color.BLACK); cos.newLineAtOffset(60,
-		  rect.getHeight() - 50*(++line)); cos.showText("NOME PRESTAZIONE");
+		  rect.getHeight() - 50*(++line)); cos.showText(nome);
 		  cos.endText();
 		  //prezzo
 		  cos.beginText(); cos.setFont(fontMono, 12);
 		  cos.setNonStrokingColor(Color.BLACK); cos.newLineAtOffset(410,
-		  rect.getHeight() - 50*(line)); cos.showText("$120,00");
+		  rect.getHeight() - 50*(line)); cos.showText("€"+ prezzo);
 		  cos.endText();
 		  
 		  //totale
 		  cos.beginText(); cos.setFont(fontBold, 12);
 		  cos.setNonStrokingColor(Color.BLACK); cos.newLineAtOffset(490,
-		  rect.getHeight() - 50*(line)); cos.showText("$120,00");
+		  rect.getHeight() - 50*(line)); cos.showText("€"+prezzo);
 		  cos.endText();
 		  
 		  
@@ -97,60 +100,19 @@ public class createFatturaPDF {
 		  //area sub totale,iva,totale
 		  cos.beginText(); cos.setFont(fontMono, 12);
 		  cos.setNonStrokingColor(Color.BLACK); cos.newLineAtOffset(480,
-		  rect.getHeight() - 73*(line)); cos.showText("$120,00");
+		  rect.getHeight() - 73*(line)); cos.showText("€"+prezzo);
 		  cos.endText();
 		  
 		  cos.beginText(); cos.setFont(fontMono, 12);
 		  cos.setNonStrokingColor(Color.BLACK); cos.newLineAtOffset(480,
-		  rect.getHeight() - 75*(line)); cos.showText("$120,00");
+		  rect.getHeight() - 75*(line)); cos.showText("€"+iva);
 		  cos.endText();
 		  
 		  cos.beginText(); cos.setFont(fontBold, 15);
 		  cos.setNonStrokingColor(Color.BLACK); cos.newLineAtOffset(480,
-		  rect.getHeight() - 78*(line)); cos.showText("$120,00");
+		  rect.getHeight() - 78*(line)); cos.showText("€ "+totale);
 		  cos.endText();
 		  
-		  
-		  
-		  /*
-		 * cos.beginText(); cos.setFont(fontItalic, 12); cos.newLineAtOffset(100,
-		 * rect.getHeight() - 50*(++line)); cos.showText("Italic"); cos.endText();
-		 * 
-		 * cos.beginText(); cos.setFont(fontBold, 12); cos.newLineAtOffset(100,
-		 * rect.getHeight() - 50*(++line)); cos.showText("Bold"); cos.endText();
-		 * 
-		 * cos.beginText(); cos.setFont(fontMono, 12);
-		 * cos.setNonStrokingColor(Color.BLUE); cos.newLineAtOffset(100,
-		 * rect.getHeight() - 50*(++line)); cos.showText("Monospaced blue");
-		 * cos.endText();
-		 * 
-		 * 
-		 * 
-		 * 
-		 * // draw a red box in the lower left hand corner
-		 * cos.setNonStrokingColor(Color.RED); cos.addRect(10, 10, 100, 100);
-		 * cos.fill();
-		 * 
-		 * // add two lines of different widths cos.setLineWidth(1); cos.moveTo(300,
-		 * 650); cos.lineTo(500, 650); cos.closeAndStroke(); cos.setLineWidth(5);
-		 * cos.moveTo(200, 300); cos.lineTo(400, 300); cos.closeAndStroke();
-		 * 
-		 * 
-		 * // Make sure that the content stream is closed: cos.close();
-		 * 
-		 * PDPage page2 = new PDPage(PDRectangle.A4); document.addPage(page2); cos = new
-		 * PDPageContentStream(document, page2);
-		 * 
-		 * // draw a red box in the lower left hand corner
-		 * cos.setNonStrokingColor(Color.RED); cos.addRect(10, 10, 100, 100);
-		 * cos.fill();
-		 * 
-		 * // add two lines of different widths cos.setLineWidth(1); cos.moveTo(200,
-		 * 250); cos.lineTo(400, 250); cos.closeAndStroke(); cos.setLineWidth(5);
-		 * cos.moveTo(200, 300); cos.lineTo(400, 300); cos.closeAndStroke();
-		 */
-
-       
 
         // close the content stream for page 2
         cos.close();
