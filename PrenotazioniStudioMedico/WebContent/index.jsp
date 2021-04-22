@@ -51,10 +51,9 @@
         <i class="bi bi-phone"></i> +0833 57652
       </div>
       <div class="d-none d-lg-flex social-links align-items-center">
-        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+        <a href="#" ><img alt="" src="assets/img/italy.png" style="height:23px;"></a>
+        <a href="#" ><img alt="" src="assets/img/united-kingdom.png" style="height:23px;"></a>
+        <a href="#" ><img alt="" src="assets/img/china.png" style="height:23px;"></a>
       </div>
     </div>
   </div>
