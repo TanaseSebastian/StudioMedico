@@ -1,12 +1,12 @@
 <%@ page language="java" import="it.meucci.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	Prenotazione p = (Prenotazione)request.getAttribute("PRENOTAZIONE");
+   Prenotazione p = (Prenotazione)request.getAttribute("PRENOTAZIONE");
 	String orario;
 	DBManager db=new DBManager();
 %>
-<%@include file="header.jsp"%>
 
+   <%@include file="header.jsp" %>
 <!-- Custom styles for this page -->
 
 
@@ -21,7 +21,7 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-	<form class="form-horizontal" method="post" action="gestprenotazioni?cmd=inviaprenotazione">
+	<form class="form-horizontal" method="post" action="gestprenotazioni?cmd=stampaFattura">
 		<fieldset>
 			<!-- Form Name -->
 			<legend>Inserisci dati della fattura</legend>
@@ -87,7 +87,7 @@
 	</div>
 	<div class="text-center" style="margin-top: 30px;">
 	<button type="reset" class="btn btn-danger" id="elimina" name="elimina">Annulla</button>
-			<button type="submit" class="btn btn-success">Conferma Fattura e invia al cliente</button>
+			<a type="submit" class="btn btn-success" target="_blank" onclick="this.closest('form').submit();return false;">Conferma Fattura e invia al cliente</a>
 	</div>
 	</fieldset>
 	</form>

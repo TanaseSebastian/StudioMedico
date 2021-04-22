@@ -1,7 +1,11 @@
 package it.meucci;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +18,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 /**
  * Servlet implementation class GestionePrenotazioniServlet
@@ -293,9 +299,6 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		}
 }
 		
-		
-		
-		
 		else if(comando.equals("getoptions")) {
 			String dipartimento=request.getParameter("select-dipartimenti");
 			System.out.println("dipartimento slezionato dall'utente :"+dipartimento);
@@ -513,13 +516,62 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		}
 }
 		
+		else if(comando.equals("stampaFattura"))
+		{
+			
+			createFatturaPDF pdf;
+			Fattura f = new Fattura();
+			f.setCodicePrenotazione(request.getParameter("codPrenotazione"));
+			f.setPrezzo(Integer.parseInt(request.getParameter("Prezzo")));
+			String file="/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
+		try {
+			pdf=new createFatturaPDF();
+			pdf.stampa(f);
+			System.out.println("funzione stampa fattura eseguita");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
+		try {
+			DBManager db=new DBManager();
+			db.insertFattura(f,file);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		/*
+		 * //pdf convertito in flusso di byte e inviato all'interno del browser
+		 * 
+		 * OutputStream out =null; String filePath=
+		 * "/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
+		 * File file=new File(filePath); if(file.exists()) { out =
+		 * response.getOutputStream();
+		 * response.setContentType("application/pdf;charset=UTF-8");
+		 * response.setHeader("Content-Disposition","inline;filename=fattura.pdf");
+		 * FileInputStream fis = new FileInputStream(file); ByteArrayOutputStream bos =
+		 * new ByteArrayOutputStream(); byte[] buf = new byte [4096];
+		 * 
+		 * try { for (int readNum; (readNum = fis.read(buf)) != -1;) { bos.write(buf, 0
+		 * ,readNum); } } catch (Exception e) { e.printStackTrace(); }
+		 * 
+		 * byte[] bytes =bos.toByteArray(); int lengthRead = 0; InputStream is = new
+		 * ByteArrayInputStream(bytes);
+		 * 
+		 * while ((lengthRead = is.read(buf)) > 0) { out.write(buf); }
+		 * 
+		 * fis.close(); bos.close(); is.close(); out.close();
+		 * 
+		 * }
+		 */
 		
 		
+		response.sendRedirect("visualizzaFatture.jsp");
 		
-		
-		
-		
-		
+		}
+
 	}
 
 }

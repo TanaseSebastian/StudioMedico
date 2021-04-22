@@ -120,7 +120,7 @@
             </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-<!--             <li class="nav-item">
+             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
                     aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
@@ -130,11 +130,11 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Modalità:</h6>
-                        <a class="collapse-item" href="#">Visualizza Fatture</a>
-                        <a class="collapse-item" href="#">Inserisci Fattura</a>
-                    </div>
+                        <a class="collapse-item" href="visualizzaFatture.jsp">Visualizza Fatture</a>
+                        <!-- <a class="collapse-item" href="#">Inserisci Fattura</a>
+ -->                    </div>
                 </div>
-            </li> -->
+            </li> 
 
 
 <!--             Nav Item - Pages Collapse Menu

@@ -1,11 +1,12 @@
 package it.meucci;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -538,29 +539,23 @@ public class DBManager{
 					return u;
 				}
 	
-	/*
 	
-	public int insertCustomer(Cliente c) throws Exception
+	
+	public int insertFattura(Fattura f,String file) throws Exception
 	{
 	int nRighe=0;
-	String sqlInsert = "INSERT INTO CLIENTI VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+	File theFile = new File(file);
+	FileInputStream input = new FileInputStream(theFile);
+	String sqlInsert = "INSERT INTO fatture(codicePrenotazione,importo,documento) VALUES (?,?,?)";
 	PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
-	pstm.setString(1, c.getId());
-	pstm.setString(2, c.getCompanyName());
-	pstm.setString(3, c.getContactName ());
-	pstm.setString(4, c.getContactTitle());
-	pstm.setString (5, c.getAddress());
-	pstm.setString(6, c.getCity());
-	pstm.setString(7, c.getRegion());
-	pstm.setString(8, c.getPostalCode());
-	pstm.setString (9, c.getCountry());
-	pstm.setString(10, c.getPhone());
-	pstm.setString(11, c.getFax());
+	pstm.setString(1, f.getCodicePrenotazione());
+	pstm.setInt(2, f.getPrezzo());
+	pstm.setBinaryStream(3, input);
 	nRighe= pstm.executeUpdate();
 	return nRighe;
 	}
 	
-	
+	/*
 	public int modifyCustomer(Cliente c) throws Exception
 	{
 	int nRighe=0;
