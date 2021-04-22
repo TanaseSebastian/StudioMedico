@@ -51,7 +51,7 @@
 	<style>
 		#google_translate_element {
 	 position: absolute;
-	margin-left: -5%;
+	margin-left: -10%;
 	
 }
  .goog-te-gadget {
