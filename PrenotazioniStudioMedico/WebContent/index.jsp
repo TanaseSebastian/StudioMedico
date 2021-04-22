@@ -9,7 +9,7 @@
     String orario;
 	%>  
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
   <meta charset="utf-8">
@@ -41,16 +41,73 @@
 	<script type="text/javascript">
    function googleTranslateElementInit() {
    new google.translate.TranslateElement({pageLanguage: 'it',
-   includedLanguages: 'en,es,jv,pt,fr,de,ru,zh-CN',
+   includedLanguages: 'it,en,es,jv,pt,fr,de,ru,zh-CN',
    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
     autoDisplay: false}, 'google_translate_element');
 	}
 </script>
 	
-	<script type="text/javascript" src=
-"https://translate.google.com/translate_a/element.js?
-		cb=googleTranslateElementInit">
-	</script>
+	<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+	<style>
+		#google_translate_element {
+	 position: absolute;
+	margin-left: -5%;
+	
+}
+ .goog-te-gadget {
+	 font-family: "Raleway", sans-serif;
+	 font-weight: bold; 
+}
+
+ .goog-te-gadget-simple {
+ 			padding: 5px;
+			background-color: #white;
+			border: 2px solid #298ce5;
+			border-radius: 18px;
+			font-size: 12pt;
+			display: inline-block;
+			cursor: pointer;
+			margin-top: 10px;
+			zoom: 1;
+			display: inline;
+			text-align: left;
+			
+}
+
+ .goog-te-menu2 {
+	 width: 100%;
+}
+
+ .goog-te-menu-value {
+	 color: #298ce5 !important;
+}
+
+ .goog-te-menu-value span:nth-child(5) {
+ 	color: red;
+	 display: none;
+}
+ .goog-te-menu-value span:nth-child(3) {
+	 border: none !important;
+	 font-family: 'Calibri';
+}
+
+ .goog-te-gadget-icon {
+	 background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Globe_Atlantic.svg/1200px-Globe_Atlantic.svg.png");
+	 background-position: 0px 0px;
+	 height: 0px !important;
+	 width: 0px !important;
+	 margin-right: 1px !important;
+	 direction: none;
+}
+ .goog-te-banner-frame.skiptranslate {
+	 display: none !important;
+	 color: red;
+}
+
+/* ================================== *\ Mediaqueries \* ================================== */
+ 
+	</style>
+	
 </head>
 
 <body>
@@ -64,10 +121,16 @@
       </div>
       
       <div class="d-none d-lg-flex social-links align-items-center">
-      <div id="google_translate_element"></div>
-<!--         <a href="#" ><img alt="" src="assets/img/italy.png" style="height:23px;"></a>
+      <div id="google_translate_element" >
+    
+      </div>
+      
+      
+<!--     <a href="#" ><img alt="" src="assets/img/italy.png" style="height:23px;"></a>
         <a href="#" ><img alt="" src="assets/img/united-kingdom.png" style="height:23px;"></a>
         <a href="#" ><img alt="" src="assets/img/china.png" style="height:23px;"></a> -->
+        
+        
       </div>
     </div>
   </div>
