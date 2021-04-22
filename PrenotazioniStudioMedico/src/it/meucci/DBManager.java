@@ -1,6 +1,10 @@
 package it.meucci;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 
 public class DBManager{
@@ -346,6 +352,7 @@ public class DBManager{
 	}
 	
 	
+	
 	//funzione che elimina un array di Ogetti di tipo Prenotazione
 	
 	public int deletePrenotazioni(String[] id) throws Exception 
@@ -476,7 +483,7 @@ public class DBManager{
 					return nRighe;
 				}
 				
-				//funzione che elimina un array di Ogetti di tipo Cliente
+				//funzione che elimina un array di Oggetti di tipo Cliente
 				
 				public int deleteClienti(String[] id) throws Exception 
 				{
@@ -552,6 +559,34 @@ public class DBManager{
 	pstm.setInt(2, f.getPrezzo());
 	pstm.setBinaryStream(3, input);
 	nRighe= pstm.executeUpdate();
+	return nRighe;
+	}
+	
+	public int viewFattura(String id) throws Exception
+	{
+	int nRighe=0;
+	String sql = "select documento from fatture where codiceFattura=?";
+	PreparedStatement pstm=connessione.prepareStatement(sql);
+	pstm.setString(1, id);
+	
+	// 3. Set up a handle to the file
+	File theFile = new File("/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/documento.pdf");
+	FileOutputStream output = new FileOutputStream(theFile);
+	rs=pstm.executeQuery();
+	if (rs.next()) {
+
+		InputStream input = rs.getBinaryStream("documento"); 
+		System.out.println("sto leggendo il documeto dal database...");
+		
+		byte[] buffer = new byte[1024];
+		while (input.read(buffer) > 0) {
+			output.write(buffer);
+		}
+		
+		System.out.println("\nIl file è stato salvato in: " + theFile.getAbsolutePath());
+		
+		System.out.println("\nCompletato con successo!");
+	}
 	return nRighe;
 	}
 	

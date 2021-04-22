@@ -332,7 +332,7 @@ String comando = request.getParameter("cmd");;
 				case "visualizzaPrenotazioni.jsp":
 					response.sendRedirect("gestprenotazioni?cmd=viewall");
 					break;
-				case "visualizzaDottori.jsp":
+				default:
 					response.sendRedirect(requestPage);
 					break;
 				}
