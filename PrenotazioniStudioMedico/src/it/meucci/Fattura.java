@@ -3,7 +3,7 @@ package it.meucci;
 public class Fattura {
 
 	String codiceFattura,codicePrenotazione,dataEmissione;
-	int prezzo;
+	double prezzo;
 	public String getCodiceFattura() {
 		return codiceFattura;
 	}
@@ -22,13 +22,13 @@ public class Fattura {
 	public void setDataEmissione(String dataEmissione) {
 		this.dataEmissione = dataEmissione;
 	}
-	public int getPrezzo() {
+	public double getPrezzo() {
 		return prezzo;
 	}
-	public void setPrezzo(int prezzo) {
+	public void setPrezzo(double prezzo) {
 		this.prezzo = prezzo;
 	}
-	public Fattura(String codiceFattura, String codicePrenotazione, String dataEmissione, int prezzo) {
+	public Fattura(String codiceFattura, String codicePrenotazione, String dataEmissione, double prezzo) {
 		super();
 		this.codiceFattura = codiceFattura;
 		this.codicePrenotazione = codicePrenotazione;
@@ -43,6 +43,6 @@ public class Fattura {
 		return "Fattura [codiceFattura=" + codiceFattura + ", codicePrenotazione=" + codicePrenotazione
 				+ ", dataEmissione=" + dataEmissione + ", prezzo=" + prezzo + "]";
 	}
-	
+
 	
 }

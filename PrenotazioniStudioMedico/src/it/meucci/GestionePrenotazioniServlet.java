@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -507,12 +508,19 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		
 		else if(comando.equals("stampaFattura"))
 		{
+			// Leggo le proprietà da file properties
+			Properties prop;
+			ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+			prop = obj.loadProperties("DB.properties");
+			String pathStampe = prop.getProperty("pathStampe");
+			String pathStileFattura = prop.getProperty("pathStileFattura");
 			
 			createFatturaPDF pdf;
 			Fattura f = new Fattura();
 			f.setCodicePrenotazione(request.getParameter("codPrenotazione"));
-			f.setPrezzo(Integer.parseInt(request.getParameter("Prezzo")));
-			String filePATH="/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
+			f.setPrezzo(Double.parseDouble(request.getParameter("Prezzo")));
+			
+			String filePATH=pathStampe+"fattura.pdf";
 			String allegatoName="fattura.pdf";
 			String messaggio="<!DOCTYPE html>"
 					+ "<html lang='en'>"

@@ -556,7 +556,7 @@ public class DBManager{
 	String sqlInsert = "INSERT INTO fatture(codicePrenotazione,importo,documento) VALUES (?,?,?)";
 	PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
 	pstm.setString(1, f.getCodicePrenotazione());
-	pstm.setInt(2, f.getPrezzo());
+	pstm.setDouble(2, f.getPrezzo());
 	pstm.setBinaryStream(3, input);
 	nRighe= pstm.executeUpdate();
 	return nRighe;
@@ -574,6 +574,8 @@ public class DBManager{
 		int nRighe= pstm.executeUpdate();
 		return nRighe;
 	}
+	
+	//metodo per vedere le fatture
 	public int viewFattura(String id) throws Exception
 	{
 	int nRighe=0;
@@ -582,7 +584,14 @@ public class DBManager{
 	pstm.setString(1, id);
 	
 	// 3. Set up a handle to the file
-	File theFile = new File("/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/documento.pdf");
+	
+	// Leggo le proprietà da file properties
+			Properties prop;
+			ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+			prop = obj.loadProperties("DB.properties");
+			String pathStampe = prop.getProperty("pathStampe");
+	
+	File theFile = new File(pathStampe+"documento.pdf");
 	FileOutputStream output = new FileOutputStream(theFile);
 	rs=pstm.executeQuery();
 	if (rs.next()) {

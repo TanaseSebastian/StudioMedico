@@ -3,6 +3,7 @@ package it.meucci;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -20,13 +21,23 @@ public class createFatturaPDF {
 
 	public void stampa(Fattura f) throws Exception
 	{
+		
 		DBManager db = new DBManager();
-		int prezzo=f.getPrezzo();
-		int iva=(f.getPrezzo()*15)/100;
-		int totale=prezzo+iva;
+		double prezzo=f.getPrezzo();
+		double iva=round((f.getPrezzo()*15)/100, 2);
+		double totale=prezzo+iva;
 		String nome=db.getPrestazioneName(f.getCodicePrenotazione());
 		
-		String outputFileName = "/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/fattura.pdf";
+		// Leggo le proprietà da file properties
+		Properties prop;
+		ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+		prop = obj.loadProperties("DB.properties");
+		String pathStampe = prop.getProperty("pathStampe");
+		String pathStileFattura = prop.getProperty("pathStileFattura");
+		
+		
+		
+		String outputFileName = pathStampe+"fattura.pdf";
         // Create a document and add a page to it
         PDDocument document = new PDDocument();
         PDPage page1 = new PDPage(PDRectangle.A4);
@@ -47,7 +58,7 @@ public class createFatturaPDF {
         int line = 0;
         // add an image
         try {
-            PDImageXObject ximage = PDImageXObject.createFromFile("/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/assets/img/simple2.png", document);
+            PDImageXObject ximage = PDImageXObject.createFromFile(pathStileFattura, document);
             float scale = 1.27f; // alter this value to set the image size
             cos.drawImage(ximage, 0, 0, ximage.getWidth()*scale, ximage.getHeight()*scale);
         } catch (IOException ioex) {
@@ -119,7 +130,16 @@ public class createFatturaPDF {
 
         // Save the results and ensure that the document is properly closed:
         document.save(outputFileName);
-        document.close();																						document.close();
+        document.close();
+}
+
+	public static double round(double value, int places) {
+    if (places < 0) throw new IllegalArgumentException();
+
+    long factor = (long) Math.pow(10, places);
+    value = value * factor;
+    long tmp = Math.round(value);
+    return (double) tmp / factor;
 }
 
 

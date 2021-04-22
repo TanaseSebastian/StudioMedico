@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,9 +56,16 @@ public class GestioneFattureServlet extends HttpServlet {
 					}
 					
 					//pdf convertito in flusso di byte e inviato all'interno del browser
-					 
-					  OutputStream out =null; String filePath=
-					  "/home/sebastian/git/StudioMedico/PrenotazioniStudioMedico/WebContent/stampe/documento.pdf";
+					
+					
+					// Leggo le proprietà da file properties
+					Properties prop;
+					ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+					prop = obj.loadProperties("DB.properties");
+					String pathStampe = prop.getProperty("pathStampe");
+					
+					
+					  OutputStream out =null; String filePath=pathStampe+"documento.pdf";
 					  File file=new File(filePath); if(file.exists()) { out =
 					  response.getOutputStream();
 					  response.setContentType("application/pdf;charset=UTF-8");
