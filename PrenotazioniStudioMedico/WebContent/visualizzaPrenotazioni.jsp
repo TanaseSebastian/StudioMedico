@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*,it.meucci.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+ <%@include file="header.jsp" %>   
 <%!
   ArrayList<Prenotazione> elenco;
   int i;
@@ -12,14 +12,13 @@ if(righe==null){
 	righe="10";
 }
 %>
-<%  String messaggio =(String)session.getAttribute("MESSAGGIO");
-	if(messaggio==null) messaggio="";
+<%  
 	DBManager db=new DBManager();
 	elenco = (ArrayList<Prenotazione>)request.getAttribute("ELENCO_PRENOTAZIONI");
 %>
     
     
-<%@include file="header.jsp" %>
+
 
  <!-- Custom styles for this page -->
     <link href="app/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">

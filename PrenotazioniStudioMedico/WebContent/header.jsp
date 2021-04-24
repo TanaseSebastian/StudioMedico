@@ -1,8 +1,16 @@
-<%@ page language="java" import="it.meucci.*" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="java.util.*,it.meucci.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%
    Utente user;
    user=(Utente)session.getAttribute("SESSION_USER");
+	String messaggio =(String)session.getAttribute("MESSAGGIO");
+	if(messaggio==null) messaggio="";
+	// Leggo le proprietà da file properties
+	Properties prop;
+	ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+	prop = obj.loadProperties("DB.properties");
+	String pathImages= prop.getProperty("pathImages");
+ 	String srcImmagineProfilo="app/img/"+user.getIMAGE();
    %>
 <!DOCTYPE html>
 <html lang="en">
@@ -204,12 +212,12 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=user.getCOGNOME()+" "+user.getNOME() %></span>
                                 <img class="img-profile rounded-circle"
-                                    src="app/img/undraw_profile.svg">
+                                    src="<%=srcImmagineProfilo%>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="profile.jsp">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profilo
                                 </a>

@@ -4,8 +4,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
 <%
-Properties prop;
 // Leggo le proprietà da file properties
+Properties prop;
 ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
 prop = obj.loadProperties("DB.properties");
 String userDB = prop.getProperty("Username");

@@ -1,18 +1,25 @@
 package it.meucci;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  * Servlet implementation class GestioneUtentiServlet
  */
+@MultipartConfig
 @WebServlet("/gestutenti")
 public class GestioneUtentiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -249,6 +256,41 @@ String comando = request.getParameter("cmd");;
 		}
 		
 		
+		else if(comando.equals("adminresetPassword"))
+		{
+			String cf = request.getParameter("codiceFiscale");
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			try
+			{
+				DBManager db = new DBManager();
+				db.resetPassword(email, password);
+				
+				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice è stato eseguito correttamente
+				String passCorretta="<div class=\"jumbotron text-center\">\r\n"
+						+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">La tua password è stata modificata con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
+						+ "  <hr>\r\n"
+						+ "</div>";
+				
+				
+				request.getSession().setAttribute("MESSAGGIO", passCorretta);
+				
+				response.sendRedirect("profile.jsp");
+				
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+				
+				String errorpage="<div class=\"jumbotron text-center\">\r\n"
+						+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> la password non è stata modificata</h5>\r\n"		
+						+ "  <hr>\r\n"
+						+ "</div>";
+				request.getSession().setAttribute("MESSAGGIO", errorpage);
+				
+				response.sendRedirect("profile.jsp");
+			}
+		}
+		
 		else if(comando.equals("modifica")) {
 			String cf = request.getParameter("codiceFiscale");
 			String email = request.getParameter("email");
@@ -354,6 +396,88 @@ String comando = request.getParameter("cmd");;
 					break;
 				}
 			}
+		
+		
+			else if(comando.equals("adminUpdate")) {
+				String cf = request.getParameter("codiceFiscale");
+				String email = request.getParameter("email");
+				String phone = request.getParameter("phone");
+				String username = request.getParameter("username");
+				
+			try {
+				DBManager db=new DBManager();
+				db.modificaCliente(cf,email,phone,username);	
+				db.close();
+				response.sendRedirect("login.jsp");
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				System.out.println("Operazione non andata a buon fine");
+				e.printStackTrace();
+				String errorpage="<div class=\"jumbotron text-center\">\r\n"
+						+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non è stato possibile modificare i dati.</h1>\r\n"
+						+ "  <hr>\r\n"
+						+ "</div>";
+				request.getSession().setAttribute("MESSAGGIO", errorpage);
+				response.sendRedirect("profile.jsp");
+			}
+		}
+		
+		
+		
+			else if(comando.equals("adminUpdateImage")) {
+				String cf = request.getParameter("codiceFiscale");
+				Part file=request.getPart("avatarNewImg");
+				
+				String imageFileName=file.getSubmittedFileName();  // get selected image file name
+				System.out.println("Selected Image File Name : "+imageFileName);
+				
+				
+				
+				// Leggo le proprietà da file properties
+				Properties prop;
+				ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
+				prop = obj.loadProperties("DB.properties");
+				String pathImages= prop.getProperty("pathImages");
+
+				String uploadPath=pathImages+imageFileName;  // upload path where we have to upload our actual image
+				System.out.println("Upload Path : "+uploadPath);
+				
+				// Inserire l'immagine nella cartella immagini
+				
+				try
+				{
+				
+				FileOutputStream fos=new FileOutputStream(uploadPath);
+				InputStream is=file.getInputStream();
+				
+				byte[] data=new byte[is.available()];
+				is.read(data);
+				fos.write(data);
+				fos.close();
+				DBManager db=new DBManager();
+				db.insertImage(cf, imageFileName);
+				db.close();
+				request.getSession().invalidate();
+				response.sendRedirect("index.jsp");
+				}
+				
+				catch(Exception e){
+					e.printStackTrace();
+					System.out.println("Operazione non andata a buon fine");
+					e.printStackTrace();
+					String errorpage="<div class=\"jumbotron text-center\">\r\n"
+							+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non è stato possibile modificare i dati.</h1>\r\n"
+							+ "  <hr>\r\n"
+							+ "</div>";
+					request.getSession().setAttribute("MESSAGGIO", errorpage);
+					response.sendRedirect("profile.jsp");
+				}
+				//**********************
+			
+		}
+		
+			
 
 	}
 }

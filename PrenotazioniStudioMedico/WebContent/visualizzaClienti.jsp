@@ -15,8 +15,6 @@ if(righe==null){
 <%
 	DBManager db=new DBManager();
 	elenco = (ArrayList<Utente>)request.getAttribute("ELENCO_CLIENTI");
-	String messaggio =(String)session.getAttribute("MESSAGGIO");
-	if(messaggio==null) messaggio="";
 %>
     
     

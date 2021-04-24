@@ -1,12 +1,16 @@
 package it.meucci;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
+
+import org.apache.log4j.BasicConfigurator;  
+import org.apache.log4j.LogManager;  
+import org.apache.log4j.Logger;  
 
 
 
@@ -16,6 +20,7 @@ import javax.swing.JOptionPane;
 @WebServlet("/gestlogin")
 public class GestioneLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	 private static final Logger logger = LogManager.getLogger(GestioneLogin.class);  
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -65,6 +70,9 @@ public class GestioneLogin extends HttpServlet {
 	
 	
 	else if(comando.equals("login")) {
+		 
+		  logger.info("Hello world");  
+		  logger.info("we are in logger info mode"); 
 	Utente user;
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");

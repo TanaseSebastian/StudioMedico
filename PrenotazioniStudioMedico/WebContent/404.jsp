@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-String messaggio =(String)session.getAttribute("MESSAGGIO");
-	if(messaggio==null) messaggio="";
-%>
-    
+ 
 <%@include file="header.jsp" %>
                 
 					 <!-- Begin Page Content -->

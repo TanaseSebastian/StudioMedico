@@ -79,7 +79,7 @@ public class DBManager{
 			while(rs.next())
 			{
 				user=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
-	                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+	                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9)); 
 			}
 			return user;
 		}
@@ -444,7 +444,7 @@ public class DBManager{
 					while(rs.next())
 					{
 						c=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
-			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9)); 
 						elenco.add(c);
 					}
 					
@@ -463,7 +463,7 @@ public class DBManager{
 					
 					if (rs.next()) {
 						c=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
-			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9)); 
 					}
 					return c;
 				}
@@ -508,7 +508,7 @@ public class DBManager{
 					while(rs.next())
 					{
 						a=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
-			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9)); 
 						elenco.add(a);
 					}
 					
@@ -527,7 +527,7 @@ public class DBManager{
 					
 					if (rs.next()) {
 						a=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
-			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9)); 
 					}
 					return a;
 				}
@@ -541,7 +541,7 @@ public class DBManager{
 					
 					if (rs.next()) {
 						u=new Utente(rs.getString(1),rs.getString(2),rs.getString(3),
-			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)); 
+			                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9)); 
 					}
 					return u;
 				}
@@ -610,6 +610,24 @@ public class DBManager{
 	}
 	return nRighe;
 	}
+	
+	
+	public int insertImage(String cf,String image) throws Exception{
+		
+		String sql = "UPDATE UTENTI\r\n"
+				+ "SET Image= ? \r\n"
+				+ "WHERE CF= ?;";
+		PreparedStatement pstm=connessione.prepareStatement(sql);
+		pstm.setString(1,image);
+		pstm.setString(2,cf);
+		int nRighe= pstm.executeUpdate();
+		System.out.println("immagine inserita");
+		return nRighe;
+	}
+	
+	
+	
+	
 	/*
 	public int modifyCustomer(Cliente c) throws Exception
 	{

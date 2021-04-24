@@ -196,8 +196,23 @@
 	     $("#chooseEntriesForm").attr('action', action);
 	});
   </script>
-</body>
+  
+ <script>
+ function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    
+	    reader.onload = function(e) {
+	      $('#avatarImg').attr('src', e.target.result);
+	    }
+	    
+	    reader.readAsDataURL(input.files[0]); // convert to base64 string
+	  }
+	}
 
+	$("#avatarNewImg").change(function() {
+	  readURL(this);
+	});
+</script>
+</body>
 </html>
-message.txt
-8 KB

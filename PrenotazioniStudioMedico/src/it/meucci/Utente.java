@@ -2,7 +2,7 @@ package it.meucci;
 
 public class Utente {
 
-	private String CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW,AMMINISTRATORE;
+	private String CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW,AMMINISTRATORE,IMAGE;
 	
 	
 	public Utente() {
@@ -89,9 +89,8 @@ public class Utente {
 		AMMINISTRATORE = aMMINISTRATORE;
 	}
 
-
 	public Utente(String cF, String nOME, String cOGNOME, String uSERNAME, String eMAIL, String pHONE, String pSW,
-			String aMMINISTRATORE) {
+			String aMMINISTRATORE, String iMAGE) {
 		super();
 		CF = cF;
 		NOME = nOME;
@@ -101,15 +100,29 @@ public class Utente {
 		PHONE = pHONE;
 		PSW = pSW;
 		AMMINISTRATORE = aMMINISTRATORE;
+		IMAGE = iMAGE;
+	}
+
+
+	public String getIMAGE() {
+		return IMAGE;
+	}
+
+
+	public void setIMAGE(String iMAGE) {
+		IMAGE = iMAGE;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Utente [CF=" + CF + ", NOME=" + NOME + ", COGNOME=" + COGNOME + ", USERNAME=" + USERNAME + ", EMAIL="
-				+ EMAIL + ", PHONE=" + PHONE + ", PSW=" + PSW + ", AMMINISTRATORE=" + AMMINISTRATORE + "]";
+				+ EMAIL + ", PHONE=" + PHONE + ", PSW=" + PSW + ", AMMINISTRATORE=" + AMMINISTRATORE + ", IMAGE="
+				+ IMAGE + "]";
 	}
 
+
+	
 	
 
 

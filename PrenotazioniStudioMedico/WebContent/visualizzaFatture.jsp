@@ -2,11 +2,8 @@
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
-
+<%@include file="header.jsp"%>
 <%
-Properties prop;
-// Leggo le proprietà da file properties
-ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
 prop = obj.loadProperties("DB.properties");
 String userDB = prop.getProperty("Username");
 String pwDB = prop.getProperty("Pasword");
@@ -17,8 +14,6 @@ if(righe==null){
 	righe="10";
 }
 %>
-<%@include file="header.jsp"%>
-
 <sql:setDataSource var="myDS" driver="com.mysql.cj.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/STUDIOMEDICO?serverTimezone=UTC"
 		user='<%=userDB%>' password='<%=pwDB%>' />
