@@ -1,27 +1,25 @@
 package it.meucci;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 
+import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.BasicConfigurator;  
-import org.apache.log4j.LogManager;  
-import org.apache.log4j.Logger;  
-
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.*; 
 
 /**
  * Servlet implementation class gestioneLogin
  */
 @WebServlet("/gestlogin")
 public class GestioneLogin extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	 private static final Logger logger = LogManager.getLogger(GestioneLogin.class);  
-       
+	private static final long serialVersionUID = 1L; 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,7 +41,15 @@ public class GestioneLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String comando = request.getParameter("cmd");;
+		Logger logger = (Logger) LogManager.getLogger(GestioneLogin.class);
+		logger.debug("this is a debug log message"); 
+		logger.error("this is a error log message");
+		logger.fatal("this is a fatal log message");
+		logger.info("this is a info log message");
+		logger.warn("this is a warn log message");
+		
+		String comando = request.getParameter("cmd");
+
 		
 		if(comando.equals("register")) {
 		String cf = request.getParameter("codiceFiscale");
@@ -69,10 +75,7 @@ public class GestioneLogin extends HttpServlet {
 	}
 	
 	
-	else if(comando.equals("login")) {
-		 
-		  logger.info("Hello world");  
-		  logger.info("we are in logger info mode"); 
+	else if(comando.equals("login")) { 
 	Utente user;
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");

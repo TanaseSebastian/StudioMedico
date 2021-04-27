@@ -64,6 +64,7 @@ documento BLOB NULL DEFAULT NULL,
  PRIMARY KEY (codiceFattura),
  FOREIGN KEY (codicePrenotazione) REFERENCES PRENOTAZIONI(codPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE
  );
+ ALTER TABLE utenti ADD image VARCHAR(255) NULL DEFAULT 'undraw_profile.svg' AFTER AMMINISTRATORE;
 
 
 

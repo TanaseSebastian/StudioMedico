@@ -6,6 +6,7 @@
   <packaging>war</packaging>
   <name>PrenotazioniStudioMedico</name>
   <description>gestione prenotazioni studio medico</description>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
@@ -23,7 +24,9 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
+      
     </plugins>
+    
   </build>
   <dependencies>
   <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -62,13 +65,18 @@
 <artifactId>pdfbox</artifactId>
 <version>3.0.0-RC1</version>
 </dependency>
+ <dependency> 
+ <groupId>org.apache.logging.log4j</groupId> 
+ <artifactId>log4j-api</artifactId> 
+ <version>2.11.2</version>
+</dependency>
+<dependency> 
+<groupId>org.apache.logging.log4j</groupId> 
+<artifactId>log4j-core</artifactId> 
+<version>2.11.2</version>
+</dependency>
 
-    <!-- https://mvnrepository.com/artifact/log4j/log4j -->  
-    <dependency>  
-        <groupId>log4j</groupId>  
-        <artifactId>log4j</artifactId>  
-        <version>1.2.17</version>  
-    </dependency>  
   </dependencies>
+ 
 </project>
 

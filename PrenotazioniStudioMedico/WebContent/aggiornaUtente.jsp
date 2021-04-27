@@ -1,14 +1,15 @@
 <%@ page language="java" import="it.meucci.*"
 	contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	
+	<%@include file="header.jsp"%>
 <%
 	Utente u = (Utente)request.getAttribute("UTENTE");
      String utente = (String)request.getAttribute("tipoutente");
     System.out.println(utente);
 	DBManager db=new DBManager();
-	String messaggio =(String)session.getAttribute("MESSAGGIO");
-	if(messaggio==null) messaggio="";
 %>
-<%@include file="header.jsp"%>
+
+
 
 <!-- Custom styles for this page -->
 
