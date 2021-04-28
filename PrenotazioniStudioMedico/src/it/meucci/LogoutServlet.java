@@ -30,7 +30,9 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		logger.info("sto invalidando la sessione");
 		request.getSession().invalidate();
+		logger.info("sto inviando l'utente sulla index.jsp");
         response.sendRedirect("index.jsp");
 		
 	}
