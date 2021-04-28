@@ -59,7 +59,7 @@ CREATE TABLE fatture (
 codiceFattura INT NOT NULL AUTO_INCREMENT , 
 codicePrenotazione INT NOT NULL , 
 importo DECIMAL(8,2) NOT NULL ,
-dataEmissione DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;,
+dataEmissione DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 documento BLOB NULL DEFAULT NULL,
  PRIMARY KEY (codiceFattura),
  FOREIGN KEY (codicePrenotazione) REFERENCES PRENOTAZIONI(codPrenotazione) ON DELETE CASCADE ON UPDATE CASCADE
@@ -68,7 +68,7 @@ documento BLOB NULL DEFAULT NULL,
 
 
 
-insert into utenti values("TNSHSGTRHGST543S","Sebastian","Tanase","Tanase_Sebastian","sebastiantanase18@gmail.com","3490596202",md5("pippo"),"Y");
+insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW,AMMINISTRATORE) values("TNSHSGTRHGST543S","Sebastian","Tanase","Tanase_Sebastian","sebastiantanase18@gmail.com","3490596202",md5("pippo"),"Y");
 -- select * from utenti WHERE USERNAME="Reppo";
 -- delete from utenti where cf="GJGHGDFJTNFTREJT";
 insert into utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW) values("GJGHGDFJTNFTREJT","Samuele", "Restino", "Reppo","reppo@gmail.com","3422222234",md5("Reppo2021"));
