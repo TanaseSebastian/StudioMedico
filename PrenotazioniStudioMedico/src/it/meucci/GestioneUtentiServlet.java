@@ -47,6 +47,7 @@ public class GestioneUtentiServlet extends HttpServlet {
 			try 
 			{
 				db= new DBManager();
+				logger.info("lettura dei clienti tramite db");
 				elenco=db.getClienti();
 				db.close();
 				
@@ -54,33 +55,36 @@ public class GestioneUtentiServlet extends HttpServlet {
 				request.setAttribute("ELENCO_CLIENTI", elenco);
 				RequestDispatcher rd = request.getRequestDispatcher("visualizzaClienti.jsp");
 				rd.forward(request, response);
+				logger.info("mando la request su visualizzaClienti.jsp");
 				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("404.jsp");
 				// TODO: handle exception
+				logger.info("errore rimando sulla 404.jsp");
 			}
 		}
-		//√® un viewall per gli amministratori
+		//a'® un viewall per gli amministratori
 		else if(comando.equals("view")) {
 			ArrayList<Utente> elenco= new ArrayList<Utente>();
 			try 
 			{
 				db= new DBManager();
 				elenco=db.getAmministratori();
+				logger.info("Leggo elencodegli amministratori dal db");
 				db.close();
 				
 				//ELENCO AMMINISTRATORI
 				request.setAttribute("ELENCO_AMMINISTRATORI", elenco);
 				RequestDispatcher rd = request.getRequestDispatcher("visualizzaAmministratori.jsp");
 				rd.forward(request, response);
-				
+				logger.info("rimando sulla visualizzaAmministratori.jsp");
 				
 			} catch (Exception e) {
 				e.printStackTrace();
 				response.sendRedirect("404.jsp");
-				// TODO: handle exception
+				logger.error("errore,rimando sulla 404.jsp");
 			}
 		}
 		
@@ -92,17 +96,18 @@ public class GestioneUtentiServlet extends HttpServlet {
 			try {
 				db= new DBManager();
 				c = db.getCliente(id);
+				logger.info("visualizzo dettagli del cliente: "+id);
 				db.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				response.sendRedirect("404.jsp");
+				logger.error("errore,rimando sulla 404.jsp");
 			}
 			
-			//System.out.println(p.toString());
 			request.setAttribute("CLIENTE", c);
 			RequestDispatcher rd = request.getRequestDispatcher("dettaglioCliente.jsp");
 			rd.forward(request, response);
-
+			logger.info("rimando l'utente su dettaglioCliente.jsp");
 		}
 		
 		// visualizza Amministratore
@@ -114,16 +119,19 @@ public class GestioneUtentiServlet extends HttpServlet {
 			try {
 				db= new DBManager();
 				a = db.getAmministratore(id);
+				logger.info("visulizza dettagli amministratore="+id);
 				db.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				response.sendRedirect("404.jsp");
+				logger.error("errore,rimando sulla 404.jsp");
 			}
 			
 			//System.out.println(p.toString());
 			request.setAttribute("AMMINISTRATORE", a);
 			RequestDispatcher rd = request.getRequestDispatcher("dettaglioAmministratore.jsp");
 			rd.forward(request, response);
+			logger.info("rimando l'utente su dettaglioAmministratore.jsp");
 
 		}
 		
@@ -139,8 +147,9 @@ public class GestioneUtentiServlet extends HttpServlet {
 						u = db.getUtente(id);
 						db.close();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
+						response.sendRedirect("404.jsp");
+						logger.error("errore,rimando sulla 404.jsp");
 					}
 					
 					//System.out.println(p.toString());
@@ -148,7 +157,7 @@ public class GestioneUtentiServlet extends HttpServlet {
 					request.setAttribute("tipoutente", utente);
 					RequestDispatcher rd = request.getRequestDispatcher("aggiornaUtente.jsp?");
 					rd.forward(request, response);
-
+					logger.info("rimando l'utente su aggiornaUtente.jsp");
 			}
 		
 	}
@@ -176,11 +185,14 @@ String comando = request.getParameter("cmd");;
 			if (db.checkUsername(username) == false) {
 				db.insertRegistration(cf,nome, cognome, username, email, phone, password);
 				response.sendRedirect("gestutenti?cmd=viewall");
+				logger.info("faccio visualizzare i clienti all'utente");
 			} else
 				response.sendRedirect("nuovoCliente.jsp");
 			db.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			response.sendRedirect("404.jsp");
+			logger.error("errore,rimando sulla 404.jsp");
 		}
 	}
 		else if(comando.equals("adminregister")) {
@@ -198,12 +210,15 @@ String comando = request.getParameter("cmd");;
 				if (db.checkUsername(username) == false) {
 					db.insertAmministrator(cf,nome, cognome, username, email, phone, password);
 					response.sendRedirect("gestutenti?cmd=view");
+					logger.info("faccio vedere tutti gli amministratori all'utente");
 				} else
 					response.sendRedirect("nuovoAmministratore.jsp");
+					logger.info("errore rimando sulla stessa schermata nuovoAmministratore.jsp");
 				db.close();
 			} catch (Exception e) {
 				e.printStackTrace();
-				response.sendRedirect("nuovoAmministratore.jsp");
+				response.sendRedirect("404.jsp");
+				logger.error("errore,rimando sulla 404.jsp");
 			}
 		}
 		
@@ -220,6 +235,8 @@ String comando = request.getParameter("cmd");;
 				db.close();
 			} catch (Exception e) {
 				e.printStackTrace();
+				response.sendRedirect("404.jsp");
+				logger.error("errore,rimando sulla 404.jsp");
 			}
 		}
 		
@@ -234,9 +251,9 @@ String comando = request.getParameter("cmd");;
 				DBManager db = new DBManager();
 				db.resetPassword(email, password);
 				
-				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice √® stato eseguito correttamente
+				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice a'® stato eseguito correttamente
 				String passCorretta="<div class=\"jumbotron text-center\">\r\n"
-						+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">La password √® stata modificata con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
+						+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">La password a'® stata modificata con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
 						+ "  <hr>\r\n"
 						+ "</div>";
 				
@@ -250,7 +267,7 @@ String comando = request.getParameter("cmd");;
 				e.printStackTrace();
 				
 				String errorpage="<div class=\"jumbotron text-center\">\r\n"
-						+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> la password non √® stata modificata</h5>\r\n"		
+						+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> la password non a'® stata modificata</h5>\r\n"		
 						+ "  <hr>\r\n"
 						+ "</div>";
 				request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -270,9 +287,9 @@ String comando = request.getParameter("cmd");;
 				DBManager db = new DBManager();
 				db.resetPassword(email, password);
 				
-				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice √® stato eseguito correttamente
+				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice a'® stato eseguito correttamente
 				String passCorretta="<div class=\"jumbotron text-center\">\r\n"
-						+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">La tua password √® stata modificata con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
+						+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">La tua password a'® stata modificata con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
 						+ "  <hr>\r\n"
 						+ "</div>";
 				
@@ -286,7 +303,7 @@ String comando = request.getParameter("cmd");;
 				e.printStackTrace();
 				
 				String errorpage="<div class=\"jumbotron text-center\">\r\n"
-						+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> la password non √® stata modificata</h5>\r\n"		
+						+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> la password non a'® stata modificata</h5>\r\n"		
 						+ "  <hr>\r\n"
 						+ "</div>";
 				request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -306,9 +323,9 @@ String comando = request.getParameter("cmd");;
 			DBManager db=new DBManager();
 			db.modificaCliente(cf,email,phone,username);	
 			db.close();
-			//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice √® stato eseguito correttamente
+			//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice a'® stato eseguito correttamente
 			String modCorretto="<div class=\"jumbotron text-center\">\r\n"
-					+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">Il cliente √® stato modificato con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
+					+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">Il cliente a'® stato modificato con successo!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
 					+ "  <hr>\r\n"
 					+ "</div>";
 			
@@ -323,9 +340,9 @@ String comando = request.getParameter("cmd");;
 		catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Operazione non andata a buon fine");
-			System.out.println("Causa errore: Record della prenotazione √® gi√† esistente");
+			System.out.println("Causa errore: Record della prenotazione a'® gia'† esistente");
 			String errorpage="<div class=\"jumbotron text-center\">\r\n"
-					+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® possibile modificare il cliente.</h1>\r\n"
+					+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non a'® possibile modificare il cliente.</h1>\r\n"
 					+ "  <hr>\r\n"
 					+ "</div>";
 			request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -349,8 +366,9 @@ String comando = request.getParameter("cmd");;
 					db.deleteClienti(idCliente);
 					db.close();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					response.sendRedirect("404.jsp");
+					logger.error("errore,rimando sulla 404.jsp");
 				}
 				}
 			response.sendRedirect("gestutenti?cmd=viewall");
@@ -372,8 +390,9 @@ String comando = request.getParameter("cmd");;
 						db.deleteClienti(idAmm);
 						db.close();
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
+						response.sendRedirect("404.jsp");
+						logger.error("errore,rimando sulla 404.jsp");
 					}
 					}
 				response.sendRedirect("gestutenti?cmd=view");
@@ -381,7 +400,7 @@ String comando = request.getParameter("cmd");;
 		
 			else if(comando.equals("entries")) {
 				String requestPage=request.getParameter("page");
-				System.out.println("La request page √® "+requestPage);
+				System.out.println("La request page e'  "+requestPage);
 				String righe=request.getParameter("select-entries");
 				request.getSession().setAttribute("numeroRighe", righe);
 				RequestDispatcher rd;
@@ -419,7 +438,7 @@ String comando = request.getParameter("cmd");;
 				System.out.println("Operazione non andata a buon fine");
 				e.printStackTrace();
 				String errorpage="<div class=\"jumbotron text-center\">\r\n"
-						+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® stato possibile modificare i dati.</h1>\r\n"
+						+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non a'® stato possibile modificare i dati.</h1>\r\n"
 						+ "  <hr>\r\n"
 						+ "</div>";
 				request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -434,11 +453,9 @@ String comando = request.getParameter("cmd");;
 				Part file=request.getPart("avatarNewImg");
 				
 				String imageFileName=file.getSubmittedFileName();  // get selected image file name
-				System.out.println("Selected Image File Name : "+imageFileName);
+				logger.info("Immagine selezionata File Name : "+imageFileName);
 				
-				
-				
-				// Leggo le propriet√† da file properties
+				// Leggo le proprieta'† da file properties
 				Properties prop;
 				ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
 				prop = obj.loadProperties("DB.properties");
@@ -446,12 +463,10 @@ String comando = request.getParameter("cmd");;
 
 				String uploadPath=pathImages+imageFileName;  // upload path where we have to upload our actual image
 				System.out.println("Upload Path : "+uploadPath);
-				
-				// Inserire l'immagine nella cartella immagini
-				
+				//Inserire l'immagine nella cartella immagini
 				try
 				{
-				
+				logger.info("creazione dell'immagine nella cartella app/img");
 				FileOutputStream fos=new FileOutputStream(uploadPath);
 				InputStream is=file.getInputStream();
 				
@@ -465,6 +480,7 @@ String comando = request.getParameter("cmd");;
 				request.getSession().invalidate();
                 RequestDispatcher rd = request.getRequestDispatcher("logout");
                 rd.forward(request, response);
+                
 				}
 				
 				catch(Exception e){
@@ -472,13 +488,13 @@ String comando = request.getParameter("cmd");;
 					System.out.println("Operazione non andata a buon fine");
 					e.printStackTrace();
 					String errorpage="<div class=\"jumbotron text-center\">\r\n"
-							+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® stato possibile modificare i dati.</h1>\r\n"
+							+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non a'® stato possibile modificare i dati.</h1>\r\n"
 							+ "  <hr>\r\n"
 							+ "</div>";
 					request.getSession().setAttribute("MESSAGGIO", errorpage);
 					response.sendRedirect("profile.jsp");
 				}
-				//**********************
+				
 			
 		}
 		
