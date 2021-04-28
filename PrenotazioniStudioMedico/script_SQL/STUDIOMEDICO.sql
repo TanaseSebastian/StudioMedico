@@ -87,7 +87,7 @@ insert into dottori(NOME,COGNOME,PHONE,EMAIL,codDipartimento) values
 ("Abramo","Persano","3207893303","abramopersano@medilab.it",2),
 ("Luigi","Bianchi","3290987644","luigibianchi@medilab.it",2),
 ("Giuseppe","Verdi","3290987600","giuseppeverdi@medilab.it",3),
-("Alberto","Stefanì","3278562901","albertostefani@medilab.it",3),
+("Alberto","Stefani'","3278562901","albertostefani@medilab.it",3),
 ("Gabriele","Piccinno","3208710303","gabrielepiccinno@medilab.it",3),
 ("Antonio","Restino","3256782303","antoniorestino@medilab.it",3),
 ("Francesco","Alemanno","3290987699","francescoalemanno@medilab.it",4),
