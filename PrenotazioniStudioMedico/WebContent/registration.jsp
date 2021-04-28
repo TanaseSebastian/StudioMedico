@@ -29,10 +29,10 @@
 				  <div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center order-md-last">
 							<div class="text w-100" style="margin-bottom: 720px;">
 								<h2>Accedi</h2>
-								<p style="color:white;">Hai già un account?</p>
+								<p style="color:white;">Hai gia' un account?</p>
 								<a href="login.jsp" class="btn btn-white btn-outline-white">Login</a>
 								<br> <br> 
-								<a id="forgot" href="index.jsp" style="color: white;">---Torna alla Home---</a>
+								<a id="forgot" href="index.jsp" class="btn btn-white btn-outline-white">Torna alla Home</a>
 								
 							</div>
 			      </div> 	
