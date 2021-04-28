@@ -459,7 +459,8 @@ String comando = request.getParameter("cmd");;
 				db.insertImage(cf, imageFileName);
 				db.close();
 				request.getSession().invalidate();
-				response.sendRedirect("index.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("logout");
+                rd.forward(request, response);
 				}
 				
 				catch(Exception e){
