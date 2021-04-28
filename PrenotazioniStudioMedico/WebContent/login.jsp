@@ -39,7 +39,7 @@
 								<p style="color:white;">Non hai ancora un account?</p>
 								<a href="registration.jsp" class="btn btn-white btn-outline-white">Registrati</a>
 								<br> <br> 
-								<a id="forgot" href="index.jsp" style="color: white;">---Torna alla Home---</a>
+								<a id="forgot" href="index.jsp" class="btn btn-white btn-outline-white">Torna alla Home</a>
 							</div>
 									
 			      </div>
