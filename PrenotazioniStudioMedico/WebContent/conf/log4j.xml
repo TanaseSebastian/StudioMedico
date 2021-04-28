@@ -5,13 +5,13 @@
 			<PatternLayout
 				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
-		<File name="LogToFile" fileName="logs/app.log">
+		<File name="LogToFile" fileName="C:/Users/Francesco/git/StudioMedico/PrenotazioniStudioMedico/WebContent/logs/app.log">
 			<PatternLayout>
 				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
 			</PatternLayout>
 		</File>
 		<RollingRandomAccessFile
-			name="LogToRollingRandomAccessFile" fileName="logs/file.log"
+			name="LogToRollingRandomAccessFile" fileName="C:/Users/Francesco/git/StudioMedico/PrenotazioniStudioMedico/WebContent/logs/file.log"
 			filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
 			<PatternLayout>
 				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>

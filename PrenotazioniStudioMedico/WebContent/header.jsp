@@ -137,36 +137,14 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Modalità:</h6>
+                        <h6 class="collapse-header">Modalita':</h6>
                         <a class="collapse-item" href="visualizzaFatture.jsp">Visualizza Fatture</a>
-                        <!-- <a class="collapse-item" href="#">Inserisci Fattura</a>
- -->                    </div>
+                     </div>
                 </div>
             </li> 
 
 
-<!--             Nav Item - Pages Collapse Menu
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseMessage" aria-expanded="true"
-                    aria-controls="collapseMessage">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Messaggi</span>
-                </a>
-                <div id="collapseMessage" class="collapse" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Modalità:</h6>
-                        <a class="collapse-item" href="#">Visualizza Messaggi</a>
-                    </div>
-                </div>
-            </li> -->
-            
 
-
-            <!-- Divider -->
-            <!-- <hr class="sidebar-divider d-none d-md-block"> -->
-
-			 <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
