@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 /**
@@ -23,6 +25,7 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 @WebServlet("/gestfatture")
 public class GestioneFattureServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	static Logger logger = LogManager.getLogger(GestioneFattureServlet.class); 
        
     /**
      * @see HttpServlet#HttpServlet()

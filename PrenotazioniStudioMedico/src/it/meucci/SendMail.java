@@ -16,6 +16,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class SendMail {
 
 	public SendMail() {
@@ -24,8 +27,8 @@ public class SendMail {
 	
 	//dati account
 	 private static String from = "prglogin@gmail.com";  // Inserire lo username GMail (la parte prima di "@gmail.com")
-	    private static String pass = "ApplicationTest"; //  password dell'account Gmail
-	
+	 private static String pass = "ApplicationTest"; //  password dell'account Gmail
+	 static Logger logger = LogManager.getLogger(SendMail.class);
 	//funzione che invia l'email
 	public static void sendFromGMail(String[] to, String subject, String body,String allegatoPATH,String allegatoName) {
         Properties props = System.getProperties();

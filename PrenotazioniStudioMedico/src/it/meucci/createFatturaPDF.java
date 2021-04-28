@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -21,7 +23,7 @@ public class createFatturaPDF {
 
 	public void stampa(Fattura f) throws Exception
 	{
-		
+		Logger logger = LogManager.getLogger(createFatturaPDF.class);
 		DBManager db = new DBManager();
 		double prezzo=f.getPrezzo();
 		double iva=round((f.getPrezzo()*15)/100, 2);

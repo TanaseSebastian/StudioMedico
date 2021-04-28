@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Servlet implementation class GestioneUtentiServlet
  */
@@ -23,7 +26,7 @@ import javax.servlet.http.Part;
 @WebServlet("/gestutenti")
 public class GestioneUtentiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	static Logger logger = LogManager.getLogger(GestioneUtentiServlet.class); 
     /**
      * @see HttpServlet#HttpServlet()
      */
