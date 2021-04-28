@@ -1,25 +1,19 @@
 package it.meucci;
-
-import java.io.FileInputStream;
+import org.apache.logging.log4j.*;
 import java.io.IOException;
-
-import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.*; 
-
 /**
  * Servlet implementation class gestioneLogin
  */
 @WebServlet("/gestlogin")
 public class GestioneLogin extends HttpServlet {
-	private static final long serialVersionUID = 1L; 
+	private static final long serialVersionUID = 1L;
+	static Logger logger = LogManager.getLogger(GestioneLogin.class); 
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -41,13 +35,6 @@ public class GestioneLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		Logger logger = (Logger) LogManager.getLogger(GestioneLogin.class);
-		logger.debug("this is a debug log message"); 
-		logger.error("this is a error log message");
-		logger.fatal("this is a fatal log message");
-		logger.info("this is a info log message");
-		logger.warn("this is a warn log message");
-		
 		String comando = request.getParameter("cmd");
 
 		
@@ -60,14 +47,17 @@ public class GestioneLogin extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String confirm_password = request.getParameter("confirm_password");
-		System.out.println(cf+ " "+nome+" "+cognome+" "+username+" "+email+" "+phone+" "+password+" "+confirm_password);
+		logger.info("un nuovo utente si sta registrando nell'applicazione, utente="+cf+ " "+nome+" "+cognome+" "+username+" "+email+" "+phone);
+
 		try {
 			DBManager db = new DBManager();
 			if (db.checkUsername(username) == false) {
 				db.insertRegistration(cf,nome, cognome, username, email, phone, password);
+				logger.info("registrazione dell'utente avvenuta con successo,rimando su login.jsp");
 				response.sendRedirect("login.jsp");
-			} else
-				response.sendRedirect("registration.jsp");
+			} else {
+				logger.error("registrazione dell'utente non avvenuta,rimando su registrazione.jsp");
+				response.sendRedirect("registration.jsp");}
 			db.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,6 +69,7 @@ public class GestioneLogin extends HttpServlet {
 	Utente user;
 	String username = request.getParameter("username");
 	String password = request.getParameter("password");
+	logger.info("utente sta accedendo all'applicazione username_utente= "+username);
 	try {
 		DBManager db = new DBManager();
 		int trovati=db.verificaCredenziali(username, password);
@@ -89,14 +80,19 @@ public class GestioneLogin extends HttpServlet {
 			request.getSession().setAttribute("SESSION_USER", user);
 			request.getSession().setAttribute("utente_loggato", "true");
 			if(user.getAMMINISTRATORE().equals("N")) {
+				logger.info("l'utente è un cliente,per cui rimando sulla index dove può effettuare un'appuntamento.");
 				response.sendRedirect("index.jsp");
 			}
 			else if(user.getAMMINISTRATORE().equals("Y")) {
+				logger.info("l'utente è un amministratore,lo sto facendo accedere al panello di amministrazione.");
 				response.sendRedirect("dashboard.jsp");
 			}
 		}
-		else
+		else {
+			logger.info("utente non riconosciuto,rimando su login.jsp e avviso l'utente delle credenziali probabilmente errate.");
+			request.getSession().setAttribute("MESSAGGIO", "<p class='text-center text-danger'>username o password errati</p>");
 			response.sendRedirect("login.jsp");
+		}
 		db.close();
 	} catch (Exception e) {
 		e.printStackTrace();

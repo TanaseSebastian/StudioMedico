@@ -14,11 +14,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 
 public class DBManager{
 
+	static Logger logger = LogManager.getLogger(DBManager.class); 
 	private static Properties prop;
 	private Connection connessione;
 	private Statement query;
@@ -131,13 +134,13 @@ public class DBManager{
               email_validation = rs.getString("Email");
    		}
         	if(email.equals(email_validation)){
-        		System.out.println("email true");
+        		logger.info("email true");
         		return true;
         		
         	}
         	
         	else
-        		System.out.println("email false");
+        		logger.info("email false");
         		return false;
     }
     //----------------------------------------------------------------------------
@@ -148,10 +151,10 @@ public class DBManager{
   			try {
   	  			Statement update = connessione.createStatement();
   	  			 String sql = "UPDATE Utenti "+ "SET" + " PSW = "+"md5('"+password+"') " + "WHERE"+ " Email = "+"'"+email+"'; ";
-  	  			 System.out.println(sql);
+  	  			 logger.info(sql);
   	  			 update.executeUpdate(sql);
   	  		        
-  	  		  System.out.println("password modificata ");
+  	  		  logger.info("password modificata ");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -178,7 +181,7 @@ public class DBManager{
   				elenco.add(d);
   			}
   			
-  			System.out.println("DOTTORI CARICATI: " + elenco.size());
+  			logger.info("DOTTORI CARICATI: " + elenco.size());
   			
   			return elenco;
   		}
@@ -202,7 +205,7 @@ public class DBManager{
   				elenco.add(p);
   			}
   			
-  			System.out.println("PRESTAZIONI CARICATE: " + elenco.size());
+  			logger.info("PRESTAZIONI CARICATE: " + elenco.size());
   			
   			return elenco;
   		}
@@ -238,7 +241,7 @@ public class DBManager{
 				String EMAIL = rs.getString("EMAIL");
 				s = EMAIL;
 			}
-			System.out.println(s);
+			logger.info(s);
 			return s;
 		}
 		
@@ -253,7 +256,7 @@ public class DBManager{
 				String NOME = rs.getString("NOME");
 				s = COGNOME+" "+NOME;
 			}
-			//System.out.println(s);
+			//logger.info(s);
 			return s;
 		}
 		
@@ -268,7 +271,7 @@ public class DBManager{
 				String Name=rs.getString("Nome");
 				s = Cognome+" "+Name;
 			}
-			//System.out.println(s);
+			//logger.info(s);
 			return s;
 		}
 		
@@ -278,18 +281,18 @@ public class DBManager{
 		//funzione che restituisce la data in formato italiano
 		public String getItalianDate(String date)throws Exception {
 			String sql1="  SET lc_time_names = 'it_IT';";
-			//System.out.println("Stringa arrivata = "+date);
+			//logger.info("Stringa arrivata = "+date);
 			String sql="select date_format("+"'"+date+"'"+",'%W %d %M %Y') as DATA;";
-			//System.out.println(sql);
+			//logger.info(sql);
 			rs2 = query.executeQuery(sql1);
 			rs = query.executeQuery(sql);
-			//System.out.println("Query scritta");
+			//logger.info("Query scritta");
 			String s="";
 			if (rs.next()) {
-				//System.out.println("entrato nell'if");
+				//logger.info("entrato nell'if");
 				String data = rs.getString(1);
 				s =data; 
-				//System.out.println("ho preso la data dal db,data in italiano: "+ s);
+				//logger.info("ho preso la data dal db,data in italiano: "+ s);
 			}
 			return s;
 		}
@@ -313,7 +316,7 @@ public class DBManager{
 			elenco.add(p);
 		}
 		
-		System.out.println("PRENOTAZIONI CARICATE: " + elenco.size());
+		logger.info("PRENOTAZIONI CARICATE: " + elenco.size());
 		
 		return elenco;
 	}
@@ -347,7 +350,7 @@ public class DBManager{
 			String Name = rs.getString("Nome");
 			s =Name;
 		}
-		//System.out.println(s);
+		//logger.info(s);
 		return s;
 	}
 	
@@ -360,9 +363,9 @@ public class DBManager{
 		String delimiter = ",";
 		String s=String.join(delimiter, id);
 		String deleteSql="DELETE FROM prenotazioni  WHERE codPrenotazione IN ("+s+");";
-		System.out.println("QUERY:"+deleteSql);
+		logger.info("QUERY:"+deleteSql);
 		int nRighe=query.executeUpdate(deleteSql);
-		System.out.println("Numero Prenotazioni eliminate dal db:"+nRighe);
+		logger.info("Numero Prenotazioni eliminate dal db:"+nRighe);
 		return nRighe;
 	}
 	
@@ -372,9 +375,9 @@ public class DBManager{
 		String s=String.join(delimiter, id);
 		String sql="UPDATE prenotazioni\r\n"
 		+"SET stato ='"+stato+"' WHERE codPrenotazione IN ("+s+");";
-		System.out.println("QUERY:"+sql);
+		logger.info("QUERY:"+sql);
 		int nRighe=query.executeUpdate(sql);
-		System.out.println("Numero Prenotazioni modificate dal db:"+nRighe);
+		logger.info("Numero Prenotazioni modificate dal db:"+nRighe);
 		return nRighe;
 	}
 	
@@ -412,7 +415,7 @@ public class DBManager{
 			String count = rs.getString(1);
 			s =count;
 		}
-		//System.out.println(s);
+		//logger.info(s);
 		return s;
 		}
 	
@@ -427,7 +430,7 @@ public class DBManager{
 					String count = rs.getString(1);
 					s =count;
 				}
-				//System.out.println(s);
+				//logger.info(s);
 				return s;
 				}
 	
@@ -448,7 +451,7 @@ public class DBManager{
 						elenco.add(c);
 					}
 					
-					System.out.println("CLIENTI CARICATI: " + elenco.size());
+					logger.info("CLIENTI CARICATI: " + elenco.size());
 					
 					return elenco;
 				}
@@ -490,9 +493,9 @@ public class DBManager{
 					String delimiter = ",";
 					String s=String.join(delimiter, id);
 					String deleteSql="DELETE FROM UTENTI  WHERE CF IN ('"+s+"');";
-					System.out.println("QUERY:"+deleteSql);
+					logger.info("QUERY:"+deleteSql);
 					int nRighe=query.executeUpdate(deleteSql);
-					System.out.println("Numero Clienti eliminati dal db:"+nRighe);
+					logger.info("Numero Clienti eliminati dal db:"+nRighe);
 					return nRighe;
 				}
 				
@@ -512,7 +515,7 @@ public class DBManager{
 						elenco.add(a);
 					}
 					
-					System.out.println("AMMINISTRATORI CARICATI: " + elenco.size());
+					logger.info("AMMINISTRATORI CARICATI: " + elenco.size());
 					
 					return elenco;
 				}
@@ -597,16 +600,16 @@ public class DBManager{
 	if (rs.next()) {
 
 		InputStream input = rs.getBinaryStream("documento"); 
-		System.out.println("sto leggendo il documeto dal database...");
+		logger.info("sto leggendo il documeto dal database...");
 		
 		byte[] buffer = new byte[1024];
 		while (input.read(buffer) > 0) {
 			output.write(buffer);
 		}
 		
-		System.out.println("\nIl file è stato salvato in: " + theFile.getAbsolutePath());
+		logger.info("\nIl file è stato salvato in: " + theFile.getAbsolutePath());
 		
-		System.out.println("\nCompletato con successo!");
+		logger.info("\nCompletato con successo!");
 	}
 	return nRighe;
 	}
@@ -621,290 +624,10 @@ public class DBManager{
 		pstm.setString(1,image);
 		pstm.setString(2,cf);
 		int nRighe= pstm.executeUpdate();
-		System.out.println("immagine inserita");
+		logger.info("immagine inserita");
 		return nRighe;
 	}
 	
-	
-	
-	
-	/*
-	public int modifyCustomer(Cliente c) throws Exception
-	{
-	int nRighe=0;
-	String sqlInsert = "UPDATE CLIENTI\r\n"
-			+ "SET CustomerID = ?, CompanyName= ?, ContactName= ?, ContactTitle= ?, Address= ?, City= ?, Region= ?, PostalCode= ?, Country= ?, Phone= ?, Fax= ? \r\n"
-			+ "WHERE CustomerID = ?;";
-	PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
-	pstm.setString(1, c.getId());
-	pstm.setString(2, c.getCompanyName());
-	pstm.setString(3, c.getContactName ());
-	pstm.setString(4, c.getContactTitle());
-	pstm.setString (5, c.getAddress());
-	pstm.setString(6, c.getCity());
-	pstm.setString(7, c.getRegion());
-	pstm.setString(8, c.getPostalCode());
-	pstm.setString (9, c.getCountry());
-	pstm.setString(10, c.getPhone());
-	pstm.setString(11, c.getFax());
-	pstm.setString(12, c.getId());
-	nRighe= pstm.executeUpdate();
-	return nRighe;
-	}
-	//--------------------------FINE PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI CLIENTI---------------------------
-	
-	
-	
-	
-	
-	
-	//--------------------------INZIO PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI PRODOTTI---------------------------
-	
-	//FUNZIONE CHE RESTITUISCE ELENCO PRODOTTI
-	public ArrayList<Prodotto> getProducts() throws Exception 
-	{
-		ArrayList<Prodotto> elenco = new ArrayList<Prodotto>();
-		
-		String sql="SELECT * FROM Prodotti;";
-		rs=query.executeQuery(sql);
-		Prodotto p;
-		
-		while(rs.next())
-		{
-			p=new Prodotto(rs.getInt(1),rs.getString(2),rs.getInt(3),
-                    rs.getInt(4),rs.getString(5),rs.getFloat(6),rs.getInt(7),
-                    rs.getInt(8),rs.getInt(9),rs.getInt(10)); 
-			elenco.add(p);
-		}
-		
-		System.out.println("PRODOTTI CARICATI: " + elenco.size());
-		
-		return elenco;
-	}
-	
-	
-	//funzione che elimina un  prodotto
-	public int deleteProduct(String id) throws Exception 
-	{
-		String deleteSql="DELETE FROM PRODOTTI WHERE ProductID = '"+id+"';";
-		
-		int nRighe=query.executeUpdate(deleteSql);
-		
-		return nRighe;
-	}
-	
-	
-	//FUNZIONE CHE INSERISCE UN NUOVO PRODOTTO
-	public int insertProduct(Prodotto p) throws Exception
-	{
-	int nRighe=0;
-	//essendo product id in autoincrement per evitare problemi non lo faccio inserire all'utente
-	String sqlInsert = "INSERT INTO PRODOTTI(\r\n"
-			+ "ProductName,\r\n"
-			+ "SupplierID,\r\n"
-			+ "CategoryID,\r\n"
-			+ "QuantityPerUnit,\r\n"
-			+ "UnitPrice,\r\n"
-			+ "UnitsInStock,\r\n"
-			+ "UnitsOnOrder,\r\n"
-			+ "ReorderLevel,\r\n"
-			+ "Discontinued) VALUES (?,?,?,?,?,?,?,?,?)";
-	PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
-	pstm.setString(1,  p.getProductName());
-	pstm.setInt(2, p.getSupplierID());
-	pstm.setInt(3, p.getCategoryID());
-	pstm.setString(4, p.getQuantityPerUnit());
-	pstm.setFloat(5,p.getUnitPrice());
-	pstm.setInt(6,p.getUnitsInStock());
-	pstm.setInt(7,p.getUnitsOnOrder());
-	pstm.setInt (8,p.getReorderLevel());
-	pstm.setInt(9,p.getDiscontinued());
-	nRighe= pstm.executeUpdate();
-	return nRighe;
-	}
-	
-	//FUNZIONE CHE MODIFICA UN PRODOTTO
-	public int modifyProduct(Prodotto p) throws Exception
-	{
-	int nRighe=0;
-	String sqlInsert = "UPDATE PRODOTTI\r\n"
-			+ "SET ProductID= ?, ProductName= ?, SupplierID= ?, CategoryID= ?, QuantityPerUnit= ?, UnitPrice= ?, UnitsInStock= ?, UnitsOnOrder= ?, ReorderLevel= ?, Discontinued= ? \r\n"
-			+ "WHERE ProductID= ?;";
-	PreparedStatement pstm=connessione.prepareStatement(sqlInsert);
-	pstm.setInt(1, p.getProductID());
-	pstm.setString(2,  p.getProductName());
-	pstm.setInt(3, p.getSupplierID());
-	pstm.setInt(4, p.getCategoryID());
-	pstm.setString (5, p.getQuantityPerUnit());
-	pstm.setFloat(6,p.getUnitPrice());
-	pstm.setInt(7,p.getUnitsInStock());
-	pstm.setInt(8,p.getUnitsOnOrder());
-	pstm.setInt (9,p.getReorderLevel());
-	pstm.setInt(10,p.getDiscontinued());
-	pstm.setInt(11, p.getProductID());
-	nRighe= pstm.executeUpdate();
-	return nRighe;
-	}
-	
-	
-	
-	
-	
-	//--------------------------FINE PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI PRODOTTI---------------------------
-	
-	
-	
-	
-	
-	//--------------------------INIZIO PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI ORDINI---------------------------
-	
-	//RESTITUISCE TUTTI GLI ORDINI
-	public ArrayList<Ordini> getOrders() throws Exception 
-	{
-		ArrayList<Ordini> elenco = new ArrayList<Ordini>();
-		
-		String sql="SELECT * FROM Ordini;";
-		rs=query.executeQuery(sql);
-		Ordini o;
-		
-		while(rs.next())
-		{
-			o=new Ordini(rs.getInt(1),rs.getString(2),rs.getInt(3),
-                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7),
-                    rs.getFloat(8),rs.getString(9),rs.getString(10),rs.getString(11),
-                    rs.getString(12),rs.getString(13),rs.getString(14)); 
-			elenco.add(o);
-		}
-		
-		System.out.println("ORDINI CARICATI: " + elenco.size());
-		
-		return elenco;
-	}
-	
-	//restituisce i prodotti in base a due date passate come argomenti di tipo string alla funzione
-	public ArrayList<Ordini> searchOrdersBD(String d1,String d2) throws Exception 
-	{
-		ArrayList<Ordini> elenco = new ArrayList<Ordini>();
-		
-		String sql="SELECT * FROM Ordini WHERE OrderDate BETWEEN ? AND ? ;";
-		//rs=query.executeQuery(sql);
-		Ordini o;
-		PreparedStatement pstm=connessione.prepareStatement(sql);
-		pstm.setString(1,d1);
-		pstm.setString(2,d2);
-		rs= pstm.executeQuery();
-		while(rs.next())
-		{
-			o=new Ordini(rs.getInt(1),rs.getString(2),rs.getInt(3),
-                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7),
-                    rs.getFloat(8),rs.getString(9),rs.getString(10),rs.getString(11),
-                    rs.getString(12),rs.getString(13),rs.getString(14)); 
-			elenco.add(o);
-		}
-		
-		System.out.println("ORDINI CARICATI: " + elenco.size());
-		
-		return elenco;
-	}
-	
-	//restituisce gli ordini in base al prodotto selezionato
-	public ArrayList<Ordini> searchOrdersFP(String product) throws Exception 
-	{
-		ArrayList<Ordini> elenco = new ArrayList<Ordini>();
-		
-		String sql="SELECT * from ordini,dettagliordini,prodotti\r\n"
-				+ "WHERE ordini.OrderID=dettagliordini.OrderID\r\n"
-				+ "AND dettagliordini.ProductID=prodotti.ProductID\r\n"
-				+ "AND prodotti.ProductName= ? ;";
-		//rs=query.executeQuery(sql);
-		Ordini o;
-		PreparedStatement pstm=connessione.prepareStatement(sql);
-		pstm.setString(1,product);
-		rs= pstm.executeQuery();
-		while(rs.next())
-		{
-			o=new Ordini(rs.getInt(1),rs.getString(2),rs.getInt(3),
-                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7),
-                    rs.getFloat(8),rs.getString(9),rs.getString(10),rs.getString(11),
-                    rs.getString(12),rs.getString(13),rs.getString(14)); 
-			elenco.add(o);
-		}
-		
-		System.out.println("ORDINI CARICATI: " + elenco.size());
-		
-		return elenco;
-	}
-	
-	
-	
-	//restituisce gli ordini in base a data e prodotto
-	public ArrayList<Ordini> searchOrdersBDAFP(String d1,String d2,String product) throws Exception 
-	{
-		ArrayList<Ordini> elenco = new ArrayList<Ordini>();
-		
-		String sql="SELECT * from ordini,dettagliordini,prodotti\r\n"
-				+ "WHERE ordini.OrderID=dettagliordini.OrderID\r\n"
-				+ "AND dettagliordini.ProductID=prodotti.ProductID\r\n"
-				+ "AND prodotti.ProductName=? \r\n"
-				+ "AND ordini.OrderDate BETWEEN ? AND ? ;";
-		//rs=query.executeQuery(sql);
-		Ordini o;
-		PreparedStatement pstm=connessione.prepareStatement(sql);
-		pstm.setString(1,product);
-		pstm.setString(2,d1);
-		pstm.setString(3,d2);
-		rs= pstm.executeQuery();
-		while(rs.next())
-		{
-			o=new Ordini(rs.getInt(1),rs.getString(2),rs.getInt(3),
-                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7),
-                    rs.getFloat(8),rs.getString(9),rs.getString(10),rs.getString(11),
-                    rs.getString(12),rs.getString(13),rs.getString(14)); 
-			elenco.add(o);
-		}
-		
-		System.out.println("ORDINI CARICATI: " + elenco.size());
-		
-		return elenco;
-	}
-	
-	
-	//restituisce hli ordini in base al prodotto selezionato
-		public ArrayList<Ordini> searchOrdersFC(String country) throws Exception 
-		{
-			ArrayList<Ordini> elenco = new ArrayList<Ordini>();
-			
-			String sql="SELECT * from ordini,clienti\r\n"
-					+ "WHERE ordini.CustomerID=clienti.CustomerID\r\n"
-					+ "AND clienti.Country= ? ;";
-			//rs=query.executeQuery(sql);
-			Ordini o;
-			PreparedStatement pstm=connessione.prepareStatement(sql);
-			pstm.setString(1,country);
-			rs= pstm.executeQuery();
-			while(rs.next())
-			{
-				o=new Ordini(rs.getInt(1),rs.getString(2),rs.getInt(3),
-	                    rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7),
-	                    rs.getFloat(8),rs.getString(9),rs.getString(10),rs.getString(11),
-	                    rs.getString(12),rs.getString(13),rs.getString(14)); 
-				elenco.add(o);
-			}
-			
-			System.out.println("ORDINI CARICATI: " + elenco.size());
-			
-			return elenco;
-		}
-		
-	
-	
-	
-	
-	
-	
-	
-	//--------------------------FINE PARTE DEL DB MANAGER CHE GESTISCE LE RICHIESTE SUI ORDINI---------------------------
-	*/
 	
 	public void close() throws Exception {
 		query.close();

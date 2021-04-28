@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ <%
+	String messaggio =(String)session.getAttribute("MESSAGGIO");
+	if(messaggio==null) messaggio="";
+  %>
 <!doctype html>
 <html lang="it">
   <head>
@@ -55,6 +59,8 @@
 		              <input type="password" name="password" class="form-control" placeholder="Password" required>
 		            </div>
 		            <div class="form-group">
+		            	 <%=messaggio%>
+							<%request.getSession().setAttribute("MESSAGGIO", ""); %>
 		            	<button type="submit" class="form-control btn btn-primary submit px-3">Login</button>
 		            </div>
 		            <div class="form-group d-md-flex">

@@ -9,12 +9,9 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-   <listener>
-    <listener-class>it.meucci.LogContextListener</listener-class>
- </listener>
- 
- <context-param>
-    <param-name>isLog4jAutoInitializationDisabled</param-name>
-    <param-value>true</param-value>
-</context-param>
+<servlet>
+<servlet-name>InitServlet</servlet-name>
+<servlet-class>it.meucci.InitServlet</servlet-class>
+<load-on-startup>1</load-on-startup>
+</servlet>
 </web-app>
