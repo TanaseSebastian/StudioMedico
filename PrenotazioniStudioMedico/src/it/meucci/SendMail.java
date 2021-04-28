@@ -39,7 +39,7 @@ public class SendMail {
         props.put("mail.smtp.password", pass);
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
-        
+        logger.info("");
         Session session = Session.getDefaultInstance(props);
         
 
@@ -86,10 +86,11 @@ public class SendMail {
                     transport.sendMessage(message, message.getAllRecipients());
                     transport.close();
 
-                    System.out.println("Email inviata.");
+                    logger.info("Email inviata con successo.");
 
                 } catch (MessagingException e) {
                     e.printStackTrace();
+                    logger.error("errore,non è stato possibile mandare l'email correttamente");
                 }
               }
             else {
@@ -102,7 +103,7 @@ public class SendMail {
                      for( int i = 0; i < to.length; i++ ) {
                          toAddress[i] = new InternetAddress(to[i]);
                      }
-
+                     
                      for( int i = 0; i < toAddress.length; i++) {
                          message.addRecipient(Message.RecipientType.TO, toAddress[i]);
                      }
@@ -116,6 +117,7 @@ public class SendMail {
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            logger.info("chiusura del trasport");
         }
         catch (AddressException ae) {
             ae.printStackTrace();
