@@ -61,11 +61,11 @@ public class GestioneForgotPSW extends HttpServlet {
 		try {
 
 		    email=request.getParameter("email");
-			System.out.println("email inserita dall'utente : " +email);
-			System.out.println("sto cercando di connettermi al db");
+		    logger.info("email inserita dall'utente : " +email);
+		    logger.info("sto cercando di connettermi al db");
 			DBManager db=new DBManager();
 			if(db.controlEmail(email)==true) {
-				System.out.println("lo rimando su sendCode.html");
+				logger.info("lo rimando su sendCode.html");
 				response.sendRedirect("ForgotPSW\\sendCode.html");
 			}
 			else {
@@ -86,7 +86,7 @@ public class GestioneForgotPSW extends HttpServlet {
 	        int new_code;
 	         new_code = 10000 + new Random().nextInt(90000); // 10000 - 99999
 	         code=new_code;
-	         System.out.println("il codice � :"+code);
+	         logger.info("il codice � :"+code);
 	         
 	         
 		        SendMail sender = new SendMail();
@@ -134,16 +134,16 @@ public class GestioneForgotPSW extends HttpServlet {
 		
 		//control code
 		int code_validation=Integer.parseInt(request.getParameter("code"));
-		System.out.println("sto controllando il codice");
-		System.out.println("codice giusto : " +code);
-		System.out.println("codice inserito dall'utente "+code_validation);
+		logger.info("sto controllando il codice");
+		logger.info("codice giusto : " +code);
+		logger.info("codice inserito dall'utente "+code_validation);
 		if(code==code_validation) {
-			System.out.println("i codici corrispondono");
-			System.out.println("reindirizzo il client verso resetPSW.html");
+			logger.info("i codici corrispondono");
+			logger.info("reindirizzo il client verso resetPSW.html");
 			response.sendRedirect("ForgotPSW\\resetPSW.html");
 		}
 		else {
-			System.out.println("l'utente ha sbagliato il codice lo inoltro su verifyCodeError.html");
+			logger.info("l'utente ha sbagliato il codice lo inoltro su verifyCodeError.html");
 			response.sendRedirect("ForgotPSW\\verifyCodeError.html");
 		}
 		
@@ -155,7 +155,7 @@ public class GestioneForgotPSW extends HttpServlet {
 		//resetpsw
 		else if(comando.equals("resetpsw")) {
 		String password = request.getParameter("password");
-		System.out.println("il cliente ha inserito una nuova password : "+password);
+		logger.info("il cliente ha inserito una nuova password : "+password);
 		
 	
 		try {
@@ -165,7 +165,7 @@ public class GestioneForgotPSW extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("ora lo reindirizzo su successResetPSW.html");
+		logger.info("ora lo reindirizzo su successResetPSW.html");
 		response.sendRedirect("ForgotPSW\\successResetPSW.html");
 		}
 		

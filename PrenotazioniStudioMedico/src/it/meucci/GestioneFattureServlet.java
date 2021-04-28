@@ -51,9 +51,11 @@ public class GestioneFattureServlet extends HttpServlet {
 					String id= request.getParameter("id");
 					try {
 						db= new DBManager();
+						logger.info("visualizza fattura tramite il db");
 						db.viewFattura(id);
 						db.close();
 					} catch (Exception e) {
+						logger.error("errore, non e' stato possibile visualizzare la fattura tramite db");
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
