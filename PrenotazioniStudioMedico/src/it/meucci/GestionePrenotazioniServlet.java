@@ -191,9 +191,9 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 				//invio dell'email con i parametri
 				sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare,null,null);
 				
-				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice √® stato eseguito correttamente
+				//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice a'® stato eseguito correttamente
 				String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
-						+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie! Il tuo appuntamento √® stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
+						+ "  <h1 class=\"display-3\" style=\"color: green; font-weight: bold;\">Grazie! Il tuo appuntamento e' stato registrato correttamente<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></h1>\r\n"
 						+ "  <p class=\"lead\"><strong>Verifica la tua email! </strong>Ti manderemo un promemoria contenente i dettagli della prenotazione.</p>\r\n"
 						+ "  <hr>\r\n"
 						+ "</div>";
@@ -205,10 +205,10 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 			catch(Exception e){
 				e.printStackTrace();
 				System.out.println("Operazione non andata a buon fine");
-				System.out.println("Causa errore: Record della prenotazione √® gi√† esistente");
+				System.out.println("Causa errore: Record della prenotazione e' gia'† esistente");
 				String errorpage="<div class=\"jumbotron text-center\">\r\n"
-						+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
-						+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gi√† occupato da un altro cliente.</p>\r\n"
+						+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non a'® possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
+						+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gia'† occupato da un altro cliente.</p>\r\n"
 						+ "  <hr>\r\n"
 						+ "</div>";
 				request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -267,9 +267,9 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 			//invio dell'email con i parametri
 			sender.sendFromGMail(to, "Medilab,Prenotazione eseguita",messaggioDaInviare,null,null);
 			
-			//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice √® stato eseguito correttamente
+			//div che contiene il messaggio di ringraziamento,ovvero l'operazione il codice a'® stato eseguito correttamente
 			String thankyoupage="<div class=\"jumbotron text-center\">\r\n"
-					+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">Il tuo appuntamento √® stato registrato correttamente!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
+					+ "  <p class=\"lead\" style=\"color: green; font-weight: bold;\">Il tuo appuntamento a'® stato registrato correttamente!<i class=\"fa fa-check-circle\" aria-hidden=\"true\"></i></p>\r\n"
 					+ "  <hr>\r\n"
 					+ "</div>";
 			
@@ -280,10 +280,10 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Operazione non andata a buon fine");
-			System.out.println("Causa errore: Record della prenotazione √® gi√† esistente");
+			System.out.println("Causa errore: Record della prenotazione a'® gia'† esistente");
 			String errorpage="<div class=\"jumbotron text-center\">\r\n"
-					+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® possibile prenotare l'appuntamento per l'orario scelto.</h5>\r\n"
-					+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gi√† occupato da un altro cliente.</p>\r\n"
+					+ "  <h5 class=\"lead\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non a'® possibile prenotare l'appuntamento per l'orario scelto.</h5>\r\n"
+					+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gia'† occupato da un altro cliente.</p>\r\n"
 					+ "  <hr>\r\n"
 					+ "</div>";
 			request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -497,10 +497,10 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Operazione non andata a buon fine");
-			System.out.println("Causa errore: Record della prenotazione √® gi√† esistente");
+			System.out.println("Causa errore: Record della prenotazione a'® gia'† esistente");
 			String errorpage="<div class=\"jumbotron text-center\">\r\n"
-					+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non √® possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
-					+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gi√† occupato da un altro cliente.</p>\r\n"
+					+ "  <h1 class=\"display-3\" style=\"color: red; font-weight: bold;\">Spiacenti<i class=\"fa fa-times\" aria-hidden=\"true\"></i> non a'® possibile prenotare l'appuntamento per l'orario scelto.</h1>\r\n"
+					+ "  <p class=\"lead\"><strong>La preghiamo di cambiare orario da lei scelto :</strong> Orario gia'† occupato da un altro cliente.</p>\r\n"
 					+ "  <hr>\r\n"
 					+ "</div>";
 			request.getSession().setAttribute("MESSAGGIO", errorpage);
@@ -510,7 +510,7 @@ public class GestionePrenotazioniServlet extends HttpServlet {
 		
 		else if(comando.equals("stampaFattura"))
 		{
-			// Leggo le propriet√† da file properties
+			// Leggo le proprieta'† da file properties
 			Properties prop;
 			ReadPropertyFileFromClassPath obj = new ReadPropertyFileFromClassPath();
 			prop = obj.loadProperties("DB.properties");
