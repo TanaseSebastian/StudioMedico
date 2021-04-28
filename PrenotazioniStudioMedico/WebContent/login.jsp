@@ -51,6 +51,8 @@
 			      	</div>
 							<form action="gestlogin?cmd=login" method="post" class="signin-form">
 			      		<div class="form-group mb-3">
+			      			<%=messaggio%>
+							<%request.getSession().setAttribute("MESSAGGIO", ""); %>
 			      			<label class="label" for="name">Username</label>
 			      			<input type="text" name="username" class="form-control" placeholder="Username" required>
 			      		</div>
@@ -59,8 +61,7 @@
 		              <input type="password" name="password" class="form-control" placeholder="Password" required>
 		            </div>
 		            <div class="form-group">
-		            	 <%=messaggio%>
-							<%request.getSession().setAttribute("MESSAGGIO", ""); %>
+
 		            	<button type="submit" class="form-control btn btn-primary submit px-3">Login</button>
 		            </div>
 		            <div class="form-group d-md-flex">

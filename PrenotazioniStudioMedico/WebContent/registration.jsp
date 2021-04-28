@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%
+	String messaggio =(String)session.getAttribute("MESSAGGIO");
+	if(messaggio==null) messaggio="";
+  %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -41,6 +45,8 @@
 			      	</div>
 							<form action="gestlogin?cmd=register" method="POST"  class="signin-form">
 						 <div class="form-group mb-3">
+						 <%=messaggio%>
+							<%request.getSession().setAttribute("MESSAGGIO", ""); %>
 			      			<label class="label" for="codiceFiscale">Codice Fiscale</label>
 			      			<input type="text" name="codiceFiscale" class="form-control" placeholder="Inserisci il Codice Fiscale" required minlength="16" maxlength="16">
 			      		</div>
@@ -73,7 +79,9 @@
 		            	<label class="label" for="password">Conferma Password</label>
 		              <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Conferma Password" required>
 		            </div>
+		            
 		            <div class="form-group">
+		            		
 		            	<button type="submit" class="form-control btn btn-primary submit px-3">Registrati</button>
 		            </div>
 		            

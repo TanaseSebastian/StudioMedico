@@ -57,10 +57,15 @@ public class GestioneLogin extends HttpServlet {
 				response.sendRedirect("login.jsp");
 			} else {
 				logger.error("registrazione dell'utente non avvenuta,rimando su registrazione.jsp");
+				request.getSession().setAttribute("MESSAGGIO", "<p class='text-center text-danger'>Username gia' esistente</p>");
 				response.sendRedirect("registration.jsp");}
 			db.close();
 		} catch (Exception e) {
+			
 			e.printStackTrace();
+			logger.error("registrazione dell'utente non avvenuta,rimando su registrazione.jsp");
+			request.getSession().setAttribute("MESSAGGIO", "<p class='text-center text-danger'>Username gia' esistente</p>");
+			response.sendRedirect("registration.jsp");
 		}
 	}
 	
@@ -80,17 +85,17 @@ public class GestioneLogin extends HttpServlet {
 			request.getSession().setAttribute("SESSION_USER", user);
 			request.getSession().setAttribute("utente_loggato", "true");
 			if(user.getAMMINISTRATORE().equals("N")) {
-				logger.info("l'utente è un cliente,per cui rimando sulla index dove può effettuare un'appuntamento.");
+				logger.info("l'utente e' un cliente,per cui rimando sulla index dove puo' effettuare un'appuntamento.");
 				response.sendRedirect("index.jsp");
 			}
 			else if(user.getAMMINISTRATORE().equals("Y")) {
-				logger.info("l'utente è un amministratore,lo sto facendo accedere al panello di amministrazione.");
+				logger.info("l'utente e' un amministratore,lo sto facendo accedere al panello di amministrazione.");
 				response.sendRedirect("dashboard.jsp");
 			}
 		}
 		else {
 			logger.info("utente non riconosciuto,rimando su login.jsp e avviso l'utente delle credenziali probabilmente errate.");
-			request.getSession().setAttribute("MESSAGGIO", "<p class='text-center text-danger'>username o password errati</p>");
+			request.getSession().setAttribute("MESSAGGIO", "<p class='text-center text-danger'>Username o Password errati</p>");
 			response.sendRedirect("login.jsp");
 		}
 		db.close();
