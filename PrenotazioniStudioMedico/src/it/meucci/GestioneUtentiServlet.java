@@ -200,6 +200,7 @@ String comando = request.getParameter("cmd");;
 				db.close();
 			} catch (Exception e) {
 				e.printStackTrace();
+				response.sendRedirect("nuovoAmministratore.jsp");
 			}
 		}
 		

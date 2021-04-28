@@ -109,7 +109,7 @@ public class DBManager{
 	}
 	public int insertAmministrator(String cf, String nome, String cognome, String username, String email,String phone, String password)
 			throws Exception {
-		String sql = "INSERT INTO utenti  VALUES (?,?,?,?,?,?,md5(?),?);";
+		String sql = "INSERT INTO utenti(CF,NOME,COGNOME,USERNAME,EMAIL,PHONE,PSW,AMMINISTRATORE)  VALUES (?,?,?,?,?,?,md5(?),?);";
 		PreparedStatement pstm=connessione.prepareStatement(sql);
 		pstm.setString(1,cf);
 		pstm.setString(2,nome);
@@ -119,6 +119,7 @@ public class DBManager{
 		pstm.setString(6,phone);
 		pstm.setString(7,password);
 		pstm.setString(8,"Y");
+		System.out.println(pstm.toString());
 		int nRighe= pstm.executeUpdate();
 		return nRighe;
 	}
